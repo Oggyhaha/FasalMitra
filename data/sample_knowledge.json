@@ -1,0 +1,82 @@
+[
+  {
+    "id": "DOC-KVK-CROP-SELECTION-00",
+    "source_name": "ICAR-KVK Cropping Systems & High Yield Planning Guide",
+    "authority_tier": 1,
+    "title": "High Yield Crop Selection & Regional Agro-Climatic Planning",
+    "crop": "General",
+    "district": "Latur",
+    "state": "Maharashtra",
+    "content": "For maximum yield and profitability in Marathwada (Latur, Nanded, Beed) region, crop selection depends on soil type, water availability, and season. 1. Kharif Season (June-Oct): In deep black cotton soils with medium rainfall, high yield crops are Soybean (varieties JS 335, MAUS 162) and Cotton (Bt Cotton varieties). Intercropping Soybean with Pigeonpea (Arhar) in 4:2 ratio provides risk protection and maximum economic yield. 2. Rabi Season (Oct-Feb): Chickpea (Harbhara varieties Vijay, Digvijay) and Irrigated Wheat (GW 322, Lok 1) give optimal returns with 2 to 3 irrigations. 3. Water-rich areas: Sugarcane (Co 86032) provides stable multi-cut yields."
+  },
+  {
+    "id": "DOC-KVK-LATUR-SOYBEAN-01",
+    "source_name": "KVK Latur ICAR Advisory Bulletin",
+    "authority_tier": 1,
+    "title": "Soybean Yellow Mosaic Virus & Whitefly Management",
+    "crop": "Soybean",
+    "district": "Latur",
+    "state": "Maharashtra",
+    "content": "For yellowing in 30 to 45 day old soybean crop caused by Yellow Mosaic Virus transmitted by whiteflies, inspect whitefly population on lower leaves. If whiteflies exceed 5 per plant, spray Thiamethoxam 25% WG at 100g per hectare or Chlorantraniliprole 18.5% SC at 150ml in 500 liters of water per hectare. Ensure adequate soil moisture during spraying. Repeat spray after 12-15 days if infestation persists."
+  },
+  {
+    "id": "DOC-ICAR-COTTON-BOLLWORM-02",
+    "source_name": "ICAR-CICR Cotton Advisory",
+    "authority_tier": 1,
+    "title": "Pink Bollworm & Sucking Pest Management in Kharif Cotton",
+    "crop": "Cotton",
+    "district": "Nagpur",
+    "state": "Maharashtra",
+    "content": "To control Pink Bollworm infestation in 40 to 70 day old cotton crop, install pheromone traps at 5 traps per acre for monitoring. If trap catch exceeds 8 moths per night for 3 consecutive days, spray Emamectin Benzoate 5% SG at 220g per hectare or Spinetoram 11.7% SC at 420ml per hectare. Avoid indiscriminate organophosphate spraying to preserve natural predators."
+  },
+  {
+    "id": "DOC-KVK-WHEAT-RUST-03",
+    "source_name": "KVK Wheat Extension Guide",
+    "authority_tier": 1,
+    "title": "Yellow Rust and Sowing Window Guidance for Wheat",
+    "crop": "Wheat",
+    "district": "Indore",
+    "state": "Madhya Pradesh",
+    "content": "Optimum sowing window for irrigated wheat is November 1 to November 20. If yellow rust appears as bright yellow pustules on wheat leaves, spray Propiconazole 25% EC at 1 ml per liter of water (500 ml/ha) as soon as symptoms appear. Apply first irrigation at Crown Root Initiation (CRI) stage (21 days after sowing)."
+  },
+  {
+    "id": "DOC-IMD-WEATHER-AGROMET-04",
+    "source_name": "IMD Agromet Advisory Service",
+    "authority_tier": 2,
+    "title": "Marathwada Agromet Bulletin - Heavy Rainfall & Irrigation Warning",
+    "crop": "General",
+    "district": "Latur",
+    "state": "Maharashtra",
+    "content": "Light to moderate rainfall with thunderstorms expected over Latur, Nanded, and Beed districts in next 48 hours. Farmers are advised to drain out excess water from standing soybean and cotton fields. Postpone chemical spraying and fertilizer top-dressing until rain stops to prevent nutrient leaching and chemical wash-off."
+  },
+  {
+    "id": "DOC-KCC-RICE-BLAST-05",
+    "source_name": "Kisan Call Centre Transcript Data",
+    "authority_tier": 1,
+    "title": "Rice Blast Disease & Irrigation Schedule",
+    "crop": "Rice",
+    "district": "Nashik",
+    "state": "Maharashtra",
+    "content": "For spindle-shaped brown lesions on paddy leaves caused by Rice Blast (Magnaporthe oryzae), apply Tricyclazole 75% WP at 0.6g per liter of water (300g/ha). Maintain 2-3 cm standing water in paddy fields during panicle initiation stage. Avoid excess urea application which increases blast severity."
+  },
+  {
+    "id": "DOC-KVK-GRAM-PODBORER-06",
+    "source_name": "KVK Gram Agronomy Bulletin",
+    "authority_tier": 1,
+    "title": "Gram Chickpea Pod Borer (Helicoverpa armigera) & Sowing Advice",
+    "crop": "Chickpea",
+    "district": "Akola",
+    "state": "Maharashtra",
+    "content": "For Helicoverpa pod borer larvae in chickpea (chana) crop during flowering to pod formation stage, install T-shaped bird perches at 20 per acre. Spray Chlorantraniliprole 18.5% SC at 125 ml/ha or HaNPV 250 LE/ha during early larval stage. Sowing should be completed between October 15 and November 5 for optimal yields."
+  },
+  {
+    "id": "DOC-KVK-SUGARCANE-BORER-07",
+    "source_name": "KVK Sugarcane Crop Guide",
+    "authority_tier": 1,
+    "title": "Sugarcane Early Shoot Borer & Trash Mulching",
+    "crop": "Sugarcane",
+    "district": "Kolhapur",
+    "state": "Maharashtra",
+    "content": "To prevent early shoot borer in sugarcane, apply trash mulching (3.5 tons/ha) 3 days after planting. If dead hearts exceed 15%, apply Chlorantraniliprole 0.4% GR at 18.75 kg/ha or spray Fipronil 5% SC at 1.5 to 2.0 liters/ha with adequate soil moisture."
+  }
+]
