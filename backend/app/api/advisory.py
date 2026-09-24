@@ -2,6 +2,7 @@ import uuid
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from backend.app.db.database import get_db
+from backend.app.db.models import Message, Conversation
 from backend.app.schemas.schemas import AdvisoryQueryRequest, AdvisoryQueryResponse, StructuredQueryInfo
 from backend.app.core.asr_engine import asr_engine
 from backend.app.core.query_understanding import query_understanding_engine
@@ -43,13 +44,15 @@ async def process_advisory_query(
         urgency=nlp_res["urgency"]
     )
 
-    # 3. Context Engine
+    # 3. Context Engine (with multi-turn dialogue memory resolution)
     ctx = await context_engine.resolve_context(
         farmer_id=req.farmer_id or "FARM-1001",
         crop=nlp_res["crop"],
         crop_stage_days=req.crop_stage_days,
         district=req.location_district,
-        state=req.location_state
+        state=req.location_state,
+        db=db,
+        conversation_id=req.conversation_id
     )
 
     # 4. Pre-Safety Gate
@@ -84,10 +87,10 @@ async def process_advisory_query(
         )
 
     # 5. Hybrid Retrieval
-    candidates = retrieval_engine.retrieve(db, transcript, nlp_res["crop"], ctx["district"])
+    candidates = retrieval_engine.retrieve(db, transcript, ctx["crop"], ctx["district"])
     
     # 6. Reranking
-    reranked_evidence = reranker.rerank(candidates, nlp_res["crop"], ctx["stage_days"], ctx["district"])
+    reranked_evidence = reranker.rerank(candidates, ctx["crop"], ctx["stage_days"], ctx["district"])
     audit_logger.log_event(db, query_id, "RETRIEVAL_COMPLETED", {"count": len(reranked_evidence)})
 
     # 7. Grounding Gate
@@ -97,7 +100,7 @@ async def process_advisory_query(
         audit_logger.log_event(db, query_id, "GROUNDING_FAILED", {"reason": ground_reason})
         esc_id = escalation_engine.create_escalation(
             db, req.farmer_id or "FARM-1001", query_id, transcript,
-            nlp_res["crop"], ctx["district"], risk_lvl, f"GROUNDING_{ground_status}", reranked_evidence
+            ctx["crop"], ctx["district"], risk_lvl, f"GROUNDING_{ground_status}", reranked_evidence
         )
         esc_msg = (
             "या प्रश्नावर आमच्याकडे पूर्णपणे पडताळलेला पुरावा उपलब्ध नाही. "
@@ -119,11 +122,12 @@ async def process_advisory_query(
             escalation_id=esc_id
         )
 
-    # 8. Grounded LLM Response Generation
+    # 8. Grounded LLM Response Generation (with dialogue history)
     raw_answer = await llm_generator.generate_response(
-        transcript, reranked_evidence, nlp_res["crop"], ctx["stage_name"],
-        ctx["weather"]["condition"], detected_lang
+        transcript, reranked_evidence, ctx["crop"], ctx["stage_name"],
+        ctx["weather"]["condition"], detected_lang, ctx.get("conversation_history")
     )
+
 
     # 9. Claim Extraction & Post-LLM Safety Verification
     claims_list, claims_passed = claim_verifier.verify_claims(raw_answer, reranked_evidence)

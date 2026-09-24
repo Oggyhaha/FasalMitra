@@ -60,12 +60,13 @@ FasalMitra is built on a **Retrieval-First, Grounding-First, Safety-First** para
 
 ### 2.2 Agricultural Intelligence & Context Layer (`backend/app/core/context_engine.py` & `query_understanding.py`)
 - **Query NLP:** Parses raw transcripts into canonical intents (`PEST`, `DISEASE`, `FERTILIZER`, `IRRIGATION`, `SOWING`, `WEATHER`) and extracts structured agronomic entities (Crop name, variety, symptoms, chemicals, crop stage in days/weeks, location).
-- **Context Engine:** Combines farmer preferences, crop passports, historical conversation state, and live IMD agromet weather snapshots to enrich the query payload.
+- **Context Engine:** Combines farmer preferences, crop passports, multi-turn session dialogue history (`messages` table), and live IMD agromet weather snapshots to enrich the query payload and handle natural follow-up questions.
 
 ### 2.3 Knowledge & Grounding Layer (`backend/app/core/retrieval_engine.py`, `reranker.py`, `grounding_gate.py`)
-- **Hybrid Retrieval:** Runs sparse BM25 term search alongside dense Vector embeddings search over ingested ICAR/KVK/KCC authoritative documents filtered by location, crop, and crop stage.
+- **Hybrid Retrieval:** Combines BM25 term frequency matching with dense semantic term vector similarity scoring over ingested ICAR/KVK/KCC authoritative documents filtered by location, crop, and crop stage.
 - **Reranker:** Evaluates retrieved candidates based on agronomic relevance, district match, publication freshness, and source authority.
 - **Grounding Gate:** Evaluates whether retrieved evidence provides 100% sufficient basis to answer the question without hallucination.
+
 
 ### 2.4 Safety & Generation Layer (`backend/app/core/safety_gate.py`, `llm_generator.py`, `claim_verifier.py`)
 - **Pre-Safety Gate:** Blocks out-of-domain requests, unsafe chemical combinations, or high-risk requests missing critical stage/dosage details.

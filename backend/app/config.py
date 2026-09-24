@@ -16,10 +16,15 @@ class Settings:
     # API Credentials & Flags
     GEMINI_API_KEY: str = os.getenv("GEMINI_API_KEY", "")
     OPENAI_API_KEY: str = os.getenv("OPENAI_API_KEY", "")
-    TWILIO_ACCOUNT_SID: str = os.getenv("TWILIO_ACCOUNT_SID", "")
-    TWILIO_AUTH_TOKEN: str = os.getenv("TWILIO_AUTH_TOKEN", "")
+    
+    # Meta WhatsApp Cloud API Credentials
+    META_WHATSAPP_TOKEN: str = os.getenv("META_WHATSAPP_TOKEN", "")
+    META_WHATSAPP_PHONE_ID: str = os.getenv("META_WHATSAPP_PHONE_ID", "")
+    META_WHATSAPP_VERIFY_TOKEN: str = os.getenv("META_WHATSAPP_VERIFY_TOKEN", "fasalmitra_meta_token_2026")
+
     WEATHER_API_KEY: str = os.getenv("WEATHER_API_KEY", "")
     INDIC_TRANS2_ENDPOINT: str = os.getenv("INDIC_TRANS2_ENDPOINT", "")
+
     
     # Mode
     USE_MOCK_FALLBACK: bool = os.getenv("USE_MOCK_FALLBACK", "true").lower() == "true"

@@ -12,7 +12,8 @@ class GroundedLLMGenerator:
         crop: str,
         stage_name: str,
         weather_info: str,
-        language: str = "mr"
+        language: str = "mr",
+        conversation_history: List[Dict[str, str]] = None
     ) -> str:
         """
         Generates grounded advisory answer strictly using evidence context.
@@ -21,6 +22,10 @@ class GroundedLLMGenerator:
         """
         evidence_text = "\n\n".join([f"Source [{e.authority} - {e.title}]: {e.text}" for e in evidence])
         
+        history_text = ""
+        if conversation_history:
+            history_text = "\nRecent Conversation History:\n" + "\n".join([f"{h.get('sender', 'FARMER')}: {h.get('text', '')}" for h in conversation_history[-4:]]) + "\n"
+
         lang_names = {
             "mr": "Marathi (मराठी)",
             "hi": "Hindi (हिंदी)",
@@ -36,10 +41,12 @@ class GroundedLLMGenerator:
             "1. Use ONLY the provided retrieved evidence text below.\n"
             "2. Do NOT invent dosage numbers, chemical names, or unverified agricultural advice.\n"
             "3. Provide practical, clear, actionable steps for the farmer.\n\n"
-            f"Farmer Context:\nCrop: {crop}, Stage: {stage_name}, Weather: {weather_info}\n\n"
+            f"Farmer Context:\nCrop: {crop}, Stage: {stage_name}, Weather: {weather_info}\n"
+            f"{history_text}\n"
             f"Retrieved Evidence:\n{evidence_text}\n\n"
             f"Farmer Question: {user_query}"
         )
+
 
         gemini_key = settings.GEMINI_API_KEY or os.getenv("GEMINI_API_KEY", "")
         

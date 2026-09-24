@@ -4,6 +4,7 @@ from datetime import datetime
 
 class AdvisoryQueryRequest(BaseModel):
     farmer_id: Optional[str] = "FARM-1001"
+    conversation_id: Optional[str] = None
     channel: str = Field(default="WEB_SIMULATOR", description="PHONE, WHATSAPP, WEB_SIMULATOR")
     language: str = Field(default="auto", description="mr, hi, gu, en, auto")
     text: str

@@ -6,6 +6,8 @@ import unittest
 import asyncio
 from backend.app.core.asr_engine import asr_engine
 from backend.app.core.query_understanding import query_understanding_engine
+from backend.app.core.context_engine import context_engine
+from backend.app.core.retrieval_engine import retrieval_engine
 from backend.app.core.safety_gate import pre_safety_gate
 from backend.app.core.grounding_gate import grounding_gate
 from backend.app.core.claim_verifier import claim_verifier
@@ -51,5 +53,18 @@ class TestFasalMitraPipeline(unittest.TestCase):
         claims, passed = claim_verifier.verify_claims("Spray 100g per hectare of Thiamethoxam", evidence)
         self.assertTrue(passed)
 
+    def test_context_engine_multi_turn_resolution(self):
+        ctx = asyncio.run(context_engine.resolve_context("FARM-1001", "Soybean", 35, "Latur", "Maharashtra"))
+        self.assertEqual(ctx["crop"], "Soybean")
+        self.assertEqual(ctx["stage_name"], "Flowering & Pod Formation")
+        self.assertIn("weather", ctx)
+
+    def test_hybrid_retrieval_vector_scoring(self):
+        score = retrieval_engine._calculate_vector_similarity("soybean yellowing remedy", "soybean yellow mosaic virus whitefly management")
+        self.assertGreaterThan(score, 0.0)
+
 if __name__ == '__main__':
+    # Add custom assertGreaterThan if needed
+    unittest.TestCase.assertGreaterThan = lambda self, a, b: self.assertTrue(a > b)
     unittest.main()
+
