@@ -1,6 +1,6 @@
 import os
 import httpx
-from typing import List
+from typing import List, Dict, Optional
 from backend.app.schemas.schemas import EvidenceChunk
 from backend.app.config import settings
 
