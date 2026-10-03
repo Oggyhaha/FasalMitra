@@ -18,11 +18,11 @@ class GroundingGate:
         top_score = evidence[0].score
 
         # High risk requires high evidence confidence score threshold
-        if risk_level == "HIGH" and top_score < 0.65:
-            return "INSUFFICIENT", f"HIGH_RISK_QUERY_TOP_SCORE_{top_score}_BELOW_THRESHOLD_0.65"
+        if risk_level == "HIGH" and top_score < 0.50:
+            return "INSUFFICIENT", f"HIGH_RISK_QUERY_TOP_SCORE_{top_score}_BELOW_THRESHOLD_0.50"
 
-        if top_score < 0.40:
-            return "INSUFFICIENT", f"TOP_SCORE_{top_score}_BELOW_MINIMUM_THRESHOLD_0.40"
+        if top_score < 0.25:
+            return "INSUFFICIENT", f"TOP_SCORE_{top_score}_BELOW_MINIMUM_THRESHOLD_0.25"
 
         return "SUPPORTED", "EVIDENCE_SUFFICIENT_FOR_GROUNDED_GENERATION"
 

@@ -51,18 +51,27 @@ class KnowledgeDocument(Base):
     __tablename__ = "knowledge_documents"
 
     id = Column(String, primary_key=True, index=True)
-    source_name = Column(String, nullable=False) # ICAR, KVK, KCC, IMD
+    source_name = Column(String, nullable=False)
     authority_tier = Column(Integer, default=1)
     title = Column(String, nullable=False)
     crop = Column(String, index=True)
+    variety = Column(String, nullable=True)
     stage_min_days = Column(Integer, default=0)
     stage_max_days = Column(Integer, default=120)
     district = Column(String, index=True)
     state = Column(String, index=True)
+    season = Column(String, default="All-Season")
     content = Column(Text, nullable=False)
     valid_from = Column(String, nullable=True)
     valid_until = Column(String, nullable=True)
     created_at = Column(DateTime, default=datetime.utcnow)
+    doc_type = Column(String, default="advisory")
+    language = Column(String, default="en")
+    file_type = Column(String, default="pdf")
+    entities = Column(JSON, nullable=True)
+    source_path = Column(String, nullable=True)
+    domain = Column(String, index=True, default="crops")
+    subdomain = Column(String, nullable=True)
 
 
 class Conversation(Base):

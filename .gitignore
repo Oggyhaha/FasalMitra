@@ -59,3 +59,7 @@ Thumbs.db
 chroma_db/
 .chroma/
 faiss_index/
+
+# Large datasets & test verification dumps
+data/MIT-Project-Dataset/
+full_pipeline_verification.txt

@@ -40,11 +40,13 @@ class ContextEngine:
             for m in recent_msgs:
                 history_turns.append({"sender": m.sender, "text": m.raw_text})
 
-            # If crop is General/unspecified, infer crop from CropPassport or recent turns
-            if not resolved_crop or resolved_crop == "General":
+            # Only infer from CropPassport if resolved_crop is completely empty
+            if not resolved_crop:
                 passport = db.query(CropPassport).first()
                 if passport:
                     resolved_crop = passport.crop_name
+                else:
+                    resolved_crop = "General"
 
         # 2. Weather Snapshot Retrieval
         weather_snapshot = {
