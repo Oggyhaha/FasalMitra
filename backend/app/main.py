@@ -7,6 +7,7 @@ from backend.app.api.expert import router as expert_router
 from backend.app.api.admin import router as admin_router
 from backend.app.api.webhooks import router as webhooks_router
 from backend.app.api.ingestion import router as ingestion_router
+from backend.app.api.voice import router as voice_router
 
 app = FastAPI(
     title=settings.PROJECT_NAME,
@@ -31,6 +32,7 @@ app.include_router(expert_router, prefix=settings.API_V1_STR)
 app.include_router(admin_router, prefix=settings.API_V1_STR)
 app.include_router(webhooks_router, prefix=settings.API_V1_STR)
 app.include_router(ingestion_router, prefix=settings.API_V1_STR)
+app.include_router(voice_router, prefix=settings.API_V1_STR)
 
 @app.get("/")
 def root():

@@ -7,10 +7,9 @@ from backend.app.config import settings
 
 CANDIDATE_MODELS = [
     "gemini-3.5-flash-lite",
-    "gemini-3.5-flash",
-    "gemini-flash-lite-latest",
-    "gemini-3.8-flash"
+    "gemini-flash-lite-latest"
 ]
+
 
 class GroundedLLMGenerator:
     async def generate_response(
@@ -69,7 +68,7 @@ class GroundedLLMGenerator:
 
         # 1. Live Google Gemini API Integration with Multi-Model Fallback
         if gemini_key:
-            async with httpx.AsyncClient(timeout=12.0) as client:
+            async with httpx.AsyncClient(timeout=8.0) as client:
                 for model_name in CANDIDATE_MODELS:
                     url = f"https://generativelanguage.googleapis.com/v1beta/models/{model_name}:generateContent?key={gemini_key}"
                     payload = {

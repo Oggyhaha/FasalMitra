@@ -180,3 +180,23 @@ body {
 .spin {
   animation: spin 1s linear infinite;
 }
+
+/* Voice Wave Animation */
+@keyframes voice-wave {
+  0% { transform: scaleY(0.3); }
+  50% { transform: scaleY(1.0); }
+  100% { transform: scaleY(0.4); }
+}
+
+.voice-note-bubble {
+  margin-top: 10px;
+  background: #f0fdf4;
+  border: 1.5px solid #86efac;
+  border-radius: 14px;
+  padding: 10px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  box-shadow: 0 2px 6px rgba(5, 150, 105, 0.08);
+}
+

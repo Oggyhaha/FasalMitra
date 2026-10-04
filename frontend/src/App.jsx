@@ -135,6 +135,8 @@ export default function App() {
 
   // Live Text-to-Speech (TTS) State
   const [isPlayingAudio, setIsPlayingAudio] = useState(false);
+  const [playingVoiceMsgIdx, setPlayingVoiceMsgIdx] = useState(null);
+  const audioRef = useRef(new Audio());
 
   // Expert & Admin State
   const [escalations, setEscalations] = useState([]);
@@ -253,6 +255,62 @@ export default function App() {
     window.speechSynthesis.speak(utterance);
   };
 
+  // --- WhatsApp Voice Message Audio Player Controller ---
+  const togglePlayVoiceMessage = (idx, audioUrl, textToSpeak) => {
+    // If already playing this message, pause/stop it
+    if (playingVoiceMsgIdx === idx) {
+      if (audioRef.current) {
+        audioRef.current.pause();
+        audioRef.current.currentTime = 0;
+      }
+      window.speechSynthesis?.cancel();
+      setPlayingVoiceMsgIdx(null);
+      return;
+    }
+
+    // Stop any existing playing audio
+    if (audioRef.current) {
+      audioRef.current.pause();
+      audioRef.current.currentTime = 0;
+    }
+    window.speechSynthesis?.cancel();
+
+    setPlayingVoiceMsgIdx(idx);
+
+    // 1. Try playing real backend-generated MP3 voice note
+    if (audioUrl) {
+      const audio = audioRef.current;
+      audio.src = audioUrl;
+      audio.play().then(() => {
+        audio.onended = () => setPlayingVoiceMsgIdx(null);
+        audio.onerror = () => {
+          console.warn("Direct MP3 play failed, falling back to speech synthesis");
+          speakFallback(textToSpeak, () => setPlayingVoiceMsgIdx(null));
+        };
+      }).catch((e) => {
+        console.warn("Direct audio play error:", e);
+        speakFallback(textToSpeak, () => setPlayingVoiceMsgIdx(null));
+      });
+    } else {
+      speakFallback(textToSpeak, () => setPlayingVoiceMsgIdx(null));
+    }
+  };
+
+  const speakFallback = (textToSpeak, onDone) => {
+    if (!('speechSynthesis' in window)) {
+      if (onDone) onDone();
+      return;
+    }
+    window.speechSynthesis.cancel();
+    const clean = (textToSpeak || '').replace(/[*#_~`•]/g, '').trim().slice(0, 600);
+    const utterance = new SpeechSynthesisUtterance(clean);
+    utterance.lang = uiLanguage === 'mr' ? 'mr-IN' : uiLanguage === 'hi' ? 'hi-IN' : uiLanguage === 'gu' ? 'gu-IN' : 'en-IN';
+    utterance.rate = 0.95;
+    utterance.onend = () => { if (onDone) onDone(); };
+    utterance.onerror = () => { if (onDone) onDone(); };
+    window.speechSynthesis.speak(utterance);
+  };
+
   const handleSyncDataGov = async () => {
     setIsSyncingDataGov(true);
     setSyncStatusMsg('Fetching live Kisan Call Centre transcripts from data.gov.in API...');
@@ -300,7 +358,8 @@ export default function App() {
         text: botText,
         time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
         grounding_status: botText.includes('✅') ? 'SUPPORTED' : botText.includes('⚠️') ? 'ESCALATED' : 'INFO',
-        audio_url: data.pipeline_result?.audio_url || null
+        audio_url: data.audio_url || data.pipeline_result?.audio_url || null,
+        raw_text: data.pipeline_result?.answer_text || botText
       };
 
       setChatMessages(prev => [...prev, botMsg]);
@@ -746,10 +805,60 @@ export default function App() {
                     whiteSpace: 'pre-line'
                   }}>
                     {msg.text}
-                    {msg.audio_url && (
-                      <div style={{ marginTop: '8px', padding: '8px', background: '#ecfdf5', borderRadius: '8px', border: '1px solid #a7f3d0', display: 'flex', alignItems: 'center', gap: '8px' }}>
-                        <Volume2 size={16} color="#059669" />
-                        <span style={{ fontSize: '0.75rem', color: '#047857', fontWeight: '600' }}>Voice Note Audio Ready</span>
+                    {msg.sender === 'bot' && (
+                      <div className="voice-note-bubble" style={{ marginTop: '10px', background: '#f0fdf4', border: '1.5px solid #86efac', borderRadius: '12px', padding: '10px 12px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                          <button
+                            type="button"
+                            onClick={() => togglePlayVoiceMessage(idx, msg.audio_url, msg.raw_text || msg.text)}
+                            style={{
+                              width: '40px',
+                              height: '40px',
+                              borderRadius: '50%',
+                              background: playingVoiceMsgIdx === idx ? '#047857' : '#25d366',
+                              border: 'none',
+                              color: '#ffffff',
+                              display: 'flex',
+                              alignItems: 'center',
+                              justifyContent: 'center',
+                              cursor: 'pointer',
+                              boxShadow: '0 2px 6px rgba(4,120,87,0.3)',
+                              flexShrink: 0,
+                              transition: 'all 0.2s'
+                            }}
+                            title={playingVoiceMsgIdx === idx ? "आवाज थांबवा (Pause)" : "व्हॉईस संदेश ऐका (Play Voice Note)"}
+                          >
+                            {playingVoiceMsgIdx === idx ? <Square size={16} fill="#ffffff" /> : <Play size={18} fill="#ffffff" style={{ marginLeft: '2px' }} />}
+                          </button>
+
+                          <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '4px' }}>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '3px', height: '22px' }}>
+                              {[12, 20, 10, 18, 24, 15, 22, 14, 26, 17, 22, 13, 28, 16, 19, 23, 11, 17, 25, 14].map((h, bIdx) => (
+                                <span
+                                  key={bIdx}
+                                  style={{
+                                    display: 'inline-block',
+                                    width: '3px',
+                                    height: `${h}px`,
+                                    background: playingVoiceMsgIdx === idx ? '#059669' : '#94a3b8',
+                                    borderRadius: '2px',
+                                    transition: 'height 0.15s ease',
+                                    animation: playingVoiceMsgIdx === idx ? `voice-wave 0.8s infinite ease-in-out ${bIdx * 0.05}s` : 'none'
+                                  }}
+                                />
+                              ))}
+                            </div>
+                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '0.72rem', color: '#047857', fontWeight: '600' }}>
+                              <span>{playingVoiceMsgIdx === idx ? '▶️ ऐकणे सुरू आहे...' : '🎙️ व्हॉईस संदेश (Voice Note)'}</span>
+                              <span style={{ color: '#64748b' }}>{playingVoiceMsgIdx === idx ? 'Playing' : '0:45'}</span>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderTop: '1px dashed #bbf7d0', paddingTop: '6px', fontSize: '0.72rem', color: '#166534' }}>
+                          <span>🎧 वाचू इच्छित नसाल तर वरील बटण दाबून उत्तर ऐका</span>
+                          <span className="badge badge-green" style={{ fontSize: '0.65rem', padding: '2px 6px' }}>ICAR Audio</span>
+                        </div>
                       </div>
                     )}
                   </div>

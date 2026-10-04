@@ -11,6 +11,7 @@ from backend.app.db.database import get_db
 from backend.app.schemas.schemas import AdvisoryQueryRequest
 from backend.app.api.advisory import process_advisory_query
 from backend.app.db.models import Farmer, CropPassport, Escalation, KnowledgeDocument
+from backend.app.core.tts_engine import tts_engine
 
 sys.stdout.reconfigure(encoding='utf-8')
 router = APIRouter(prefix="/webhooks", tags=["webhooks"])
@@ -100,7 +101,10 @@ async def meta_whatsapp_webhook(request: Request, db: Session = Depends(get_db))
             weather_text = weather_doc.content if weather_doc else "लातूर जिल्ह्यात पुढील ४८ तासांत हलक्या ते मध्यम स्वरूपाचा पाऊस अपेक्षित आहे. फवारणी पुढे ढकलावी."
             reply_text = f"🌧️ *[IMD Agromet Weather Advisory - Latur]*\n\n{weather_text}\n\n🛡️ *Source:* IMD Agromet Advisory Service"
             await send_meta_whatsapp_reply(from_phone, reply_text)
-            return {"status": "SUCCESS", "reply": reply_text}
+            audio_url = await tts_engine.synthesize("weather", weather_text, "mr")
+            if audio_url:
+                await send_meta_whatsapp_audio(from_phone, audio_url)
+            return {"status": "SUCCESS", "reply": reply_text, "audio_url": audio_url}
 
         if input_lower in ["3", "/passport", "passport", "पिक"]:
             passport = db.query(CropPassport).first()
@@ -113,7 +117,11 @@ async def meta_whatsapp_webhook(request: Request, db: Session = Depends(get_db))
                 f"• *District:* Latur, Maharashtra"
             )
             await send_meta_whatsapp_reply(from_phone, reply_text)
-            return {"status": "SUCCESS", "reply": reply_text}
+            passport_voice = f"शेतकरी पिक पासपोर्ट माहिती: पिक {passport.crop_name if passport else 'सोयाबीन'}, जात {passport.variety if passport else 'JS 335'}, पेरणी दिनांक {passport.sowing_date if passport else '१५ जून'}, वाढीचा टप्पा ३५ दिवस."
+            audio_url = await tts_engine.synthesize("passport", passport_voice, "mr")
+            if audio_url:
+                await send_meta_whatsapp_audio(from_phone, audio_url)
+            return {"status": "SUCCESS", "reply": reply_text, "audio_url": audio_url}
 
         # 14-Stage Grounded Pipeline Execution
         advisory_req = AdvisoryQueryRequest(
@@ -139,7 +147,9 @@ async def meta_whatsapp_webhook(request: Request, db: Session = Depends(get_db))
         )
 
         await send_meta_whatsapp_reply(from_phone, reply_body)
-        return {"status": "SUCCESS", "answer": pipeline_res.answer_text, "grounding": pipeline_res.grounding_status}
+        if pipeline_res.audio_url:
+            await send_meta_whatsapp_audio(from_phone, pipeline_res.audio_url)
+        return {"status": "SUCCESS", "answer": pipeline_res.answer_text, "audio_url": pipeline_res.audio_url, "grounding": pipeline_res.grounding_status}
     except Exception as e:
         print(f"[{now_str}] ⚠️ Meta WhatsApp Webhook Exception: {e}", flush=True)
         return {"status": "ERROR", "detail": str(e)}
@@ -161,8 +171,9 @@ async def whatsapp_json_endpoint(
     if input_lower in ["2", "/weather", "weather", "हवामान"]:
         weather_doc = db.query(KnowledgeDocument).filter(KnowledgeDocument.crop == "General").first()
         weather_text = weather_doc.content if weather_doc else "लातूर जिल्ह्यात पुढील ४८ तासांत हलक्या ते मध्यम स्वरूपाचा पाऊस अपेक्षित आहे. फवारणी पुढे ढकलावी."
-        reply_body = f"🌧️ *[IMD Agromet Weather Advisory - Latur]*\n\n{weather_text}\n\n🛡️ *Source:* IMD Agromet Advisory Service"
-        return {"reply_body": reply_body, "pipeline_result": None}
+        reply_body = f"🌧️ *[IMD Agromet Weather Advisory - Latur]*\n\n{weather_text}\n\n🛡️ *Source:* IMD Agromet Advisory Service\n🎙️ *व्हॉईस संदेश (Voice Note):* खालील ऑडिओ प्लेयरद्वारे ऐका"
+        audio_url = await tts_engine.synthesize("weather", weather_text, req.language if req.language != "auto" else "mr")
+        return {"reply_body": reply_body, "pipeline_result": None, "audio_url": audio_url}
 
     if input_lower in ["3", "/passport", "passport", "पिक"]:
         passport = db.query(CropPassport).first()
@@ -172,9 +183,12 @@ async def whatsapp_json_endpoint(
             f"• *Variety:* {passport.variety if passport else 'JS 335'}\n"
             f"• *Sowing Date:* {passport.sowing_date if passport else '2026-06-15'}\n"
             f"• *Stage:* {passport.stage_days if passport else 35} Days\n"
-            f"• *District:* Latur, Maharashtra"
+            f"• *District:* Latur, Maharashtra\n"
+            f"🎙️ *व्हॉईस संदेश (Voice Note):* खालील ऑडिओ प्लेयरद्वारे ऐका"
         )
-        return {"reply_body": reply_body, "pipeline_result": None}
+        passport_voice = f"शेतकरी पिक पासपोर्ट माहिती: पिक {passport.crop_name if passport else 'सोयाबीन'}, जात {passport.variety if passport else 'JS 335'}, पेरणी दिनांक {passport.sowing_date if passport else '१५ जून'}, वाढीचा टप्पा ३५ दिवस."
+        audio_url = await tts_engine.synthesize("passport", passport_voice, req.language if req.language != "auto" else "mr")
+        return {"reply_body": reply_body, "pipeline_result": None, "audio_url": audio_url}
     
     advisory_req = AdvisoryQueryRequest(
         farmer_id=f"FARM-{req.phone[-4:]}",
@@ -196,12 +210,14 @@ async def whatsapp_json_endpoint(
         f"{pipeline_res.answer_text}\n\n"
         f"📌 *Confidence:* {int(pipeline_res.confidence_score * 100)}% ({pipeline_res.confidence_level})\n"
         f"🛡️ *Grounding Status:* {grounding_badge}\n"
-        f"📖 *Evidence Source:* {source_title}"
+        f"📖 *Evidence Source:* {source_title}\n"
+        f"🎙️ *व्हॉईस संदेश (Voice Note):* खालील ऑडिओ प्लेयरद्वारे ऐका"
     )
 
     return {
         "reply_body": reply_body,
-        "pipeline_result": pipeline_res
+        "pipeline_result": pipeline_res,
+        "audio_url": pipeline_res.audio_url
     }
 
 
@@ -230,6 +246,36 @@ async def send_meta_whatsapp_reply(to_phone: str, text: str):
     try:
         async with httpx.AsyncClient(timeout=5.0) as client:
             resp = await client.post(url, json=payload, headers=headers)
-            print(f"[META WHATSAPP OUTBOUND] Sent WhatsApp message to {to_phone}. HTTP {resp.status_code}", flush=True)
+            print(f"[META WHATSAPP OUTBOUND] Sent WhatsApp text to {to_phone}. HTTP {resp.status_code}", flush=True)
     except Exception as e:
-        print(f"[META WHATSAPP OUTBOUND] Error sending WhatsApp message: {e}", flush=True)
+        print(f"[META WHATSAPP OUTBOUND] Error sending WhatsApp text: {e}", flush=True)
+
+
+async def send_meta_whatsapp_audio(to_phone: str, audio_url: str):
+    """
+    Dispatches outbound WhatsApp voice/audio message using Meta Graph API HTTP endpoint.
+    Allows farmers to listen to the spoken advisory directly on WhatsApp.
+    """
+    token = settings.META_WHATSAPP_TOKEN
+    phone_id = settings.META_WHATSAPP_PHONE_ID
+    if not token or not phone_id:
+        print(f"[META WHATSAPP OUTBOUND AUDIO] Voice note generated at {audio_url} (Ready for delivery to {to_phone})", flush=True)
+        return
+
+    url = f"https://graph.facebook.com/v19.0/{phone_id}/messages"
+    headers = {
+        "Authorization": f"Bearer {token}",
+        "Content-Type": "application/json"
+    }
+    payload = {
+        "messaging_product": "whatsapp",
+        "to": to_phone,
+        "type": "audio",
+        "audio": {"link": audio_url}
+    }
+    try:
+        async with httpx.AsyncClient(timeout=8.0) as client:
+            resp = await client.post(url, json=payload, headers=headers)
+            print(f"[META WHATSAPP OUTBOUND AUDIO] Sent WhatsApp voice note to {to_phone}. HTTP {resp.status_code}", flush=True)
+    except Exception as e:
+        print(f"[META WHATSAPP OUTBOUND AUDIO] Error sending WhatsApp voice note: {e}", flush=True)
