@@ -281,6 +281,7 @@ export default function App() {
     if (audioUrl) {
       const audio = audioRef.current;
       audio.src = audioUrl;
+      audio.playbackRate = 1.18; // Crisp, fast speed so farmer saves time
       audio.play().then(() => {
         audio.onended = () => setPlayingVoiceMsgIdx(null);
         audio.onerror = () => {
@@ -302,10 +303,11 @@ export default function App() {
       return;
     }
     window.speechSynthesis.cancel();
-    const clean = (textToSpeak || '').replace(/[*#_~`•]/g, '').trim().slice(0, 600);
+    // Full message speech coverage without slicing
+    const clean = (textToSpeak || '').replace(/[*#_~`•]/g, '').trim();
     const utterance = new SpeechSynthesisUtterance(clean);
     utterance.lang = uiLanguage === 'mr' ? 'mr-IN' : uiLanguage === 'hi' ? 'hi-IN' : uiLanguage === 'gu' ? 'gu-IN' : 'en-IN';
-    utterance.rate = 0.95;
+    utterance.rate = 1.18; // Fast, clear speed
     utterance.onend = () => { if (onDone) onDone(); };
     utterance.onerror = () => { if (onDone) onDone(); };
     window.speechSynthesis.speak(utterance);
@@ -849,15 +851,15 @@ export default function App() {
                               ))}
                             </div>
                             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '0.72rem', color: '#047857', fontWeight: '600' }}>
-                              <span>{playingVoiceMsgIdx === idx ? '▶️ ऐकणे सुरू आहे...' : '🎙️ व्हॉईस संदेश (Voice Note)'}</span>
-                              <span style={{ color: '#64748b' }}>{playingVoiceMsgIdx === idx ? 'Playing' : '0:45'}</span>
+                              <span>{playingVoiceMsgIdx === idx ? '▶️ ऐकणे सुरू आहे...' : '🎙️ संपूर्ण व्हॉईस संदेश (Full Audio)'}</span>
+                              <span style={{ background: '#dcfce7', color: '#15803d', padding: '1px 6px', borderRadius: '4px', fontSize: '0.68rem', fontWeight: '700' }}>⚡ 1.2x Speed</span>
                             </div>
                           </div>
                         </div>
 
                         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderTop: '1px dashed #bbf7d0', paddingTop: '6px', fontSize: '0.72rem', color: '#166534' }}>
-                          <span>🎧 वाचू इच्छित नसाल तर वरील बटण दाबून उत्तर ऐका</span>
-                          <span className="badge badge-green" style={{ fontSize: '0.65rem', padding: '2px 6px' }}>ICAR Audio</span>
+                          <span>🎧 संपूर्ण उत्तर ऐकण्यासाठी वरील बटण दाबा</span>
+                          <span className="badge badge-green" style={{ fontSize: '0.65rem', padding: '2px 6px' }}>ICAR Full Advisory</span>
                         </div>
                       </div>
                     )}
