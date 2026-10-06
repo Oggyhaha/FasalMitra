@@ -28,6 +28,7 @@ class VerifiedClaim(BaseModel):
 class StructuredQueryInfo(BaseModel):
     intent: str
     crop: Optional[str] = None
+    target: Optional[str] = None
     symptoms: List[str] = []
     chemicals_mentioned: List[str] = []
     urgency: str = "MEDIUM"

@@ -39,6 +39,7 @@ async def process_advisory_query(
     structured_info = StructuredQueryInfo(
         intent=nlp_res["intent"],
         crop=nlp_res["crop"],
+        target=nlp_res.get("target"),
         symptoms=nlp_res["symptoms"],
         chemicals_mentioned=nlp_res["chemicals_mentioned"],
         urgency=nlp_res["urgency"]

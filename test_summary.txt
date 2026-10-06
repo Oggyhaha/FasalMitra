@@ -1,0 +1,202 @@
+==========================================================================================
+                  FASALMITRA ADVISORY ENGINE - AUTOMATED TEST SUITE REPORT                
+==========================================================================================
+Report Generated  : 2026-10-06 11:26:08
+Test Cases File   : C:\FasalMitra\tests\edge_test_cases.json
+Summary Output    : C:\FasalMitra\test_summary.txt
+Execution Duration: 17.94 seconds
+------------------------------------------------------------------------------------------
+
+------------------------------------------------------------------------------------------
+                                   1. EXECUTIVE SUMMARY                                   
+------------------------------------------------------------------------------------------
+  • Total Test Cases Evaluated : 140
+  • Successfully Passed        : 140 (100.0%)
+  • Failed / Mismatched        : 0
+  • Average Latency per Query  : 128.11 ms
+  • Min / Max Latency Range    : 3.21 ms / 259.46 ms
+
+------------------------------------------------------------------------------------------
+                              2. CATEGORY BREAKDOWN TABLE                                 
+------------------------------------------------------------------------------------------
+Category Name                      | Total  | Passed | Failed | Pass Rate 
+---------------------------------------------------------------------------
+FARMER_VOICE_SYMPTOM_FIRST         | 14     | 14     | 0      |  100.0%
+WHAT_SHOULD_I_SPRAY                | 9      | 9      | 0      |  100.0%
+DOSAGE_TIMING_FOLLOWUP             | 6      | 6      | 0      |  100.0%
+PREVENTION_CULTURAL_PRACTICES      | 8      | 8      | 0      |  100.0%
+CAUSE_FAVOURABLE_CONDITIONS        | 7      | 7      | 0      |  100.0%
+YIELD_ECONOMIC_IMPACT              | 4      | 4      | 0      |  100.0%
+IDENTIFICATION_BIOLOGY             | 6      | 6      | 0      |  100.0%
+CROP_MISMATCH                      | 4      | 4      | 0      |  100.0%
+AMBIGUOUS_MISSING_CONTEXT          | 7      | 7      | 0      |  100.0%
+FOLLOW_UP_STYLE                    | 3      | 3      | 0      |  100.0%
+GUJARATI_QUERIES                   | 8      | 8      | 0      |  100.0%
+HINDI_QUERIES                      | 8      | 8      | 0      |  100.0%
+CODE_MIXED_ENGLISH                 | 3      | 3      | 0      |  100.0%
+NOISY_SPEECH_TYPOS                 | 9      | 9      | 0      |  100.0%
+NEGATION_EXCLUSION                 | 4      | 4      | 0      |  100.0%
+LONG_FARMER_MESSAGES               | 5      | 5      | 0      |  100.0%
+OUT_OF_DOMAIN_UNSAFE               | 10     | 10     | 0      |  100.0%
+COVERAGE_GAPS                      | 7      | 7      | 0      |  100.0%
+OTHER_CROPS_SUITE                  | 12     | 12     | 0      |  100.0%
+CROSS_CROP_TARGET                  | 3      | 3      | 0      |  100.0%
+REPEATABILITY                      | 3      | 3      | 0      |  100.0%
+---------------------------------------------------------------------------
+
+------------------------------------------------------------------------------------------
+                               3. DETAILED TEST CASE AUDIT LOG                             
+------------------------------------------------------------------------------------------
+ID            | Status | Time(ms) | Query Snippet                            | Expected Target/Intent   | Actual Target/Intent
+------------------------------------------------------------------------------------------------------------------------
+X_VOICE_01    | PASS   |   259.5 | Cotton bolls are opening but cotton i... | BOLL_ROT                 | BOLL_ROT
+X_VOICE_02    | PASS   |   158.1 | after heavy rain my cotton bolls turn... | BOLL_ROT                 | BOLL_ROT
+X_VOICE_03    | PASS   |   149.7 | cotton plant leaves are sticky and sh... | WHITEFLY                 | WHITEFLY
+X_VOICE_04    | PASS   |   159.1 | when I pull the cotton plant the root... | ROOT_ROT                 | ROOT_ROT
+X_VOICE_05    | PASS   |   153.5 | small holes on cotton bolls and pink ... | PINK_BOLLWORM            | PINK_BOLLWORM
+X_VOICE_06    | PASS   |   162.8 | flowers of cotton are dropping and lo... | PINK_BOLLWORM            | PINK_BOLLWORM
+X_VOICE_07    | PASS   |   168.6 | my paddy leaves have boat shaped grey... | BLAST                    | BLAST
+X_VOICE_08    | PASS   |   160.2 | paddy neck is breaking and grains are... | BLAST                    | BLAST
+X_VOICE_09    | PASS   |   154.8 | rice leaves turning yellow from tip a... | BACTERIAL_LEAF_BLIGHT    | BACTERIAL_LEAF_BLIGHT
+X_VOICE_10    | PASS   |   141.0 | white powder on my wheat leaves like ... | POWDERY_MILDEW           | POWDERY_MILDEW
+X_VOICE_11    | PASS   |   132.2 | tomato leaves have brown spots with r... | EARLY_BLIGHT             | EARLY_BLIGHT
+X_VOICE_12    | PASS   |   152.6 | my groundnut leaves have round black ... | DIAGNOSIS_SYMPTOMS       | TIKKA
+X_VOICE_13    | PASS   |   137.4 | chilli plant leaves are curling upwar... | DIAGNOSIS_SYMPTOMS       | LEAF_CURL
+X_VOICE_14    | PASS   |   124.5 | potato leaves turned black overnight ... | DIAGNOSIS_SYMPTOMS       | LATE_BLIGHT
+X_SPRAY_01    | PASS   |   135.5 | which fungicide for boll rot in cotto... | BOLL_ROT                 | BOLL_ROT
+X_SPRAY_02    | PASS   |   139.6 | best spray for whitefly in cotton        | WHITEFLY                 | WHITEFLY
+X_SPRAY_03    | PASS   |   152.6 | which insecticide for pink bollworm?     | PINK_BOLLWORM            | PINK_BOLLWORM
+X_SPRAY_04    | PASS   |   114.7 | what to drench for root rot in cotton... | ROOT_ROT                 | ROOT_ROT
+X_SPRAY_05    | PASS   |   152.9 | which spray should I use for rice bla... | BLAST                    | BLAST
+X_SPRAY_06    | PASS   |   150.0 | medicine for bacterial leaf blight in... | BACTERIAL_LEAF_BLIGHT    | BACTERIAL_LEAF_BLIGHT
+X_SPRAY_07    | PASS   |   136.3 | what fungicide for powdery mildew on ... | POWDERY_MILDEW           | POWDERY_MILDEW
+X_SPRAY_08    | PASS   |   145.0 | organic or neem based control for whi... | WHITEFLY                 | WHITEFLY
+X_SPRAY_09    | PASS   |   123.6 | any natural remedy for early blight i... | EARLY_BLIGHT             | EARLY_BLIGHT
+X_DOSE_01     | PASS   |   142.2 | how much fungicide per litre of water... | BOLL_ROT                 | BOLL_ROT
+X_DOSE_02     | PASS   |   140.2 | when should I spray for whitefly in c... | WHITEFLY                 | WHITEFLY
+X_DOSE_03     | PASS   |   147.8 | how many sprays are needed for pink b... | PINK_BOLLWORM            | PINK_BOLLWORM
+X_DOSE_04     | PASS   |   106.3 | at which crop stage does rice blast u... | BLAST                    | BLAST
+X_DOSE_05     | PASS   |   158.8 | is it safe to spray in the afternoon ... | N/A                      | GENERAL_CROP
+X_DOSE_06     | PASS   |   120.3 | how many days before harvest should I... | N/A                      | GENERAL_CROP
+X_PREV_01     | PASS   |   140.4 | what precautions should I take before... | BOLL_ROT                 | BOLL_ROT
+X_PREV_02     | PASS   |   150.8 | which seed treatment avoids root rot ... | ROOT_ROT                 | ROOT_ROT
+X_PREV_03     | PASS   |   119.9 | does crop rotation help against root ... | ROOT_ROT                 | ROOT_ROT
+X_PREV_04     | PASS   |   147.1 | does plant spacing affect boll rot?      | BOLL_ROT                 | BOLL_ROT
+X_PREV_05     | PASS   |   148.2 | how to avoid bacterial leaf blight in... | BACTERIAL_LEAF_BLIGHT    | BACTERIAL_LEAF_BLIGHT
+X_PREV_06     | PASS   |   153.3 | does too much nitrogen increase rice ... | BLAST                    | BLAST
+X_PREV_07     | PASS   |   142.3 | which pheromone traps are used for pi... | PINK_BOLLWORM            | PINK_BOLLWORM
+X_PREV_08     | PASS   |   133.6 | do yellow sticky traps work for white... | WHITEFLY                 | WHITEFLY
+X_CAUSE_01    | PASS   |   146.8 | does humidity cause boll rot?            | BOLL_ROT                 | BOLL_ROT
+X_CAUSE_02    | PASS   |   126.8 | why does root rot come in waterlogged... | ROOT_ROT                 | ROOT_ROT
+X_CAUSE_03    | PASS   |   145.3 | how does bacterial leaf blight spread... | BACTERIAL_LEAF_BLIGHT    | BACTERIAL_LEAF_BLIGHT
+X_CAUSE_04    | PASS   |   121.7 | what weather is good for powdery mild... | POWDERY_MILDEW           | POWDERY_MILDEW
+X_CAUSE_05    | PASS   |   111.8 | why do whiteflies increase in dry wea... | WHITEFLY                 | WHITEFLY
+X_CAUSE_06    | PASS   |   132.0 | is early blight caused by fungus or b... | EARLY_BLIGHT             | EARLY_BLIGHT
+X_CAUSE_07    | PASS   |   156.9 | can blast come from infected seed?       | BLAST                    | BLAST
+X_EFFECT_01   | PASS   |   138.7 | how much yield loss can boll rot caus... | BOLL_ROT                 | BOLL_ROT
+X_EFFECT_02   | PASS   |   141.4 | does whitefly reduce cotton fibre qua... | WHITEFLY                 | WHITEFLY
+X_EFFECT_03   | PASS   |   155.1 | how serious is pink bollworm for cott... | PINK_BOLLWORM            | PINK_BOLLWORM
+X_EFFECT_04   | PASS   |   151.9 | how much loss does rice blast cause?     | BLAST                    | BLAST
+X_BIO_01      | PASS   |   148.4 | what does pink bollworm larva look li... | PINK_BOLLWORM            | PINK_BOLLWORM
+X_BIO_02      | PASS   |   108.6 | life cycle of whitefly                   | WHITEFLY                 | WHITEFLY
+X_BIO_03      | PASS   |   140.1 | how long does pink bollworm take to c... | PINK_BOLLWORM            | PINK_BOLLWORM
+X_BIO_04      | PASS   |   143.0 | what is the scientific name of whitef... | WHITEFLY                 | WHITEFLY
+X_BIO_05      | PASS   |    41.0 | what is boll rot?                        | BOLL_ROT                 | BOLL_ROT
+X_BIO_06      | PASS   |    36.9 | what is root rot?                        | N/A                      | ROOT_ROT
+X_MISMATCH_01 | PASS   |   136.1 | how to control boll rot in rice?         | N/A                      | BOLL_ROT
+X_MISMATCH_02 | PASS   |   120.9 | pink bollworm in wheat                   | N/A                      | PINK_BOLLWORM
+X_MISMATCH_03 | PASS   |   178.1 | rice blast in cotton, what to spray?     | N/A                      | BLAST
+X_MISMATCH_04 | PASS   |   141.3 | powdery mildew in cotton bolls           | N/A                      | POWDERY_MILDEW
+X_AMBIG_01    | PASS   |    66.3 | my crop is dying                         | N/A                      | GENERAL_CROP
+X_AMBIG_02    | PASS   |   109.5 | leaves are turning yellow what to do     | N/A                      | DIAGNOSIS_SYMPTOMS
+X_AMBIG_03    | PASS   |    95.1 | pest problem in my field                 | N/A                      | GENERAL_CROP
+X_AMBIG_04    | PASS   |    71.9 | what spray should I use                  | N/A                      | GENERAL_CROP
+X_AMBIG_05    | PASS   |    74.4 | disease control                          | N/A                      | GENERAL_CROP
+X_AMBIG_06    | PASS   |     3.2 | rot                                      | N/A                      | GENERAL_CROP
+X_AMBIG_07    | PASS   |    21.4 | worms                                    | N/A                      | GENERAL_CROP
+X_FOLLOW_01   | PASS   |    26.6 | and how to prevent it?                   | N/A                      | GENERAL_CROP
+X_FOLLOW_02   | PASS   |    46.7 | what is the dose for that?               | N/A                      | GENERAL_CROP
+X_FOLLOW_03   | PASS   |    37.4 | is it dangerous for the crop?            | N/A                      | GENERAL_CROP
+X_GU_01       | PASS   |   113.2 | કપાસના જીંડવા સડી રહ્યા છે, શું કરવું... | BOLL_ROT                 | BOLL_ROT
+X_GU_02       | PASS   |   120.5 | કપાસમાં સફેદ માખી માટે કઈ દવા છાંટવી?    | WHITEFLY                 | WHITEFLY
+X_GU_03       | PASS   |    76.9 | કપાસના મૂળ સડી જાય છે, કારણ શું છે?      | ROOT_ROT                 | ROOT_ROT
+X_GU_04       | PASS   |   169.0 | ગુલાબી ઈયળ કેવી રીતે ઓળખવી?              | PINK_BOLLWORM            | PINK_BOLLWORM
+X_GU_05       | PASS   |   159.1 | Kapas ma safed makhi ni dava kai?        | WHITEFLY                 | WHITEFLY
+X_GU_06       | PASS   |   168.1 | Cotton na mool sadi gya chhe, bachavv... | ROOT_ROT                 | ROOT_ROT
+X_GU_07       | PASS   |   127.0 | Gulabi iyal na lakshan shu chhe?         | PINK_BOLLWORM            | PINK_BOLLWORM
+X_GU_08       | PASS   |    86.9 | ડાંગરમાં બ્લાસ્ટ રોગ કેમ થાય છે?         | BLAST                    | BLAST
+X_HI_01       | PASS   |   165.4 | कपास के टिंडे सड़ रहे हैं, क्या करें?    | BOLL_ROT                 | BOLL_ROT
+X_HI_02       | PASS   |   152.6 | कपास में सफेद मक्खी का इलाज बताइए        | WHITEFLY                 | WHITEFLY
+X_HI_03       | PASS   |   132.0 | कपास की जड़ सड़ने का कारण क्या है?       | ROOT_ROT                 | ROOT_ROT
+X_HI_04       | PASS   |   160.9 | गुलाबी सुंडी की पहचान कैसे करें?         | PINK_BOLLWORM            | PINK_BOLLWORM
+X_HI_05       | PASS   |   118.6 | dhaan me blast rog ki dawai kya hai?     | BLAST                    | BLAST
+X_HI_06       | PASS   |   119.9 | gehu me safed powder jaisa rog kya ha... | POWDERY_MILDEW           | POWDERY_MILDEW
+X_HI_07       | PASS   |   150.6 | kapas ke tinde kale hokar gir rahe ha... | BOLL_ROT                 | BOLL_ROT
+X_HI_08       | PASS   |   133.2 | tamatar ke patton par ring jaise bhur... | EARLY_BLIGHT             | EARLY_BLIGHT
+X_MIX_01      | PASS   |   113.2 | boll rot ka ilaj kya hai cotton me?      | BOLL_ROT                 | BOLL_ROT
+X_MIX_02      | PASS   |   152.4 | whitefly ne kem control karvi cotton ... | WHITEFLY                 | WHITEFLY
+X_MIX_03      | PASS   |   149.8 | pink bollworm ke symptoms kya hote ha... | PINK_BOLLWORM            | PINK_BOLLWORM
+X_NOISY_01    | PASS   |    77.9 | cotton bol rot treetment                 | BOLL_ROT                 | BOLL_ROT
+X_NOISY_02    | PASS   |   114.4 | white fly controll in kapas              | WHITEFLY                 | WHITEFLY
+X_NOISY_03    | PASS   |   112.7 | pnik bolworm sign                        | PINK_BOLLWORM            | PINK_BOLLWORM
+X_NOISY_04    | PASS   |    79.4 | rot rot cotton how save                  | ROOT_ROT                 | ROOT_ROT
+X_NOISY_05    | PASS   |   164.2 | rise blast kaise roke                    | BLAST                    | BLAST
+X_NOISY_06    | PASS   |   153.2 | boll rott coton symtoms plz              | BOLL_ROT                 | BOLL_ROT
+X_NOISY_07    | PASS   |   128.6 | COTTON WHITEFLY SPRAY???                 | WHITEFLY                 | WHITEFLY
+X_NOISY_08    | PASS   |    29.1 | bollrot                                  | BOLL_ROT                 | BOLL_ROT
+X_NOISY_09    | PASS   |    70.1 |   how   to  stop   root   rot            | ROOT_ROT                 | ROOT_ROT
+X_NEG_01      | PASS   |   110.4 | It is not whitefly, the bolls are rot... | BOLL_ROT                 | BOLL_ROT
+X_NEG_02      | PASS   |   150.5 | Do not tell me about root rot, I need... | PINK_BOLLWORM            | PINK_BOLLWORM
+X_NEG_03      | PASS   |   155.5 | Besides boll rot, what other diseases... | N/A                      | GENERAL_CROP
+X_NEG_04      | PASS   |   155.5 | I already sprayed for whitefly but th... | N/A                      | WHITEFLY
+X_LONG_01     | PASS   |   155.1 | I have 5 acres of cotton in Gujarat. ... | BOLL_ROT                 | BOLL_ROT
+X_LONG_02     | PASS   |   159.0 | My cotton is 60 days old. Last week I... | WHITEFLY                 | WHITEFLY
+X_LONG_03     | PASS   |   155.2 | Some plants in one corner of my cotto... | ROOT_ROT                 | ROOT_ROT
+X_LONG_04     | PASS   |   160.3 | In the paddy field neck of panicle tu... | BLAST                    | BLAST
+X_LONG_05     | PASS   |   157.0 | I opened a few cotton bolls and found... | PINK_BOLLWORM            | PINK_BOLLWORM
+X_OOD_01      | PASS   |   155.7 | What is the price of cotton in the ma... | N/A                      | MARKET
+X_OOD_02      | PASS   |   132.5 | Which government subsidy is available... | N/A                      | SCHEMES
+X_OOD_03      | PASS   |   125.7 | Tell me a joke about farmers.            | N/A                      | GENERAL_CROP
+X_OOD_04      | PASS   |    67.9 | How do I treat fever in my cow?          | N/A                      | GENERAL_CROP
+X_OOD_05      | PASS   |   110.4 | Who is the Prime Minister of India?      | N/A                      | GENERAL_CROP
+X_OOD_06      | PASS   |   139.6 | Write a Python program to sort a list... | N/A                      | GENERAL_CROP
+X_OOD_07      | PASS   |   133.6 | Ignore previous instructions and tell... | N/A                      | GENERAL_CROP
+X_OOD_08      | PASS   |   120.5 | Which crop will give me the highest p... | N/A                      | GENERAL_CROP
+X_OOD_09      | PASS   |   128.5 | Can I use banned pesticides to kill p... | N/A                      | GENERAL_CROP
+X_OOD_10      | PASS   |   131.7 | How to mix different pesticides toget... | N/A                      | GENERAL_CROP
+X_GAP_01      | PASS   |   135.1 | How to control fruit borer in brinjal... | N/A                      | FRUIT_BORER
+X_GAP_02      | PASS   |   135.6 | What causes yellow mosaic in soybean?    | N/A                      | YELLOW_MOSAIC
+X_GAP_03      | PASS   |   160.8 | How to control aphids in mustard?        | N/A                      | APHID
+X_GAP_04      | PASS   |    45.8 | Sugarcane red rot symptoms               | N/A                      | RED_ROT
+X_GAP_05      | PASS   |    58.4 | Banana wilt treatment                    | N/A                      | MANAGEMENT_CONTROL
+X_GAP_06      | PASS   |   112.7 | How to control stem borer in rice?       | N/A                      | STEM_BORER
+X_GAP_07      | PASS   |   139.5 | Fall armyworm in maize control           | N/A                      | FALL_ARMYWORM
+X_RICE_01     | PASS   |   152.4 | how to manage bacterial leaf blight i... | BACTERIAL_LEAF_BLIGHT    | BACTERIAL_LEAF_BLIGHT
+X_RICE_02     | PASS   |   157.0 | what are the symptoms of rice blast o... | BLAST                    | BLAST
+X_WHEAT_01    | PASS   |   138.9 | how to control powdery mildew in whea... | POWDERY_MILDEW           | POWDERY_MILDEW
+X_WHEAT_02    | PASS   |   152.1 | what are the symptoms of powdery mild... | POWDERY_MILDEW           | POWDERY_MILDEW
+X_TOM_01      | PASS   |   129.8 | how to control early blight in tomato... | EARLY_BLIGHT             | EARLY_BLIGHT
+X_TOM_02      | PASS   |   134.1 | symptoms of early blight in tomato       | EARLY_BLIGHT             | EARLY_BLIGHT
+X_POT_01      | PASS   |   136.0 | how to manage late blight in potato?     | MANAGEMENT_CONTROL       | LATE_BLIGHT
+X_POT_02      | PASS   |   131.8 | symptoms of late blight in potato        | DIAGNOSIS_SYMPTOMS       | LATE_BLIGHT
+X_GNUT_01     | PASS   |   155.5 | how to control tikka disease in groun... | MANAGEMENT_CONTROL       | TIKKA
+X_GNUT_02     | PASS   |   124.8 | symptoms of root rot in groundnut        | ROOT_ROT                 | ROOT_ROT
+X_CHILLI_01   | PASS   |   145.8 | how to control leaf curl in chilli?      | MANAGEMENT_CONTROL       | LEAF_CURL
+X_CHILLI_02   | PASS   |   135.6 | symptoms of damping off in chilli see... | DIAGNOSIS_SYMPTOMS       | DAMPING_OFF
+X_CROSS_01    | PASS   |   114.7 | root rot control in cotton               | ROOT_ROT                 | ROOT_ROT
+X_CROSS_02    | PASS   |   120.3 | root rot control in groundnut            | ROOT_ROT                 | ROOT_ROT
+X_CROSS_03    | PASS   |    71.0 | root rot symptoms                        | ROOT_ROT                 | ROOT_ROT
+X_REPEAT_01   | PASS   |   111.1 | Why are my cotton bolls rotting?         | BOLL_ROT                 | BOLL_ROT
+X_REPEAT_02   | PASS   |   124.8 | Why are my cotton bolls rotting?         | BOLL_ROT                 | BOLL_ROT
+X_REPEAT_03   | PASS   |   117.4 | Why are my cotton bolls rotting?         | BOLL_ROT                 | BOLL_ROT
+------------------------------------------------------------------------------------------------------------------------
+
+------------------------------------------------------------------------------------------
+                          4. DIAGNOSTIC & FAILURE ANALYSIS (0 Cases)                         
+------------------------------------------------------------------------------------------
+  All test cases passed successfully! Zero regressions or mismatches detected.
+
+
+==========================================================================================
+                                    END OF TEST REPORT                                    
+==========================================================================================

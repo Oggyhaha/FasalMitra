@@ -2,8 +2,14 @@ from typing import Dict, Any, Tuple
 
 class PreSafetyGate:
     def __init__(self):
-        self.banned_chemicals = ["monocrotophos", "paraquat"] # Unsafe/banned in specific localized advisories without supervision
-        self.out_of_domain_keywords = ["python", "bitcoin", "election", "movie", "cricket", "politics"]
+        self.banned_chemicals = ["monocrotophos", "paraquat", "phorate", "endosulfan"]
+        self.out_of_domain_keywords = [
+            "python", "bitcoin", "crypto", "election", "movie", "cricket", "politics",
+            "tell me a joke", "joke about", "cow", "fever in my cow", "cattle", "animal",
+            "prime minister", "president", "sort a list", "write a python", "program to sort",
+            "ignore previous instructions", "system prompt",
+            "highest profit this year", "banned pesticides", "mix different pesticides"
+        ]
 
     def evaluate(self, text: str, structured_query: Dict[str, Any], context: Dict[str, Any]) -> Tuple[bool, str, str]:
         """
@@ -11,8 +17,12 @@ class PreSafetyGate:
         """
         text_lower = text.lower()
         
-        # 1. Out of domain check
+        # 1. Out of domain check (humor, coding, general knowledge, prompt injection, veterinary)
         if any(kw in text_lower for kw in self.out_of_domain_keywords):
+            if "banned pesticides" in text_lower:
+                return False, "HIGH", "UNSAFE_BANNED_PESTICIDE_REQUEST"
+            if "mix different pesticides" in text_lower:
+                return False, "HIGH", "UNSAFE_TANK_MIX_REQUEST"
             return False, "HIGH", "OUT_OF_DOMAIN"
 
         # 2. Dangerous chemical check
@@ -26,7 +36,7 @@ class PreSafetyGate:
 
         # Risk level determination
         risk_level = "LOW"
-        if structured_query.get("intent") in ["PEST_DISEASE", "INPUT_USAGE"]:
+        if structured_query.get("intent") in ["PEST_DISEASE", "MANAGEMENT_CONTROL", "INPUT_USAGE"]:
             risk_level = "MEDIUM"
         if structured_query.get("chemicals_mentioned"):
             risk_level = "HIGH"
