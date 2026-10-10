@@ -6,7 +6,6 @@ from backend.app.schemas.schemas import EvidenceChunk
 from backend.app.config import settings
 
 CANDIDATE_MODELS = [
-    "gemini-3.5-flash-lite",
     "gemini-flash-lite-latest"
 ]
 

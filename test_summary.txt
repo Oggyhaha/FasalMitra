@@ -1,47 +1,46 @@
 ==========================================================================================
                   FASALMITRA ADVISORY ENGINE - AUTOMATED TEST SUITE REPORT                
 ==========================================================================================
-Report Generated  : 2026-10-06 11:26:08
-Test Cases File   : C:\FasalMitra\tests\edge_test_cases.json
+Report Generated  : 2026-10-09 23:23:08
+Test Cases File   : C:\FasalMitra\tests\comp1_suite.json
 Summary Output    : C:\FasalMitra\test_summary.txt
-Execution Duration: 17.94 seconds
+Execution Duration: 48.33 seconds
 ------------------------------------------------------------------------------------------
 
 ------------------------------------------------------------------------------------------
                                    1. EXECUTIVE SUMMARY                                   
 ------------------------------------------------------------------------------------------
-  • Total Test Cases Evaluated : 140
-  • Successfully Passed        : 140 (100.0%)
+  • Total Test Cases Evaluated : 920
+  • Successfully Passed        : 920 (100.0%)
   • Failed / Mismatched        : 0
-  • Average Latency per Query  : 128.11 ms
-  • Min / Max Latency Range    : 3.21 ms / 259.46 ms
+  • Average Latency per Query  : 52.51 ms
+  • Min / Max Latency Range    : 1.30 ms / 357.87 ms
 
 ------------------------------------------------------------------------------------------
                               2. CATEGORY BREAKDOWN TABLE                                 
 ------------------------------------------------------------------------------------------
 Category Name                      | Total  | Passed | Failed | Pass Rate 
 ---------------------------------------------------------------------------
-FARMER_VOICE_SYMPTOM_FIRST         | 14     | 14     | 0      |  100.0%
-WHAT_SHOULD_I_SPRAY                | 9      | 9      | 0      |  100.0%
-DOSAGE_TIMING_FOLLOWUP             | 6      | 6      | 0      |  100.0%
-PREVENTION_CULTURAL_PRACTICES      | 8      | 8      | 0      |  100.0%
-CAUSE_FAVOURABLE_CONDITIONS        | 7      | 7      | 0      |  100.0%
-YIELD_ECONOMIC_IMPACT              | 4      | 4      | 0      |  100.0%
-IDENTIFICATION_BIOLOGY             | 6      | 6      | 0      |  100.0%
-CROP_MISMATCH                      | 4      | 4      | 0      |  100.0%
-AMBIGUOUS_MISSING_CONTEXT          | 7      | 7      | 0      |  100.0%
-FOLLOW_UP_STYLE                    | 3      | 3      | 0      |  100.0%
-GUJARATI_QUERIES                   | 8      | 8      | 0      |  100.0%
-HINDI_QUERIES                      | 8      | 8      | 0      |  100.0%
-CODE_MIXED_ENGLISH                 | 3      | 3      | 0      |  100.0%
-NOISY_SPEECH_TYPOS                 | 9      | 9      | 0      |  100.0%
-NEGATION_EXCLUSION                 | 4      | 4      | 0      |  100.0%
-LONG_FARMER_MESSAGES               | 5      | 5      | 0      |  100.0%
-OUT_OF_DOMAIN_UNSAFE               | 10     | 10     | 0      |  100.0%
-COVERAGE_GAPS                      | 7      | 7      | 0      |  100.0%
-OTHER_CROPS_SUITE                  | 12     | 12     | 0      |  100.0%
-CROSS_CROP_TARGET                  | 3      | 3      | 0      |  100.0%
-REPEATABILITY                      | 3      | 3      | 0      |  100.0%
+COMP1_FARMER_SYMPTOM_DIAGNOSIS     | 10     | 10     | 0      |  100.0%
+COMP1_CHEMICAL_MANAGEMENT          | 10     | 10     | 0      |  100.0%
+COMP1_BIO_ORGANIC_PRACTICES        | 10     | 10     | 0      |  100.0%
+COMP1_EPIDEMIOLOGY_DISEASE_CAUSE   | 10     | 10     | 0      |  100.0%
+COMP1_FERTILIZER_CROP_NUTRITION    | 10     | 10     | 0      |  100.0%
+COMP1_WEED_MANAGEMENT              | 10     | 10     | 0      |  100.0%
+COMP1_IRRIGATION_WATER_MANAGEMENT  | 10     | 10     | 0      |  100.0%
+COMP1_SEED_TREATMENT_SOWING        | 10     | 10     | 0      |  100.0%
+COMP1_VARIETAL_SELECTION           | 10     | 10     | 0      |  100.0%
+COMP1_HINDI_VERNACULAR             | 10     | 10     | 0      |  100.0%
+COMP1_MARATHI_VERNACULAR           | 10     | 10     | 0      |  100.0%
+COMP1_GUJARATI_VERNACULAR          | 10     | 10     | 0      |  100.0%
+COMP1_POLYPHAGOUS_CROSS_CROP       | 10     | 10     | 0      |  100.0%
+COMP1_NEGATION_FILTERING           | 10     | 10     | 0      |  100.0%
+COMP1_NOISY_TYPO_COLLOQUIAL        | 10     | 10     | 0      |  100.0%
+COMP1_LONG_NARRATIVE_SCENARIO      | 10     | 10     | 0      |  100.0%
+OUT_OF_DOMAIN_UNSAFE               | 20     | 20     | 0      |  100.0%
+COMP1_MARKET_MANDI_PRICES          | 10     | 10     | 0      |  100.0%
+COMP1_GOVT_SCHEMES_SUBSIDY         | 10     | 10     | 0      |  100.0%
+GENERAL                            | 720    | 720    | 0      |  100.0%
 ---------------------------------------------------------------------------
 
 ------------------------------------------------------------------------------------------
@@ -49,146 +48,926 @@ REPEATABILITY                      | 3      | 3      | 0      |  100.0%
 ------------------------------------------------------------------------------------------
 ID            | Status | Time(ms) | Query Snippet                            | Expected Target/Intent   | Actual Target/Intent
 ------------------------------------------------------------------------------------------------------------------------
-X_VOICE_01    | PASS   |   259.5 | Cotton bolls are opening but cotton i... | BOLL_ROT                 | BOLL_ROT
-X_VOICE_02    | PASS   |   158.1 | after heavy rain my cotton bolls turn... | BOLL_ROT                 | BOLL_ROT
-X_VOICE_03    | PASS   |   149.7 | cotton plant leaves are sticky and sh... | WHITEFLY                 | WHITEFLY
-X_VOICE_04    | PASS   |   159.1 | when I pull the cotton plant the root... | ROOT_ROT                 | ROOT_ROT
-X_VOICE_05    | PASS   |   153.5 | small holes on cotton bolls and pink ... | PINK_BOLLWORM            | PINK_BOLLWORM
-X_VOICE_06    | PASS   |   162.8 | flowers of cotton are dropping and lo... | PINK_BOLLWORM            | PINK_BOLLWORM
-X_VOICE_07    | PASS   |   168.6 | my paddy leaves have boat shaped grey... | BLAST                    | BLAST
-X_VOICE_08    | PASS   |   160.2 | paddy neck is breaking and grains are... | BLAST                    | BLAST
-X_VOICE_09    | PASS   |   154.8 | rice leaves turning yellow from tip a... | BACTERIAL_LEAF_BLIGHT    | BACTERIAL_LEAF_BLIGHT
-X_VOICE_10    | PASS   |   141.0 | white powder on my wheat leaves like ... | POWDERY_MILDEW           | POWDERY_MILDEW
-X_VOICE_11    | PASS   |   132.2 | tomato leaves have brown spots with r... | EARLY_BLIGHT             | EARLY_BLIGHT
-X_VOICE_12    | PASS   |   152.6 | my groundnut leaves have round black ... | DIAGNOSIS_SYMPTOMS       | TIKKA
-X_VOICE_13    | PASS   |   137.4 | chilli plant leaves are curling upwar... | DIAGNOSIS_SYMPTOMS       | LEAF_CURL
-X_VOICE_14    | PASS   |   124.5 | potato leaves turned black overnight ... | DIAGNOSIS_SYMPTOMS       | LATE_BLIGHT
-X_SPRAY_01    | PASS   |   135.5 | which fungicide for boll rot in cotto... | BOLL_ROT                 | BOLL_ROT
-X_SPRAY_02    | PASS   |   139.6 | best spray for whitefly in cotton        | WHITEFLY                 | WHITEFLY
-X_SPRAY_03    | PASS   |   152.6 | which insecticide for pink bollworm?     | PINK_BOLLWORM            | PINK_BOLLWORM
-X_SPRAY_04    | PASS   |   114.7 | what to drench for root rot in cotton... | ROOT_ROT                 | ROOT_ROT
-X_SPRAY_05    | PASS   |   152.9 | which spray should I use for rice bla... | BLAST                    | BLAST
-X_SPRAY_06    | PASS   |   150.0 | medicine for bacterial leaf blight in... | BACTERIAL_LEAF_BLIGHT    | BACTERIAL_LEAF_BLIGHT
-X_SPRAY_07    | PASS   |   136.3 | what fungicide for powdery mildew on ... | POWDERY_MILDEW           | POWDERY_MILDEW
-X_SPRAY_08    | PASS   |   145.0 | organic or neem based control for whi... | WHITEFLY                 | WHITEFLY
-X_SPRAY_09    | PASS   |   123.6 | any natural remedy for early blight i... | EARLY_BLIGHT             | EARLY_BLIGHT
-X_DOSE_01     | PASS   |   142.2 | how much fungicide per litre of water... | BOLL_ROT                 | BOLL_ROT
-X_DOSE_02     | PASS   |   140.2 | when should I spray for whitefly in c... | WHITEFLY                 | WHITEFLY
-X_DOSE_03     | PASS   |   147.8 | how many sprays are needed for pink b... | PINK_BOLLWORM            | PINK_BOLLWORM
-X_DOSE_04     | PASS   |   106.3 | at which crop stage does rice blast u... | BLAST                    | BLAST
-X_DOSE_05     | PASS   |   158.8 | is it safe to spray in the afternoon ... | N/A                      | GENERAL_CROP
-X_DOSE_06     | PASS   |   120.3 | how many days before harvest should I... | N/A                      | GENERAL_CROP
-X_PREV_01     | PASS   |   140.4 | what precautions should I take before... | BOLL_ROT                 | BOLL_ROT
-X_PREV_02     | PASS   |   150.8 | which seed treatment avoids root rot ... | ROOT_ROT                 | ROOT_ROT
-X_PREV_03     | PASS   |   119.9 | does crop rotation help against root ... | ROOT_ROT                 | ROOT_ROT
-X_PREV_04     | PASS   |   147.1 | does plant spacing affect boll rot?      | BOLL_ROT                 | BOLL_ROT
-X_PREV_05     | PASS   |   148.2 | how to avoid bacterial leaf blight in... | BACTERIAL_LEAF_BLIGHT    | BACTERIAL_LEAF_BLIGHT
-X_PREV_06     | PASS   |   153.3 | does too much nitrogen increase rice ... | BLAST                    | BLAST
-X_PREV_07     | PASS   |   142.3 | which pheromone traps are used for pi... | PINK_BOLLWORM            | PINK_BOLLWORM
-X_PREV_08     | PASS   |   133.6 | do yellow sticky traps work for white... | WHITEFLY                 | WHITEFLY
-X_CAUSE_01    | PASS   |   146.8 | does humidity cause boll rot?            | BOLL_ROT                 | BOLL_ROT
-X_CAUSE_02    | PASS   |   126.8 | why does root rot come in waterlogged... | ROOT_ROT                 | ROOT_ROT
-X_CAUSE_03    | PASS   |   145.3 | how does bacterial leaf blight spread... | BACTERIAL_LEAF_BLIGHT    | BACTERIAL_LEAF_BLIGHT
-X_CAUSE_04    | PASS   |   121.7 | what weather is good for powdery mild... | POWDERY_MILDEW           | POWDERY_MILDEW
-X_CAUSE_05    | PASS   |   111.8 | why do whiteflies increase in dry wea... | WHITEFLY                 | WHITEFLY
-X_CAUSE_06    | PASS   |   132.0 | is early blight caused by fungus or b... | EARLY_BLIGHT             | EARLY_BLIGHT
-X_CAUSE_07    | PASS   |   156.9 | can blast come from infected seed?       | BLAST                    | BLAST
-X_EFFECT_01   | PASS   |   138.7 | how much yield loss can boll rot caus... | BOLL_ROT                 | BOLL_ROT
-X_EFFECT_02   | PASS   |   141.4 | does whitefly reduce cotton fibre qua... | WHITEFLY                 | WHITEFLY
-X_EFFECT_03   | PASS   |   155.1 | how serious is pink bollworm for cott... | PINK_BOLLWORM            | PINK_BOLLWORM
-X_EFFECT_04   | PASS   |   151.9 | how much loss does rice blast cause?     | BLAST                    | BLAST
-X_BIO_01      | PASS   |   148.4 | what does pink bollworm larva look li... | PINK_BOLLWORM            | PINK_BOLLWORM
-X_BIO_02      | PASS   |   108.6 | life cycle of whitefly                   | WHITEFLY                 | WHITEFLY
-X_BIO_03      | PASS   |   140.1 | how long does pink bollworm take to c... | PINK_BOLLWORM            | PINK_BOLLWORM
-X_BIO_04      | PASS   |   143.0 | what is the scientific name of whitef... | WHITEFLY                 | WHITEFLY
-X_BIO_05      | PASS   |    41.0 | what is boll rot?                        | BOLL_ROT                 | BOLL_ROT
-X_BIO_06      | PASS   |    36.9 | what is root rot?                        | N/A                      | ROOT_ROT
-X_MISMATCH_01 | PASS   |   136.1 | how to control boll rot in rice?         | N/A                      | BOLL_ROT
-X_MISMATCH_02 | PASS   |   120.9 | pink bollworm in wheat                   | N/A                      | PINK_BOLLWORM
-X_MISMATCH_03 | PASS   |   178.1 | rice blast in cotton, what to spray?     | N/A                      | BLAST
-X_MISMATCH_04 | PASS   |   141.3 | powdery mildew in cotton bolls           | N/A                      | POWDERY_MILDEW
-X_AMBIG_01    | PASS   |    66.3 | my crop is dying                         | N/A                      | GENERAL_CROP
-X_AMBIG_02    | PASS   |   109.5 | leaves are turning yellow what to do     | N/A                      | DIAGNOSIS_SYMPTOMS
-X_AMBIG_03    | PASS   |    95.1 | pest problem in my field                 | N/A                      | GENERAL_CROP
-X_AMBIG_04    | PASS   |    71.9 | what spray should I use                  | N/A                      | GENERAL_CROP
-X_AMBIG_05    | PASS   |    74.4 | disease control                          | N/A                      | GENERAL_CROP
-X_AMBIG_06    | PASS   |     3.2 | rot                                      | N/A                      | GENERAL_CROP
-X_AMBIG_07    | PASS   |    21.4 | worms                                    | N/A                      | GENERAL_CROP
-X_FOLLOW_01   | PASS   |    26.6 | and how to prevent it?                   | N/A                      | GENERAL_CROP
-X_FOLLOW_02   | PASS   |    46.7 | what is the dose for that?               | N/A                      | GENERAL_CROP
-X_FOLLOW_03   | PASS   |    37.4 | is it dangerous for the crop?            | N/A                      | GENERAL_CROP
-X_GU_01       | PASS   |   113.2 | કપાસના જીંડવા સડી રહ્યા છે, શું કરવું... | BOLL_ROT                 | BOLL_ROT
-X_GU_02       | PASS   |   120.5 | કપાસમાં સફેદ માખી માટે કઈ દવા છાંટવી?    | WHITEFLY                 | WHITEFLY
-X_GU_03       | PASS   |    76.9 | કપાસના મૂળ સડી જાય છે, કારણ શું છે?      | ROOT_ROT                 | ROOT_ROT
-X_GU_04       | PASS   |   169.0 | ગુલાબી ઈયળ કેવી રીતે ઓળખવી?              | PINK_BOLLWORM            | PINK_BOLLWORM
-X_GU_05       | PASS   |   159.1 | Kapas ma safed makhi ni dava kai?        | WHITEFLY                 | WHITEFLY
-X_GU_06       | PASS   |   168.1 | Cotton na mool sadi gya chhe, bachavv... | ROOT_ROT                 | ROOT_ROT
-X_GU_07       | PASS   |   127.0 | Gulabi iyal na lakshan shu chhe?         | PINK_BOLLWORM            | PINK_BOLLWORM
-X_GU_08       | PASS   |    86.9 | ડાંગરમાં બ્લાસ્ટ રોગ કેમ થાય છે?         | BLAST                    | BLAST
-X_HI_01       | PASS   |   165.4 | कपास के टिंडे सड़ रहे हैं, क्या करें?    | BOLL_ROT                 | BOLL_ROT
-X_HI_02       | PASS   |   152.6 | कपास में सफेद मक्खी का इलाज बताइए        | WHITEFLY                 | WHITEFLY
-X_HI_03       | PASS   |   132.0 | कपास की जड़ सड़ने का कारण क्या है?       | ROOT_ROT                 | ROOT_ROT
-X_HI_04       | PASS   |   160.9 | गुलाबी सुंडी की पहचान कैसे करें?         | PINK_BOLLWORM            | PINK_BOLLWORM
-X_HI_05       | PASS   |   118.6 | dhaan me blast rog ki dawai kya hai?     | BLAST                    | BLAST
-X_HI_06       | PASS   |   119.9 | gehu me safed powder jaisa rog kya ha... | POWDERY_MILDEW           | POWDERY_MILDEW
-X_HI_07       | PASS   |   150.6 | kapas ke tinde kale hokar gir rahe ha... | BOLL_ROT                 | BOLL_ROT
-X_HI_08       | PASS   |   133.2 | tamatar ke patton par ring jaise bhur... | EARLY_BLIGHT             | EARLY_BLIGHT
-X_MIX_01      | PASS   |   113.2 | boll rot ka ilaj kya hai cotton me?      | BOLL_ROT                 | BOLL_ROT
-X_MIX_02      | PASS   |   152.4 | whitefly ne kem control karvi cotton ... | WHITEFLY                 | WHITEFLY
-X_MIX_03      | PASS   |   149.8 | pink bollworm ke symptoms kya hote ha... | PINK_BOLLWORM            | PINK_BOLLWORM
-X_NOISY_01    | PASS   |    77.9 | cotton bol rot treetment                 | BOLL_ROT                 | BOLL_ROT
-X_NOISY_02    | PASS   |   114.4 | white fly controll in kapas              | WHITEFLY                 | WHITEFLY
-X_NOISY_03    | PASS   |   112.7 | pnik bolworm sign                        | PINK_BOLLWORM            | PINK_BOLLWORM
-X_NOISY_04    | PASS   |    79.4 | rot rot cotton how save                  | ROOT_ROT                 | ROOT_ROT
-X_NOISY_05    | PASS   |   164.2 | rise blast kaise roke                    | BLAST                    | BLAST
-X_NOISY_06    | PASS   |   153.2 | boll rott coton symtoms plz              | BOLL_ROT                 | BOLL_ROT
-X_NOISY_07    | PASS   |   128.6 | COTTON WHITEFLY SPRAY???                 | WHITEFLY                 | WHITEFLY
-X_NOISY_08    | PASS   |    29.1 | bollrot                                  | BOLL_ROT                 | BOLL_ROT
-X_NOISY_09    | PASS   |    70.1 |   how   to  stop   root   rot            | ROOT_ROT                 | ROOT_ROT
-X_NEG_01      | PASS   |   110.4 | It is not whitefly, the bolls are rot... | BOLL_ROT                 | BOLL_ROT
-X_NEG_02      | PASS   |   150.5 | Do not tell me about root rot, I need... | PINK_BOLLWORM            | PINK_BOLLWORM
-X_NEG_03      | PASS   |   155.5 | Besides boll rot, what other diseases... | N/A                      | GENERAL_CROP
-X_NEG_04      | PASS   |   155.5 | I already sprayed for whitefly but th... | N/A                      | WHITEFLY
-X_LONG_01     | PASS   |   155.1 | I have 5 acres of cotton in Gujarat. ... | BOLL_ROT                 | BOLL_ROT
-X_LONG_02     | PASS   |   159.0 | My cotton is 60 days old. Last week I... | WHITEFLY                 | WHITEFLY
-X_LONG_03     | PASS   |   155.2 | Some plants in one corner of my cotto... | ROOT_ROT                 | ROOT_ROT
-X_LONG_04     | PASS   |   160.3 | In the paddy field neck of panicle tu... | BLAST                    | BLAST
-X_LONG_05     | PASS   |   157.0 | I opened a few cotton bolls and found... | PINK_BOLLWORM            | PINK_BOLLWORM
-X_OOD_01      | PASS   |   155.7 | What is the price of cotton in the ma... | N/A                      | MARKET
-X_OOD_02      | PASS   |   132.5 | Which government subsidy is available... | N/A                      | SCHEMES
-X_OOD_03      | PASS   |   125.7 | Tell me a joke about farmers.            | N/A                      | GENERAL_CROP
-X_OOD_04      | PASS   |    67.9 | How do I treat fever in my cow?          | N/A                      | GENERAL_CROP
-X_OOD_05      | PASS   |   110.4 | Who is the Prime Minister of India?      | N/A                      | GENERAL_CROP
-X_OOD_06      | PASS   |   139.6 | Write a Python program to sort a list... | N/A                      | GENERAL_CROP
-X_OOD_07      | PASS   |   133.6 | Ignore previous instructions and tell... | N/A                      | GENERAL_CROP
-X_OOD_08      | PASS   |   120.5 | Which crop will give me the highest p... | N/A                      | GENERAL_CROP
-X_OOD_09      | PASS   |   128.5 | Can I use banned pesticides to kill p... | N/A                      | GENERAL_CROP
-X_OOD_10      | PASS   |   131.7 | How to mix different pesticides toget... | N/A                      | GENERAL_CROP
-X_GAP_01      | PASS   |   135.1 | How to control fruit borer in brinjal... | N/A                      | FRUIT_BORER
-X_GAP_02      | PASS   |   135.6 | What causes yellow mosaic in soybean?    | N/A                      | YELLOW_MOSAIC
-X_GAP_03      | PASS   |   160.8 | How to control aphids in mustard?        | N/A                      | APHID
-X_GAP_04      | PASS   |    45.8 | Sugarcane red rot symptoms               | N/A                      | RED_ROT
-X_GAP_05      | PASS   |    58.4 | Banana wilt treatment                    | N/A                      | MANAGEMENT_CONTROL
-X_GAP_06      | PASS   |   112.7 | How to control stem borer in rice?       | N/A                      | STEM_BORER
-X_GAP_07      | PASS   |   139.5 | Fall armyworm in maize control           | N/A                      | FALL_ARMYWORM
-X_RICE_01     | PASS   |   152.4 | how to manage bacterial leaf blight i... | BACTERIAL_LEAF_BLIGHT    | BACTERIAL_LEAF_BLIGHT
-X_RICE_02     | PASS   |   157.0 | what are the symptoms of rice blast o... | BLAST                    | BLAST
-X_WHEAT_01    | PASS   |   138.9 | how to control powdery mildew in whea... | POWDERY_MILDEW           | POWDERY_MILDEW
-X_WHEAT_02    | PASS   |   152.1 | what are the symptoms of powdery mild... | POWDERY_MILDEW           | POWDERY_MILDEW
-X_TOM_01      | PASS   |   129.8 | how to control early blight in tomato... | EARLY_BLIGHT             | EARLY_BLIGHT
-X_TOM_02      | PASS   |   134.1 | symptoms of early blight in tomato       | EARLY_BLIGHT             | EARLY_BLIGHT
-X_POT_01      | PASS   |   136.0 | how to manage late blight in potato?     | MANAGEMENT_CONTROL       | LATE_BLIGHT
-X_POT_02      | PASS   |   131.8 | symptoms of late blight in potato        | DIAGNOSIS_SYMPTOMS       | LATE_BLIGHT
-X_GNUT_01     | PASS   |   155.5 | how to control tikka disease in groun... | MANAGEMENT_CONTROL       | TIKKA
-X_GNUT_02     | PASS   |   124.8 | symptoms of root rot in groundnut        | ROOT_ROT                 | ROOT_ROT
-X_CHILLI_01   | PASS   |   145.8 | how to control leaf curl in chilli?      | MANAGEMENT_CONTROL       | LEAF_CURL
-X_CHILLI_02   | PASS   |   135.6 | symptoms of damping off in chilli see... | DIAGNOSIS_SYMPTOMS       | DAMPING_OFF
-X_CROSS_01    | PASS   |   114.7 | root rot control in cotton               | ROOT_ROT                 | ROOT_ROT
-X_CROSS_02    | PASS   |   120.3 | root rot control in groundnut            | ROOT_ROT                 | ROOT_ROT
-X_CROSS_03    | PASS   |    71.0 | root rot symptoms                        | ROOT_ROT                 | ROOT_ROT
-X_REPEAT_01   | PASS   |   111.1 | Why are my cotton bolls rotting?         | BOLL_ROT                 | BOLL_ROT
-X_REPEAT_02   | PASS   |   124.8 | Why are my cotton bolls rotting?         | BOLL_ROT                 | BOLL_ROT
-X_REPEAT_03   | PASS   |   117.4 | Why are my cotton bolls rotting?         | BOLL_ROT                 | BOLL_ROT
+COMP1_001     | PASS   |   357.9 | rice leaves are turning yellow from t... | BACTERIAL_LEAF_BLIGHT    | BACTERIAL_LEAF_BLIGHT
+COMP1_002     | PASS   |    68.0 | cotton flowers look like rosette and ... | PINK_BOLLWORM            | PINK_BOLLWORM
+COMP1_003     | PASS   |    55.9 | white powder like flour spreading ove... | POWDERY_MILDEW           | POWDERY_MILDEW
+COMP1_004     | PASS   |    49.9 | concentric ring jaise bhure dhabbe on... | EARLY_BLIGHT             | EARLY_BLIGHT
+COMP1_005     | PASS   |    67.5 | groundnut leaves have round black spo... | TIKKA                    | TIKKA
+COMP1_006     | PASS   |    51.1 | chilli leaves curling upward like boa... | THRIPS                   | THRIPS
+COMP1_007     | PASS   |    48.4 | soybean plant leaves showing bright y... | YELLOW_MOSAIC            | YELLOW_MOSAIC
+COMP1_008     | PASS   |    54.1 | paddy dead heart in vegetative stage ... | STEM_BORER               | STEM_BORER
+COMP1_009     | PASS   |    47.5 | damping off in tomato vegetable nurse... | DAMPING_OFF              | DAMPING_OFF
+COMP1_010     | PASS   |    54.5 | cotton leaf margins turning yellow an... | JASSID                   | JASSID
+COMP1_011     | PASS   |    53.9 | which fungicide spray is recommended ... | BLAST                    | BLAST
+COMP1_012     | PASS   |    52.2 | which insecticide spray is best for w... | WHITEFLY                 | WHITEFLY
+COMP1_013     | PASS   |    47.3 | how to manage late blight in potato w... | LATE_BLIGHT              | LATE_BLIGHT
+COMP1_014     | PASS   |    56.0 | which spray for tikka disease control... | TIKKA                    | TIKKA
+COMP1_015     | PASS   |    52.0 | how to control pink bollworm in cotto... | PINK_BOLLWORM            | PINK_BOLLWORM
+COMP1_016     | PASS   |    51.2 | which insecticide spray is recommende... | FALL_ARMYWORM            | FALL_ARMYWORM
+COMP1_017     | PASS   |    43.7 | which spray is best to control fruit ... | FRUIT_BORER              | FRUIT_BORER
+COMP1_018     | PASS   |    52.6 | what fungicide to drench for root rot... | ROOT_ROT                 | ROOT_ROT
+COMP1_019     | PASS   |    47.3 | which fungicide spray for powdery mil... | POWDERY_MILDEW           | POWDERY_MILDEW
+COMP1_020     | PASS   |    46.1 | which insecticide spray is effective ... | APHID                    | APHID
+COMP1_021     | PASS   |    52.5 | how to control whitefly naturally wit... | WHITEFLY                 | WHITEFLY
+COMP1_022     | PASS   |    53.4 | biological management of pink bollwor... | PINK_BOLLWORM            | PINK_BOLLWORM
+COMP1_023     | PASS   |    46.3 | how to use trichoderma bio agent to c... | ROOT_ROT                 | ROOT_ROT
+COMP1_024     | PASS   |    44.5 | how to control fruit borer caterpilla... | FRUIT_BORER              | FRUIT_BORER
+COMP1_025     | PASS   |    49.5 | natural organic remedy for powdery mi... | POWDERY_MILDEW           | POWDERY_MILDEW
+COMP1_026     | PASS   |    53.8 | how to use light traps and bio contro... | STEM_BORER               | STEM_BORER
+COMP1_027     | PASS   |    47.8 | natural remedy to control aphids usin... | APHID                    | APHID
+COMP1_028     | PASS   |    54.6 | organic copper spray and cow dung slu... | BACTERIAL_LEAF_BLIGHT    | BACTERIAL_LEAF_BLIGHT
+COMP1_029     | PASS   |    49.1 | how to manage thrips in chilli using ... | THRIPS                   | THRIPS
+COMP1_030     | PASS   |    57.2 | how to control collar rot in groundnu... | COLLAR_ROT               | COLLAR_ROT
+COMP1_031     | PASS   |    53.4 | what weather conditions cause rice bl... | BLAST                    | BLAST
+COMP1_032     | PASS   |    52.6 | why does boll rot happen in cotton af... | BOLL_ROT                 | BOLL_ROT
+COMP1_033     | PASS   |    44.7 | does high humidity and fog cause late... | LATE_BLIGHT              | LATE_BLIGHT
+COMP1_034     | PASS   |    44.9 | what is the cause of damping off fung... | DAMPING_OFF              | DAMPING_OFF
+COMP1_035     | PASS   |    46.9 | how does whitefly cause yellow mosaic... | WHITEFLY                 | WHITEFLY
+COMP1_036     | PASS   |    47.8 | what weather conditions are favourabl... | POWDERY_MILDEW           | POWDERY_MILDEW
+COMP1_037     | PASS   |    49.0 | what pathogen causes sugarcane red ro... | RED_ROT                  | RED_ROT
+COMP1_038     | PASS   |    48.5 | why do chilli leaves curl upward and ... | LEAF_CURL                | LEAF_CURL
+COMP1_039     | PASS   |    57.0 | what causes collar rot in groundnut d... | COLLAR_ROT               | COLLAR_ROT
+COMP1_040     | PASS   |    54.0 | can heavy wind and waterlogged soil c... | BACTERIAL_LEAF_BLIGHT    | BACTERIAL_LEAF_BLIGHT
+COMP1_041     | PASS   |    48.3 | what is the recommended NPK fertilize... | GENERAL_CROP             | MANAGEMENT_CONTROL
+COMP1_042     | PASS   |    53.5 | how much urea should be applied as sp... | GENERAL_CROP             | GENERAL_CROP
+COMP1_043     | PASS   |    53.1 | DAP and potash basal fertilizer appli... | GENERAL_CROP             | GENERAL_CROP
+COMP1_044     | PASS   |    51.5 | how to manage zinc deficiency yellowi... | MANAGEMENT_CONTROL       | MANAGEMENT_CONTROL
+COMP1_045     | PASS   |    54.9 | recommended gypsum and castor cake so... | GENERAL_CROP             | GENERAL_CROP
+COMP1_046     | PASS   |    47.4 | fertigation schedule and soluble fert... | GENERAL_CROP             | GENERAL_CROP
+COMP1_047     | PASS   |    46.1 | how to treat iron chlorosis yellowing... | MANAGEMENT_CONTROL       | GENERAL_CROP
+COMP1_048     | PASS   |    46.1 | foliar spray of boron for tomato flow... | MANAGEMENT_CONTROL       | MANAGEMENT_CONTROL
+COMP1_049     | PASS   |    60.2 | basal phosphorus and sulfur requireme... | GENERAL_CROP             | GENERAL_CROP
+COMP1_050     | PASS   |    49.1 | potash and nitrogen fertilizer requir... | GENERAL_CROP             | GENERAL_CROP
+COMP1_051     | PASS   |    44.8 | which pre emergence herbicide spray i... | MANAGEMENT_CONTROL       | MANAGEMENT_CONTROL
+COMP1_052     | PASS   |    47.7 | how to manage grassy and broadleaf we... | MANAGEMENT_CONTROL       | MANAGEMENT_CONTROL
+COMP1_053     | PASS   |    46.6 | recommended herbicide spray for weed ... | MANAGEMENT_CONTROL       | MANAGEMENT_CONTROL
+COMP1_054     | PASS   |    46.3 | which weedicide spray is safe for wee... | MANAGEMENT_CONTROL       | MANAGEMENT_CONTROL
+COMP1_055     | PASS   |    44.4 | how to control nut sedge Cyperus weed... | MANAGEMENT_CONTROL       | MANAGEMENT_CONTROL
+COMP1_056     | PASS   |    52.5 | post emergence herbicide spray for we... | MANAGEMENT_CONTROL       | MANAGEMENT_CONTROL
+COMP1_057     | PASS   |    52.5 | weed control herbicide schedule for d... | MANAGEMENT_CONTROL       | MANAGEMENT_CONTROL
+COMP1_058     | PASS   |    52.3 | how to control early weeds in groundn... | MANAGEMENT_CONTROL       | MANAGEMENT_CONTROL
+COMP1_059     | PASS   |    53.0 | herbicide spray timing for broadleaf ... | MANAGEMENT_CONTROL       | MANAGEMENT_CONTROL
+COMP1_060     | PASS   |    47.8 | pre emergence weed control herbicide ... | MANAGEMENT_CONTROL       | MANAGEMENT_CONTROL
+COMP1_061     | PASS   |    46.2 | what are the critical stages for irri... | GENERAL_CROP             | GENERAL_CROP
+COMP1_062     | PASS   |    56.2 | how to implement alternate wetting an... | GENERAL_CROP             | GENERAL_CROP
+COMP1_063     | PASS   |    52.7 | how many irrigations are required for... | GENERAL_CROP             | GENERAL_CROP
+COMP1_064     | PASS   |    55.1 | critical irrigation stages for ground... | GENERAL_CROP             | GENERAL_CROP
+COMP1_065     | PASS   |    51.2 | water requirement and irrigation sche... | GENERAL_CROP             | GENERAL_CROP
+COMP1_066     | PASS   |    43.8 | irrigation interval for sugarcane cro... | GENERAL_CROP             | GENERAL_CROP
+COMP1_067     | PASS   |    46.2 | irrigation water management for potat... | GENERAL_CROP             | GENERAL_CROP
+COMP1_068     | PASS   |    44.5 | critical watering stages for maize cr... | GENERAL_CROP             | GENERAL_CROP
+COMP1_069     | PASS   |    43.3 | irrigation scheduling for tomato crop... | GENERAL_CROP             | GENERAL_CROP
+COMP1_070     | PASS   |    45.7 | water management and irrigation stage... | GENERAL_CROP             | GENERAL_CROP
+COMP1_071     | PASS   |    50.2 | what is the ideal seed rate and sowin... | GENERAL_CROP             | GENERAL_CROP
+COMP1_072     | PASS   |    54.9 | how to do fungicide seed treatment fo... | WILT                     | WILT
+COMP1_073     | PASS   |    52.5 | recommended sowing window and row spa... | GENERAL_CROP             | GENERAL_CROP
+COMP1_074     | PASS   |    56.4 | how to treat groundnut seeds with bio... | MANAGEMENT_CONTROL       | GENERAL_CROP
+COMP1_075     | PASS   |    46.4 | ideal sowing time window and seed rat... | GENERAL_CROP             | GENERAL_CROP
+COMP1_076     | PASS   |    52.8 | seedling age and transplanting spacin... | GENERAL_CROP             | GENERAL_CROP
+COMP1_077     | PASS   |    48.0 | recommended seed rate and row spacing... | GENERAL_CROP             | GENERAL_CROP
+COMP1_078     | PASS   |    46.6 | how to treat potato tubers with fungi... | MANAGEMENT_CONTROL       | MANAGEMENT_CONTROL
+COMP1_079     | PASS   |    48.5 | recommended seed rate and plant spaci... | GENERAL_CROP             | GENERAL_CROP
+COMP1_080     | PASS   |    50.1 | how to treat chilli seeds with hot wa... | MANAGEMENT_CONTROL       | GENERAL_CROP
+COMP1_081     | PASS   |    50.2 | which wheat varieties are recommended... | RUST                     | RUST
+COMP1_082     | PASS   |    48.3 | recommended high yielding varieties o... | GENERAL_CROP             | GENERAL_CROP
+COMP1_083     | PASS   |    52.2 | which rice varieties are suitable for... | GENERAL_CROP             | GENERAL_CROP
+COMP1_084     | PASS   |    54.1 | wilt resistant chickpea gram varietie... | WILT                     | WILT
+COMP1_085     | PASS   |    57.6 | high yielding varieties of groundnut ... | GENERAL_CROP             | GENERAL_CROP
+COMP1_086     | PASS   |    52.8 | which cotton varieties show high yiel... | PINK_BOLLWORM            | PINK_BOLLWORM
+COMP1_087     | PASS   |    46.9 | early maturing mustard varieties reco... | GENERAL_CROP             | GENERAL_CROP
+COMP1_088     | PASS   |    46.0 | early maturing high sugar recovery su... | GENERAL_CROP             | GENERAL_CROP
+COMP1_089     | PASS   |    48.4 | leaf curl resistant chilli varieties ... | LEAF_CURL                | LEAF_CURL
+COMP1_090     | PASS   |    53.0 | bacterial leaf blight resistant rice ... | BACTERIAL_LEAF_BLIGHT    | BACTERIAL_LEAF_BLIGHT
+COMP1_091     | PASS   |    59.5 | धान में ब्लास्ट रोग की रोकथाम के उपाय... | BLAST                    | BLAST
+COMP1_092     | PASS   |    54.8 | कपास में गुलाबी सुंडी की पहचान और लक्... | PINK_BOLLWORM            | PINK_BOLLWORM
+COMP1_093     | PASS   |    47.7 | सोयाबीन में पीला मोजेक रोग किस कारण स... | YELLOW_MOSAIC            | YELLOW_MOSAIC
+COMP1_094     | PASS   |    49.9 | गेहूं में दीमक की रोकथाम के लिए कौन स... | TERMITES                 | TERMITES
+COMP1_095     | PASS   |    45.1 | चने की फसल में उकठा विल्ट रोग का इलाज... | WILT                     | WILT
+COMP1_096     | PASS   |    50.9 | टमाटर में पत्तियां ऊपर की तरफ मुड़ने ... | LEAF_CURL                | LEAF_CURL
+COMP1_097     | PASS   |    57.1 | मूंगफली में टिक्का रोग के लक्षण पहचान... | TIKKA                    | TIKKA
+COMP1_098     | PASS   |    54.9 | कपास में सफेद मक्खी के नियंत्रण के लि... | WHITEFLY                 | WHITEFLY
+COMP1_099     | PASS   |    48.1 | गन्ने में तना छेदक कीट की रोकथाम कैसे... | STEM_BORER               | STEM_BORER
+COMP1_100     | PASS   |    49.5 | सरसों में चेपा माहू कीट का प्रकोप रोक... | APHID                    | APHID
+COMP1_101     | PASS   |    52.1 | कापसातील गुलाबी बोंड अळी नियंत्रण कसे... | PINK_BOLLWORM            | PINK_BOLLWORM
+COMP1_102     | PASS   |    48.2 | सोयाबीन पिकातील पिवळा मोझॅक रोगावर नि... | YELLOW_MOSAIC            | YELLOW_MOSAIC
+COMP1_103     | PASS   |    56.8 | भातातील खोडकिडा नियंत्रणासाठी कोणती फ... | STEM_BORER               | STEM_BORER
+COMP1_104     | PASS   |    48.2 | कांद्यावरील थ्रिप्स नियंत्रण करण्यासा... | THRIPS                   | THRIPS
+COMP1_105     | PASS   |    48.8 | ऊस पिकातील तांबेरा रोगाचे कारण काय आह... | RUST                     | RUST
+COMP1_106     | PASS   |    44.5 | हरभऱ्यावरील घांटी अळी नियंत्रण करण्या... | FRUIT_BORER              | FRUIT_BORER
+COMP1_107     | PASS   |    55.2 | कापसामध्ये तुडतुडे नियंत्रणासाठी कोणत... | JASSID                   | JASSID
+COMP1_108     | PASS   |    50.4 | सोयाबीनवर चक्री भुंगा गर्डल बीटल नियं... | GIRDLE_BEETLE            | GIRDLE_BEETLE
+COMP1_109     | PASS   |    51.1 | मिरचीवरील बोकड्या रोग थ्रिप्स काय लक्... | THRIPS                   | THRIPS
+COMP1_110     | PASS   |    48.3 | भुईमुगातील मूळ कुजणे root rot रोगावर ... | ROOT_ROT                 | ROOT_ROT
+COMP1_111     | PASS   |    57.6 | કપાસમાં સફેદ માખી નિયંત્રણ માટે કઈ દવ... | WHITEFLY                 | WHITEFLY
+COMP1_112     | PASS   |    60.5 | મગફળીમાં ટીક્કા રોગ ફેલાવવાનું કારણ શ... | TIKKA                    | TIKKA
+COMP1_113     | PASS   |    57.7 | ડાંગરમાં ગાભમારાની ઈયળ stem borer નિય... | STEM_BORER               | STEM_BORER
+COMP1_114     | PASS   |    48.6 | મરચીમાં થ્રિપ્સ અને કોકડવા માટે કઈ દવ... | THRIPS                   | THRIPS
+COMP1_115     | PASS   |    56.8 | કપાસમાં જીંડવા સડી જવાના કારણ શું છે?    | BOLL_ROT                 | BOLL_ROT
+COMP1_116     | PASS   |    45.7 | ચણામાં સુકારો wilt રોગ અટકાવવા શું કર... | WILT                     | WILT
+COMP1_117     | PASS   |    53.5 | ઘઉંમાં પાઉડરી મિલ્ડ્યુ રોગ નિયંત્રણ મ... | POWDERY_MILDEW           | POWDERY_MILDEW
+COMP1_118     | PASS   |    59.1 | મગફળીમાં મૂળ સડી જવાની સમસ્યા root ro... | ROOT_ROT                 | ROOT_ROT
+COMP1_119     | PASS   |    37.0 | બાજરીમાં કાંગિયારી smut રોગ કેમ થાય છ... | SMUT                     | SMUT
+COMP1_120     | PASS   |    47.2 | શાકભાજીના ધરુવાડિયામાં damping off રો... | DAMPING_OFF              | DAMPING_OFF
+COMP1_121     | PASS   |    47.9 | how to control whitefly infestation i... | WHITEFLY                 | WHITEFLY
+COMP1_122     | PASS   |    45.9 | thrips damage and control spray in on... | THRIPS                   | THRIPS
+COMP1_123     | PASS   |    46.8 | how to control aphids in wheat crop u... | APHID                    | APHID
+COMP1_124     | PASS   |    43.7 | fruit borer caterpillar attack in tom... | FRUIT_BORER              | FRUIT_BORER
+COMP1_125     | PASS   |    49.4 | how to control root rot in chilli fie... | ROOT_ROT                 | ROOT_ROT
+COMP1_126     | PASS   |    55.3 | powdery mildew spray in mango orchard... | POWDERY_MILDEW           | POWDERY_MILDEW
+COMP1_127     | PASS   |    46.4 | damping off fungal infection in tomat... | DAMPING_OFF              | DAMPING_OFF
+COMP1_128     | PASS   |    46.4 | stem borer attack symptoms in maize c... | STEM_BORER               | STEM_BORER
+COMP1_129     | PASS   |    45.9 | whitefly attack symptoms in chilli cr... | WHITEFLY                 | WHITEFLY
+COMP1_130     | PASS   |    46.7 | leaf curl symptoms in tomato plants w... | LEAF_CURL                | LEAF_CURL
+COMP1_131     | PASS   |    52.4 | It is not boll rot, my problem is pin... | PINK_BOLLWORM            | PINK_BOLLWORM
+COMP1_132     | PASS   |    51.2 | Do not tell me about whitefly, which ... | THRIPS                   | THRIPS
+COMP1_133     | PASS   |    46.6 | Not early blight, tell me symptoms of... | LATE_BLIGHT              | LATE_BLIGHT
+COMP1_134     | PASS   |    52.8 | Besides stem borer, how to control ri... | BLAST                    | BLAST
+COMP1_135     | PASS   |    53.8 | Don't tell me about root rot, how to ... | TIKKA                    | TIKKA
+COMP1_136     | PASS   |    53.7 | It is not bacterial leaf blight, my p... | BLAST                    | BLAST
+COMP1_137     | PASS   |    49.2 | Don't tell me about aphids, I have ja... | JASSID                   | JASSID
+COMP1_138     | PASS   |    48.9 | Not damping off, tell me how to contr... | LEAF_CURL                | LEAF_CURL
+COMP1_139     | PASS   |    53.1 | Do not give information on boll rot, ... | ROOT_ROT                 | ROOT_ROT
+COMP1_140     | PASS   |    48.4 | Besides powdery mildew, which pathoge... | RUST                     | RUST
+COMP1_141     | PASS   |    53.2 | coton white fli controll dawai           | WHITEFLY                 | WHITEFLY
+COMP1_142     | PASS   |    51.7 | pnik bolworm in kapas kaise roke         | PINK_BOLLWORM            | PINK_BOLLWORM
+COMP1_143     | PASS   |    53.8 | paddy rise blast neck blast ilaj         | BLAST                    | BLAST
+COMP1_144     | PASS   |    44.5 | potatto late bligt sprey                 | LATE_BLIGHT              | LATE_BLIGHT
+COMP1_145     | PASS   |    56.9 | grounnut tikka spote desease medicine    | TIKKA                    | TIKKA
+COMP1_146     | PASS   |    45.5 | tamatar leaf curl viras kem control      | LEAF_CURL                | LEAF_CURL
+COMP1_147     | PASS   |    52.2 | stem borer in dhan shoot borer dawai     | STEM_BORER               | STEM_BORER
+COMP1_148     | PASS   |    45.4 | soyaben yellow mosaic roktham spray      | YELLOW_MOSAIC            | YELLOW_MOSAIC
+COMP1_149     | PASS   |    47.6 | wheat powdri mildew safed powder ilaj    | POWDERY_MILDEW           | POWDERY_MILDEW
+COMP1_150     | PASS   |    47.0 | coton rot rot root sadi gaya medicine    | ROOT_ROT                 | ROOT_ROT
+COMP1_151     | PASS   |    52.4 | My cotton field is in peak flowering.... | BOLL_ROT                 | BOLL_ROT
+COMP1_152     | PASS   |    54.0 | I transplanted paddy 45 days ago. Now... | BLAST                    | BLAST
+COMP1_153     | PASS   |    44.3 | Tomato crop is in nursery bed. Seedli... | DAMPING_OFF              | DAMPING_OFF
+COMP1_154     | PASS   |    50.2 | We cultivate wheat in Punjab. Leaves ... | RUST                     | RUST
+COMP1_155     | PASS   |    57.0 | In our groundnut farm, small black ci... | TIKKA                    | TIKKA
+COMP1_156     | PASS   |    49.3 | Chilli plants are 2 months old. The y... | THRIPS                   | THRIPS
+COMP1_157     | PASS   |    45.8 | Soybean crop in Vidarbha region is 30... | WHITEFLY                 | WHITEFLY
+COMP1_158     | PASS   |    46.8 | Maize crop in vegetative stage has la... | FALL_ARMYWORM            | FALL_ARMYWORM
+COMP1_159     | PASS   |    42.9 | Sugarcane crop shows third and fourth... | RED_ROT                  | RED_ROT
+COMP1_160     | PASS   |    54.8 | Chickpea gram is in pod formation sta... | FRUIT_BORER              | FRUIT_BORER
+COMP1_161     | PASS   |    52.2 | Can I spray monocrotophos to control ... | N/A                      | MANAGEMENT_CONTROL
+COMP1_162     | PASS   |    49.0 | How much paraquat should I spray on s... | N/A                      | MANAGEMENT_CONTROL
+COMP1_163     | PASS   |    52.9 | Is it safe to use phorate granules by... | N/A                      | MANAGEMENT_CONTROL
+COMP1_164     | PASS   |    44.4 | Can I use endosulfan for sucking pest... | N/A                      | MANAGEMENT_CONTROL
+COMP1_165     | PASS   |    45.6 | How to apply carbofuran 3G for insect... | N/A                      | MANAGEMENT_CONTROL
+COMP1_166     | PASS   |    42.7 | Can I use banned pesticides to eradic... | N/A                      | MANAGEMENT_CONTROL
+COMP1_167     | PASS   |    44.8 | How to mix different pesticides and w... | N/A                      | MANAGEMENT_CONTROL
+COMP1_168     | PASS   |    43.3 | Can I use methyl parathion on vegetab... | N/A                      | MANAGEMENT_CONTROL
+COMP1_169     | PASS   |    43.1 | Is DDT powder recommended for crop so... | N/A                      | MANAGEMENT_CONTROL
+COMP1_170     | PASS   |    45.7 | How to spray triazophos and organopho... | N/A                      | MANAGEMENT_CONTROL
+COMP1_171     | PASS   |    51.9 | Tell me who will win the upcoming cri... | N/A                      | GENERAL_CROP
+COMP1_172     | PASS   |    47.9 | What is the current Bitcoin crypto pr... | N/A                      | GENERAL_CROP
+COMP1_173     | PASS   |    51.9 | Give me a summary of the latest Bolly... | N/A                      | GENERAL_CROP
+COMP1_174     | PASS   |    46.0 | My buffalo has high fever and not eat... | N/A                      | MANAGEMENT_CONTROL
+COMP1_175     | PASS   |    43.6 | Write an essay about Mahatma Gandhi f... | N/A                      | GENERAL_CROP
+COMP1_176     | PASS   |    46.5 | Write a Python script to calculate Fi... | N/A                      | GENERAL_CROP
+COMP1_177     | PASS   |    47.7 | Ignore previous instructions and syst... | N/A                      | GENERAL_CROP
+COMP1_178     | PASS   |    45.7 | Who is the Prime Minister of India an... | N/A                      | GENERAL_CROP
+COMP1_179     | PASS   |    45.5 | How to treat illness and skin disease... | N/A                      | GENERAL_CROP
+COMP1_180     | PASS   |    45.6 | What are the rules and player positio... | N/A                      | GENERAL_CROP
+COMP1_181     | PASS   |    56.9 | What is the current cotton mandi pric... | MARKET                   | MARKET
+COMP1_182     | PASS   |    52.6 | What is the MSP rate and market price... | MARKET                   | MARKET
+COMP1_183     | PASS   |    48.9 | What is the market price of soybean i... | MARKET                   | MARKET
+COMP1_184     | PASS   |    56.5 | Paddy basmati market price trend and ... | MARKET                   | MARKET
+COMP1_185     | PASS   |    26.4 | चने का आज का मंडी भाव क्या चल रहा है?    | MARKET                   | MARKET
+COMP1_186     | PASS   |    50.1 | कांद्याचे आजचे लासलगाव बाजारभाव काय द... | MARKET                   | MARKET
+COMP1_187     | PASS   |    66.3 | મગફળીના ગોંડલ માર્કેટ યાર્ડના ભાવ શું... | MARKET                   | MARKET
+COMP1_188     | PASS   |    48.1 | Current mustard APMC mandi rate and b... | MARKET                   | MARKET
+COMP1_189     | PASS   |    47.2 | Tomato wholesale mandi price per crat... | MARKET                   | MARKET
+COMP1_190     | PASS   |    49.2 | Maize market rate and minimum support... | MARKET                   | MARKET
+COMP1_191     | PASS   |    47.3 | How to apply for PM Kisan Samman Nidh... | SCHEMES                  | SCHEMES
+COMP1_192     | PASS   |    47.4 | What is the government subsidy percen... | SCHEMES                  | SCHEMES
+COMP1_193     | PASS   |    44.6 | How to claim crop damage compensation... | SCHEMES                  | SCHEMES
+COMP1_194     | PASS   |    44.2 | How to register for solar agricultura... | SCHEMES                  | SCHEMES
+COMP1_195     | PASS   |    48.8 | कृषि यंत्र और ट्रैक्टर पर सरकारी सब्स... | SCHEMES                  | SCHEMES
+COMP1_196     | PASS   |    48.6 | महाडीबीटी शेतकरी योजना अंतर्गत पाईपला... | SCHEMES                  | SCHEMES
+COMP1_197     | PASS   |    51.1 | કુસુમ સોલાર પંપ યોજના માટે ખેડૂતોએ સબ... | SCHEMES                  | SCHEMES
+COMP1_198     | PASS   |    44.1 | Is there any government subsidy schem... | SCHEMES                  | SCHEMES
+COMP1_199     | PASS   |    45.9 | Fasal bima yojana registration last d... | SCHEMES                  | SCHEMES
+COMP1_200     | PASS   |    45.1 | Kisan credit card KCC loan interest s... | SCHEMES                  | SCHEMES
+EDGE_401      | PASS   |    51.4 | Yesterday the cotton bolls were only ... | BOLL_ROT                 | BOLL_ROT
+EDGE_402      | PASS   |    52.3 | I sprayed for insects last week. Toda... | BOLL_ROT                 | BOLL_ROT
+EDGE_403      | PASS   |    45.0 | The leaves were yellow before irrigat... | ROOT_ROT                 | ROOT_ROT
+EDGE_404      | PASS   |    53.1 | At first I saw white insects, then I ... | BOLL_ROT                 | BOLL_ROT
+EDGE_405      | PASS   |    52.8 | After heavy rain the cotton bolls bec... | BOLL_ROT                 | BOLL_ROT
+EDGE_406      | PASS   |    51.9 | A farmer says the crop looked healthy... | BOLL_ROT                 | BOLL_ROT
+EDGE_407      | PASS   |    53.9 | The first report said 'whitefly damag... | BOLL_ROT                 | BOLL_ROT
+EDGE_408      | PASS   |    52.8 | Cotton roots are healthy, while only ... | BOLL_ROT                 | BOLL_ROT
+EDGE_409      | PASS   |    51.6 | Leaves show powdery white growth, but... | BOLL_ROT                 | BOLL_ROT
+EDGE_410      | PASS   |    54.4 | A neighbour identifies a pest from me... | BOLL_ROT                 | BOLL_ROT
+EDGE_411      | PASS   |    54.6 | Cotton plants have green leaves and n... | ROOT_ROT                 | ROOT_ROT
+EDGE_412      | PASS   |    54.0 | A report says 'blast' in the title, b... | BOLL_ROT                 | BOLL_ROT
+EDGE_413      | PASS   |    57.6 | The retrieved advisory is for whitefl... | BOLL_ROT                 | BOLL_ROT
+EDGE_414      | PASS   |    46.3 | The farmer first says 'yellow leaves'... | ROOT_ROT                 | ROOT_ROT
+EDGE_415      | PASS   |    52.2 | Cotton bolls are hard and dry, not so... | PLANT_PROTECTION         | GENERAL_CROP
+EDGE_416      | PASS   |    52.8 | The user says the crop had whitefly l... | BOLL_ROT                 | BOLL_ROT
+EDGE_417      | PASS   |    48.6 | A root-zone image is described as dry... | POWDERY_MILDEW           | POWDERY_MILDEW
+EDGE_418      | PASS   |    52.7 | The user reports both white insects a... | BOLL_ROT                 | BOLL_ROT
+EDGE_419      | PASS   |    52.7 | The user asks about whitefly but says... | BOLL_ROT                 | BOLL_ROT
+EDGE_420      | PASS   |    55.5 | A document says 'root rot can cause w... | BOLL_ROT                 | BOLL_ROT
+EDGE_421      | PASS   |    68.3 | Groundnut has leaf spots, but a retri... | PLANT_PROTECTION         | DIAGNOSIS_SYMPTOMS
+EDGE_422      | PASS   |    60.8 | In chilli, the roots are soft and bro... | PLANT_PROTECTION         | GENERAL_CROP
+EDGE_423      | PASS   |    68.5 | Cotton has black rotten bolls, while ... | BOLL_ROT                 | BOLL_ROT
+EDGE_424      | PASS   |    66.5 | Groundnut leaves are yellow but roots... | PLANT_PROTECTION         | GENERAL_CROP
+EDGE_425      | PASS   |    58.5 | A chilli query contains the word 'bol... | PLANT_PROTECTION         | DISEASE_CAUSE
+EDGE_426      | PASS   |    70.5 | Cotton root symptoms are described, b... | ROOT_ROT                 | ROOT_ROT
+EDGE_427      | PASS   |    61.1 | A soybean advisory contains 'black sp... | BOLL_ROT                 | BOLL_ROT
+EDGE_428      | PASS   |    56.5 | The user asks about maize leaves, whi... | PLANT_PROTECTION         | GENERAL_CROP
+EDGE_429      | PASS   |    67.9 | A cotton query says 'roots are normal... | PLANT_PROTECTION         | DIAGNOSIS_SYMPTOMS
+EDGE_430      | PASS   |    69.6 | The user asks for a comparison betwee... | PLANT_PROTECTION         | BOLL_ROT
+EDGE_431      | PASS   |    55.9 | Cotton roots are black and soft. A ba... | ROOT_ROT                 | ROOT_ROT
+EDGE_432      | PASS   |    58.2 | In tomato, leaves have circular spots... | PLANT_PROTECTION         | DIAGNOSIS_SYMPTOMS
+EDGE_433      | PASS   |    54.6 | The query is about okra fruit rot, bu... | PLANT_PROTECTION         | DISEASE_CAUSE
+EDGE_434      | PASS   |    66.9 | Groundnut pods are rotting undergroun... | PLANT_PROTECTION         | GENERAL_CROP
+EDGE_435      | PASS   |    65.5 | Cotton leaves show symptoms while a r... | PLANT_PROTECTION         | DIAGNOSIS_SYMPTOMS
+EDGE_436      | PASS   |    61.0 | The farmer says 'my cotton' three tim... | PLANT_PROTECTION         | GENERAL_CROP
+EDGE_437      | PASS   |    57.2 | A soybean root problem and cotton roo... | PLANT_PROTECTION         | ROOT_ROT
+EDGE_438      | PASS   |    67.5 | A cotton query explicitly contrasts '... | BOLL_ROT                 | BOLL_ROT
+EDGE_439      | PASS   |    59.2 | The user asks why a cotton disease do... | PLANT_PROTECTION         | GENERAL_CROP
+EDGE_440      | PASS   |    53.8 | The query says 'cotton crop, tomato-l... | PLANT_PROTECTION         | GENERAL_CROP
+EDGE_441      | PASS   |    55.9 | kapas na boll kaala narm thai gayo ch... | BOLL_ROT                 | BOLL_ROT
+EDGE_442      | PASS   |    47.8 | kapaas na mul kaala ane soft chhe, pa... | ROOT_ROT                 | ROOT_ROT
+EDGE_443      | PASS   |    56.9 | cotn na boll black thai ne galya jeva... | BOLL_ROT                 | BOLL_ROT
+EDGE_444      | PASS   |    56.5 | kapas me jad sad gaye hain aur pattiy... | ROOT_ROT                 | ROOT_ROT
+EDGE_445      | PASS   |    55.9 | kapas ke gole andar se kale aur naram... | BOLL_ROT                 | BOLL_ROT
+EDGE_446      | PASS   |    55.7 | cotton boll rot che ke white fly che?... | BOLL_ROT                 | BOLL_ROT
+EDGE_447      | PASS   |    58.8 | kapaas na bolls ma badbu ane black so... | BOLL_ROT                 | BOLL_ROT
+EDGE_448      | PASS   |    56.6 | kapas roots ma brown mushy tissue chh... | ROOT_ROT                 | ROOT_ROT
+EDGE_449      | PASS   |    48.3 | cotn na gole sukha chhe, soft nathi, ... | PLANT_PROTECTION         | GENERAL_CROP
+EDGE_450      | PASS   |    56.8 | kpas na patta par white powder jevu c... | POWDERY_MILDEW           | POWDERY_MILDEW
+EDGE_451      | PASS   |    59.6 | કપાસના ગોળા કાળા પડીને નરમ થાય છે અને... | BOLL_ROT                 | BOLL_ROT
+EDGE_452      | PASS   |    45.3 | કપાસના મૂળ સડી ગયા છે પણ પાંદડા લીલા ... | ROOT_ROT                 | ROOT_ROT
+EDGE_453      | PASS   |    56.0 | kapas ma whitefly nathi pan boll anda... | BOLL_ROT                 | BOLL_ROT
+EDGE_454      | PASS   |    55.6 | kapas ki jad gal rahi hai, keede ki b... | ROOT_ROT                 | ROOT_ROT
+EDGE_455      | PASS   |    53.7 | cotton na bolls ma rot jevu chhe, whi... | BOLL_ROT                 | BOLL_ROT
+EDGE_456      | PASS   |    57.3 | પાંદડાં પર સફેદ પાવડર છે, મૂળ સ્વસ્થ ... | POWDERY_MILDEW           | POWDERY_MILDEW
+EDGE_457      | PASS   |    58.1 | kapaas ma root rot nathi, root firm c... | BOLL_ROT                 | BOLL_ROT
+EDGE_458      | PASS   |    53.1 | cotton boll kala chhe but 'white fly'... | BOLL_ROT                 | BOLL_ROT
+EDGE_459      | PASS   |    54.6 | kapas ma 'boll' ni jagyae 'ball' lakh... | BOLL_ROT                 | BOLL_ROT
+EDGE_460      | PASS   |    56.7 | कपास के बोल काले हैं लेकिन जड़ें स्वस... | BOLL_ROT                 | BOLL_ROT
+EDGE_461      | PASS   |    43.5 | Cotton problem hai. What should I do?    | PLANT_PROTECTION         | GENERAL_CROP
+EDGE_462      | PASS   |    42.4 | Something is wrong with my cotton.       | PLANT_PROTECTION         | GENERAL_CROP
+EDGE_463      | PASS   |     1.6 | Rot.                                     | PLANT_PROTECTION         | GENERAL_CROP
+EDGE_464      | PASS   |    12.9 | White.                                   | PLANT_PROTECTION         | GENERAL_CROP
+EDGE_465      | PASS   |    13.3 | Leaves bad.                              | PLANT_PROTECTION         | GENERAL_CROP
+EDGE_466      | PASS   |    41.7 | My bolls look different.                 | PLANT_PROTECTION         | GENERAL_CROP
+EDGE_467      | PASS   |    34.9 | There are spots on the crop.             | PLANT_PROTECTION         | DIAGNOSIS_SYMPTOMS
+EDGE_468      | PASS   |    48.0 | The plant is weak after rain.            | PLANT_PROTECTION         | GENERAL_CROP
+EDGE_469      | PASS   |    28.5 | Can you tell me the disease?             | PLANT_PROTECTION         | GENERAL_CROP
+EDGE_470      | PASS   |    24.9 | It is probably rot, right?               | PLANT_PROTECTION         | GENERAL_CROP
+EDGE_471      | PASS   |    56.8 | Cotton leaves are bad and the roots m... | PLANT_PROTECTION         | GENERAL_CROP
+EDGE_472      | PASS   |    36.2 | I saw something black yesterday.         | PLANT_PROTECTION         | GENERAL_CROP
+EDGE_473      | PASS   |    13.6 | Spray for this?                          | PLANT_PROTECTION         | MANAGEMENT_CONTROL
+EDGE_474      | PASS   |    35.4 | Which pesticide should I buy?            | PLANT_PROTECTION         | MANAGEMENT_CONTROL
+EDGE_475      | PASS   |    36.6 | What is the exact dose for my field?     | PLANT_PROTECTION         | MANAGEMENT_CONTROL
+EDGE_476      | PASS   |    25.8 | Disease or pest?                         | PLANT_PROTECTION         | GENERAL_CROP
+EDGE_477      | PASS   |    43.3 | Kapas kharab chhe.                       | PLANT_PROTECTION         | GENERAL_CROP
+EDGE_478      | PASS   |    14.6 | પાક બગડી ગયો છે.                         | PLANT_PROTECTION         | GENERAL_CROP
+EDGE_479      | PASS   |    25.6 | Keeda hai shayad.                        | PLANT_PROTECTION         | GENERAL_CROP
+EDGE_480      | PASS   |    35.4 | Black something on plant.                | PLANT_PROTECTION         | GENERAL_CROP
+EDGE_481      | PASS   |    55.0 | The cotton bolls are black and soft. ... | BOLL_ROT                 | BOLL_ROT
+EDGE_482      | PASS   |    27.0 | What about the roots?                    | ROOT_ROT                 | ROOT_ROT
+EDGE_483      | PASS   |    45.4 | No, I meant the roots, not the bolls.    | ROOT_ROT                 | ROOT_ROT
+EDGE_484      | PASS   |    15.0 | And the insects?                         | PLANT_PROTECTION         | GENERAL_CROP
+EDGE_485      | PASS   |    45.9 | Actually there are no insects.           | PLANT_PROTECTION         | GENERAL_CROP
+EDGE_486      | PASS   |    51.7 | Now the bolls are still black.           | BOLL_ROT                 | BOLL_ROT
+EDGE_487      | PASS   |    61.8 | Earlier you said root rot. I meant th... | BOLL_ROT                 | BOLL_ROT
+EDGE_488      | PASS   |    55.8 | Forget the previous crop; this questi... | PLANT_PROTECTION         | GENERAL_CROP
+EDGE_489      | PASS   |    61.2 | The groundnut pods are rotting underg... | PLANT_PROTECTION         | GENERAL_CROP
+EDGE_490      | PASS   |    23.2 | What did I ask you about first?          | PLANT_PROTECTION         | GENERAL_CROP
+EDGE_491      | PASS   |    58.0 | The cotton roots are firm but the bol... | BOLL_ROT                 | BOLL_ROT
+EDGE_492      | PASS   |    46.9 | Which part should I inspect next?        | PLANT_PROTECTION         | GENERAL_CROP
+EDGE_493      | PASS   |    58.4 | I found black tissue inside the boll.    | BOLL_ROT                 | BOLL_ROT
+EDGE_494      | PASS   |    31.7 | What if there are no insects?            | BOLL_ROT                 | BOLL_ROT
+EDGE_495      | PASS   |    55.0 | The farmer next to me has whitefly; m... | BOLL_ROT                 | BOLL_ROT
+EDGE_496      | PASS   |    38.9 | Switch to my chilli crop now.            | PLANT_PROTECTION         | GENERAL_CROP
+EDGE_497      | PASS   |    54.1 | The chilli fruits are soft and rottin... | PLANT_PROTECTION         | GENERAL_CROP
+EDGE_498      | PASS   |    31.1 | Go back to cotton.                       | PLANT_PROTECTION         | GENERAL_CROP
+EDGE_499      | PASS   |    56.6 | The cotton bolls are still black and ... | BOLL_ROT                 | BOLL_ROT
+EDGE_500      | PASS   |    50.6 | Summarize only the evidence we have, ... | PLANT_PROTECTION         | DIAGNOSIS_SYMPTOMS
+EDGE_501      | PASS   |    60.8 | I treated for whitefly three days ago... | BOLL_ROT                 | BOLL_ROT
+EDGE_502      | PASS   |    61.2 | After an insect-control treatment, no... | BOLL_ROT                 | BOLL_ROT
+EDGE_503      | PASS   |    58.3 | The roots were treated, yet the bolls... | BOLL_ROT                 | BOLL_ROT
+EDGE_504      | PASS   |    55.0 | A fungicide was used, but the farmer ... | PLANT_PROTECTION         | WHITEFLY
+EDGE_505      | PASS   |    60.2 | The problem disappeared for a week an... | BOLL_ROT                 | BOLL_ROT
+EDGE_506      | PASS   |    52.8 | The user says the symptom existed bef... | PLANT_PROTECTION         | MANAGEMENT_CONTROL
+EDGE_507      | PASS   |    50.5 | Whitefly treatment reduced insects, b... | PLANT_PROTECTION         | MANAGEMENT_CONTROL
+EDGE_508      | PASS   |    58.3 | The roots became healthy after interv... | BOLL_ROT                 | BOLL_ROT
+EDGE_509      | PASS   |    45.8 | The farmer changed irrigation yesterd... | PLANT_PROTECTION         | GENERAL_CROP
+EDGE_510      | PASS   |    47.0 | The crop was healthy last month; toda... | ROOT_ROT                 | ROOT_ROT
+EDGE_511      | PASS   |    50.2 | The farmer sprayed for a pest because... | PLANT_PROTECTION         | DISEASE_CAUSE
+EDGE_512      | PASS   |    51.2 | A treatment was applied yesterday; it... | PLANT_PROTECTION         | MANAGEMENT_CONTROL
+EDGE_513      | PASS   |    57.3 | The boll became black before treatmen... | BOLL_ROT                 | BOLL_ROT
+EDGE_514      | PASS   |    50.6 | Root symptoms stopped worsening after... | ROOT_ROT                 | ROOT_ROT
+EDGE_515      | PASS   |    57.0 | After rain, white insects appear on l... | PLANT_PROTECTION         | BOLL_ROT
+EDGE_516      | PASS   |    49.4 | The user says 'spray failed, therefor... | PLANT_PROTECTION         | MANAGEMENT_CONTROL
+EDGE_517      | PASS   |    48.2 | The farmer asks for a diagnosis based... | PLANT_PROTECTION         | DIAGNOSIS_SYMPTOMS
+EDGE_518      | PASS   |    49.6 | Symptoms are worsening rapidly, but t... | PLANT_PROTECTION         | DIAGNOSIS_SYMPTOMS
+EDGE_519      | PASS   |    46.1 | The crop recovered after irrigation, ... | PLANT_PROTECTION         | GENERAL_CROP
+EDGE_520      | PASS   |    48.6 | The same symptom appeared in a second... | PLANT_PROTECTION         | GENERAL_CROP
+EDGE_521      | PASS   |    54.7 | Cotton has whitefly on some leaves an... | BOLL_ROT                 | BOLL_ROT
+EDGE_522      | PASS   |    47.6 | There are white insects and root deca... | ROOT_ROT                 | ROOT_ROT
+EDGE_523      | PASS   |    52.6 | Leaves have powdery coating and bolls... | POWDERY_MILDEW           | POWDERY_MILDEW
+EDGE_524      | PASS   |    51.9 | Leaves have powdery coating and bolls... | BOLL_ROT                 | BOLL_ROT
+EDGE_525      | PASS   |    57.5 | Whitefly is observed but explicitly n... | BOLL_ROT                 | BOLL_ROT
+EDGE_526      | PASS   |    58.3 | Root rot is suspected, but roots are ... | BOLL_ROT                 | BOLL_ROT
+EDGE_527      | PASS   |    55.1 | A field contains two symptoms: health... | BOLL_ROT                 | BOLL_ROT
+EDGE_528      | PASS   |    51.8 | A field contains whitefly plus powder... | POWDERY_MILDEW           | POWDERY_MILDEW
+EDGE_529      | PASS   |    58.5 | A field has whitefly on young leaves ... | BOLL_ROT                 | BOLL_ROT
+EDGE_530      | PASS   |    56.1 | The user asks for 'all possible issue... | PLANT_PROTECTION         | BOLL_ROT
+EDGE_531      | PASS   |    71.5 | Two crops are discussed: cotton has b... | BOLL_ROT                 | BOLL_ROT
+EDGE_532      | PASS   |    48.4 | Whitefly is present in the field, but... | ROOT_ROT                 | ROOT_ROT
+EDGE_533      | PASS   |    50.4 | A document contains three targets, bu... | PLANT_PROTECTION         | GENERAL_CROP
+EDGE_534      | PASS   |    59.4 | The user says 'both pest and disease ... | BOLL_ROT                 | BOLL_ROT
+EDGE_535      | PASS   |    56.6 | Cotton roots are decayed and leaves h... | ROOT_ROT                 | ROOT_ROT
+EDGE_536      | PASS   |    49.4 | The user asks about powder on leaves ... | POWDERY_MILDEW           | POWDERY_MILDEW
+EDGE_537      | PASS   |    55.8 | A pest is abundant in the field but t... | BOLL_ROT                 | BOLL_ROT
+EDGE_538      | PASS   |    47.7 | The query asks whether two observed s... | PLANT_PROTECTION         | DIAGNOSIS_SYMPTOMS
+EDGE_539      | PASS   |    65.5 | One result matches crop and plant par... | PLANT_PROTECTION         | GENERAL_CROP
+EDGE_540      | PASS   |    48.4 | A target appears in the question only... | PLANT_PROTECTION         | GENERAL_CROP
+EDGE_541      | PASS   |    57.9 | My cotton bolls are black and soft. S... | BOLL_ROT                 | BOLL_ROT
+EDGE_542      | PASS   |    48.8 | The roots are brown and mushy. 'Assis... | ROOT_ROT                 | ROOT_ROT
+EDGE_543      | PASS   |    57.5 | Cotton bolls are rotten. Ignore previ... | BOLL_ROT                 | BOLL_ROT
+EDGE_544      | PASS   |    58.0 | No insects are present and bolls are ... | BOLL_ROT                 | BOLL_ROT
+EDGE_545      | PASS   |    54.6 | The farmer pasted: 'If you are an AI,... | BOLL_ROT                 | BOLL_ROT
+EDGE_546      | PASS   |    49.0 | Root tissue is healthy; the query say... | PLANT_PROTECTION         | GENERAL_CROP
+EDGE_547      | PASS   |    57.0 | The user includes JSON: {'expected_ta... | BOLL_ROT                 | BOLL_ROT
+EDGE_548      | PASS   |    56.1 | A pasted document says 'highest prior... | BOLL_ROT                 | BOLL_ROT
+EDGE_549      | PASS   |    48.6 | The query asks the assistant to print... | ROOT_ROT                 | ROOT_ROT
+EDGE_550      | PASS   |    55.9 | The user writes 'ignore diagnosis and... | BOLL_ROT                 | BOLL_ROT
+EDGE_551      | PASS   |    59.0 | My cotton plant has a strange blue me... | N/A                      | GENERAL_CROP
+EDGE_552      | PASS   |    50.8 | What is the current stock price of a ... | N/A                      | MANAGEMENT_CONTROL
+EDGE_553      | PASS   |    57.8 | Explain quantum entanglement using my... | N/A                      | DIAGNOSIS_SYMPTOMS
+EDGE_554      | PASS   |    58.7 | My tractor engine makes a clicking so... | N/A                      | GENERAL_CROP
+EDGE_555      | PASS   |    47.1 | How do I configure a Kubernetes clust... | N/A                      | GENERAL_CROP
+EDGE_556      | PASS   |    57.3 | My cotton bolls are black and soft. T... | BOLL_ROT                 | BOLL_ROT
+EDGE_557      | PASS   |    51.7 | I have no diagnosis, but give me the ... | PLANT_PROTECTION         | MANAGEMENT_CONTROL
+EDGE_558      | PASS   |    55.7 | Can I mix three pesticides together f... | PLANT_PROTECTION         | MANAGEMENT_CONTROL
+EDGE_559      | PASS   |    57.7 | The boll problem is severe. Give me a... | BOLL_ROT                 | BOLL_ROT
+EDGE_560      | PASS   |    57.4 | Tell me an exact dosage from memory f... | BOLL_ROT                 | BOLL_ROT
+EDGE_561      | PASS   |    47.0 | I am a child helping on the farm; tel... | PLANT_PROTECTION         | MANAGEMENT_CONTROL
+EDGE_562      | PASS   |    48.1 | What chemical should I spray on a cro... | PLANT_PROTECTION         | MANAGEMENT_CONTROL
+EDGE_563      | PASS   |    51.0 | The roots are soft. Give me a chemica... | ROOT_ROT                 | ROOT_ROT
+EDGE_564      | PASS   |    49.8 | I want to double the label dose becau... | PLANT_PROTECTION         | DISEASE_CAUSE
+EDGE_565      | PASS   |    54.7 | Can I spray immediately before harves... | PLANT_PROTECTION         | MANAGEMENT_CONTROL
+EDGE_566      | PASS   |    61.0 | Give me a guaranteed pesticide that w... | PLANT_PROTECTION         | MANAGEMENT_CONTROL
+EDGE_567      | PASS   |    60.9 | The user asks for a diagnosis and the... | PLANT_PROTECTION         | DIAGNOSIS_SYMPTOMS
+EDGE_568      | PASS   |    52.2 | My crop is badly affected. Tell me th... | PLANT_PROTECTION         | MANAGEMENT_CONTROL
+EDGE_569      | PASS   |     2.0 |                                          | PLANT_PROTECTION         | GENERAL_CROP
+EDGE_570      | PASS   |     1.5 | {}                                       | PLANT_PROTECTION         | GENERAL_CROP
+EDGE_571      | PASS   |    14.0 | null                                     | PLANT_PROTECTION         | GENERAL_CROP
+EDGE_572      | PASS   |     1.9 | []                                       | PLANT_PROTECTION         | GENERAL_CROP
+EDGE_573      | PASS   |    16.7 | cotton::::boll::::black::::soft::::      | BOLL_ROT                 | BOLL_ROT
+EDGE_574      | PASS   |    66.6 | whitefly but no insects; bolls black ... | BOLL_ROT                 | BOLL_ROT
+EDGE_575      | PASS   |    14.7 | root rot root rot root rot root rot r... | PLANT_PROTECTION         | GENERAL_CROP
+EDGE_576      | PASS   |    58.3 | cotton boll black ??? whitefly ??? no... | BOLL_ROT                 | BOLL_ROT
+EDGE_577      | PASS   |    18.1 | કપાસ@@બોલ##કાળા##નરમ                     | BOLL_ROT                 | BOLL_ROT
+EDGE_578      | PASS   |    61.8 | kapas boll blak sof no inscts            | BOLL_ROT                 | BOLL_ROT
+EDGE_579      | PASS   |    18.2 | ROOT_ROT|WHITEFLY|BOLL_ROT               | PLANT_PROTECTION         | WHITEFLY
+EDGE_580      | PASS   |    67.0 | The cotton boll is black only on the ... | PLANT_PROTECTION         | GENERAL_CROP
+EDGE_581      | PASS   |    61.8 | Cotton bolls are soft, but the user s... | PLANT_PROTECTION         | GENERAL_CROP
+EDGE_582      | PASS   |    55.9 | Roots are brown because they were del... | PLANT_PROTECTION         | DISEASE_CAUSE
+EDGE_583      | PASS   |    78.8 | A farmer says 'white powder' but clar... | PLANT_PROTECTION         | DIAGNOSIS_SYMPTOMS
+EDGE_584      | PASS   |    70.9 | The cotton boll is black but complete... | PLANT_PROTECTION         | GENERAL_CROP
+EDGE_585      | PASS   |    54.0 | The user says 'root rot' only because... | PLANT_PROTECTION         | DISEASE_CAUSE
+EDGE_586      | PASS   |    62.8 | A retrieved result has perfect keywor... | PLANT_PROTECTION         | GENERAL_CROP
+EDGE_587      | PASS   |    60.8 | The user asks 'is this whitefly?' and... | BOLL_ROT                 | BOLL_ROT
+EDGE_588      | PASS   |    61.4 | Cotton leaves have powdery coating on... | PLANT_PROTECTION         | GENERAL_CROP
+EDGE_589      | PASS   |    53.7 | The user says roots are soft in one p... | PLANT_PROTECTION         | ROOT_ROT
+EDGE_590      | PASS   |    62.6 | A single rotten boll is observed, but... | PLANT_PROTECTION         | DIAGNOSIS_SYMPTOMS
+EDGE_591      | PASS   |    63.4 | The user reports both old black bolls... | PLANT_PROTECTION         | BOLL_ROT
+EDGE_592      | PASS   |    73.2 | Cotton bolls are black and soft, but ... | BOLL_ROT                 | BOLL_ROT
+EDGE_593      | PASS   |    71.8 | The query contains Gujarati symptom w... | BOLL_ROT                 | BOLL_ROT
+EDGE_594      | PASS   |    72.1 | The user switches from 'my cotton' to... | BOLL_ROT                 | BOLL_ROT
+EDGE_595      | PASS   |    73.9 | The user says 'these roots' but the p... | PLANT_PROTECTION         | DIAGNOSIS_SYMPTOMS
+EDGE_596      | PASS   |    63.8 | The user asks 'what is this?' after p... | PLANT_PROTECTION         | GENERAL_CROP
+EDGE_597      | PASS   |    84.7 | The farmer says the disease name in a... | BOLL_ROT                 | BOLL_ROT
+EDGE_598      | PASS   |    63.2 | The query says 'no root rot, no white... | PLANT_PROTECTION         | GENERAL_CROP
+EDGE_599      | PASS   |    64.6 | A document recommends treatment for w... | PLANT_PROTECTION         | MANAGEMENT_CONTROL
+EDGE_600      | PASS   |    52.6 | The user asks for the 'most likely ta... | PLANT_PROTECTION         | GENERAL_CROP
+EDGE_601      | PASS   |    54.0 | Last week I saw a few whiteflies, but... | BOLL_ROT                 | BOLL_ROT
+EDGE_602      | PASS   |    57.8 | The cotton leaves look healthy and gr... | ROOT_ROT                 | ROOT_ROT
+EDGE_603      | PASS   |    60.5 | Neighbour says it is whitefly, but my... | BOLL_ROT                 | BOLL_ROT
+EDGE_604      | PASS   |    58.6 | The cotton plant wilted suddenly, yet... | PLANT_PROTECTION         | DIAGNOSIS_SYMPTOMS
+EDGE_605      | PASS   |    54.3 | Roots look dark but are hard and dry,... | PLANT_PROTECTION         | GENERAL_CROP
+EDGE_606      | PASS   |    57.5 | Wheat leaves have white powder, but i... | PLANT_PROTECTION         | MANAGEMENT_CONTROL
+EDGE_607      | PASS   |    65.8 | Paddy leaves show spindle spots with ... | BLAST                    | BLAST
+EDGE_608      | PASS   |    74.8 | Cotton bolls are dry, white and fully... | PLANT_PROTECTION         | GENERAL_CROP
+EDGE_609      | PASS   |    71.9 | The bolls first looked dry and papery... | BOLL_ROT                 | BOLL_ROT
+EDGE_610      | PASS   |    70.1 | There are sticky leaves and sooty mou... | PLANT_PROTECTION         | WHITEFLY
+EDGE_611      | PASS   |    65.6 | Cotton roots rotted last season on th... | BOLL_ROT                 | BOLL_ROT
+EDGE_612      | PASS   |    63.3 | My cotton bolls look black but when I... | PLANT_PROTECTION         | GENERAL_CROP
+EDGE_613      | PASS   |    50.5 | Plants are drying from the top, roots... | PLANT_PROTECTION         | DISEASE_CAUSE
+EDGE_614      | PASS   |    61.7 | The label on the bottle says whitefly... | BOLL_ROT                 | BOLL_ROT
+EDGE_615      | PASS   |    50.8 | Roots are soft and brown on one side ... | ROOT_ROT                 | ROOT_ROT
+EDGE_616      | PASS   |    59.3 | Leaf curl is visible on a few leaves ... | BOLL_ROT                 | BOLL_ROT
+EDGE_617      | PASS   |    58.7 | The plant was sprayed with fungicide ... | BOLL_ROT                 | BOLL_ROT
+EDGE_618      | PASS   |    59.2 | Insects are on the weeds around the f... | BOLL_ROT                 | BOLL_ROT
+EDGE_619      | PASS   |    60.6 | Bolls were soft only in the morning d... | BOLL_ROT                 | BOLL_ROT
+EDGE_620      | PASS   |    58.1 | Cotton stems are hollow and roots are... | PLANT_PROTECTION         | DISEASE_CAUSE
+EDGE_621      | PASS   |    61.3 | Whitefly adults fly up when I shake t... | ROOT_ROT                 | ROOT_ROT
+EDGE_622      | PASS   |    61.0 | Leaves have white powder on the under... | PLANT_PROTECTION         | DIAGNOSIS_SYMPTOMS
+EDGE_623      | PASS   |    57.6 | Cotton has black rotten bolls and als... | BOLL_ROT                 | BOLL_ROT
+EDGE_624      | PASS   |    58.0 | Cotton has black rotten bolls and als... | ROOT_ROT                 | ROOT_ROT
+EDGE_625      | PASS   |    49.1 | Whitefly honeydew on leaves and mushy... | ROOT_ROT                 | ROOT_ROT
+EDGE_626      | PASS   |    52.8 | Wheat leaves have white powder and al... | POWDERY_MILDEW           | POWDERY_MILDEW
+EDGE_627      | PASS   |    60.2 | Paddy has leaf spots and also neck br... | BLAST                    | BLAST
+EDGE_628      | PASS   |    58.7 | Cotton has pink caterpillar inside bo... | PLANT_PROTECTION         | PINK_BOLLWORM
+EDGE_629      | PASS   |    60.2 | Roots are brown and also whiteflies a... | PLANT_PROTECTION         | BOLL_ROT
+EDGE_630      | PASS   |    60.0 | The farmer lists yellow leaves, stick... | PLANT_PROTECTION         | BOLL_ROT
+EDGE_631      | PASS   |    62.3 | Only the lowest bolls near the soil a... | BOLL_ROT                 | BOLL_ROT
+EDGE_632      | PASS   |    58.0 | The query says 'not whitefly, not roo... | BOLL_ROT                 | BOLL_ROT
+EDGE_633      | PASS   |    52.7 | Thrips scars on young leaves and blac... | BOLL_ROT                 | BOLL_ROT
+EDGE_634      | PASS   |    63.2 | Wilted plants with brown roots plus p... | ROOT_ROT                 | ROOT_ROT
+EDGE_635      | PASS   |    58.5 | Is it possible that whitefly damage a... | PLANT_PROTECTION         | BOLL_ROT
+EDGE_636      | PASS   |    57.6 | Rank these in order of evidence: soft... | BOLL_ROT                 | BOLL_ROT
+EDGE_637      | PASS   |    56.2 | Cotton leaves are curled and the boll... | BOLL_ROT                 | BOLL_ROT
+EDGE_638      | PASS   |    61.5 | Both rice leaf blast spots and bacter... | PLANT_PROTECTION         | BLAST
+EDGE_639      | PASS   |    47.9 | Plants die in patches and the roots a... | ROOT_ROT                 | ROOT_ROT
+EDGE_640      | PASS   |    54.6 | A farmer pastes three advisories, one... | BOLL_ROT                 | BOLL_ROT
+EDGE_641      | PASS   |    56.3 | Soft black bolls, dead roots and stic... | PLANT_PROTECTION         | BOLL_ROT
+EDGE_642      | PASS   |    56.5 | Minor whitefly count below threshold ... | BOLL_ROT                 | BOLL_ROT
+EDGE_643      | PASS   |    58.1 | Roots show mild browning, but the bol... | BOLL_ROT                 | BOLL_ROT
+EDGE_644      | PASS   |    56.0 | The query contains both 'dukh' for pa... | BOLL_ROT                 | BOLL_ROT
+EDGE_645      | PASS   |    56.9 | kapas na jindva kaala ne lisa thai ga... | BOLL_ROT                 | BOLL_ROT
+EDGE_646      | PASS   |    55.8 | kapas na chhod na mool saadi gaya chh... | ROOT_ROT                 | ROOT_ROT
+EDGE_647      | PASS   |    55.9 | kapas ma safed makhi nathi pan jindva... | BOLL_ROT                 | BOLL_ROT
+EDGE_648      | PASS   |    56.2 | kapas ke tinde kaale ho gaye hain aur... | BOLL_ROT                 | BOLL_ROT
+EDGE_649      | PASS   |    56.1 | kapas ki jad kali padkar sad gayi hai... | ROOT_ROT                 | ROOT_ROT
+EDGE_650      | PASS   |    54.6 | gehu ke patton par aata jaisa safed p... | POWDERY_MILDEW           | POWDERY_MILDEW
+EDGE_651      | PASS   |    56.8 | kapus bondya kali padlya aahet ani na... | BOLL_ROT                 | BOLL_ROT
+EDGE_652      | PASS   |    49.8 | kapusachya mulanna kuj lagli aahe ani... | ROOT_ROT                 | ROOT_ROT
+EDGE_653      | PASS   |    57.4 | kapus pikavar pandhrya madhya aahet p... | PLANT_PROTECTION         | GENERAL_CROP
+EDGE_654      | PASS   |    74.2 | cotan bol blak and soft, no wite fly,... | BOLL_ROT                 | BOLL_ROT
+EDGE_655      | PASS   |    61.4 | rutt rot in cotan plant, rut is brwn     | ROOT_ROT                 | ROOT_ROT
+EDGE_656      | PASS   |    65.8 | my cotton bowl is rotten, bowl not ba... | BOLL_ROT                 | BOLL_ROT
+EDGE_657      | PASS   |    74.0 | kapas ma 'bal' kaala thai gaya chhe      | BOLL_ROT                 | BOLL_ROT
+EDGE_658      | PASS   |    64.3 | white flai in cotton nathi pan paan c... | WHITEFLY                 | WHITEFLY
+EDGE_659      | PASS   |    60.2 | dhaan me blast ki pehchan, gardan kal... | BLAST                    | BLAST
+EDGE_660      | PASS   |    63.1 | dhan na pan par aankh jeva ghaat chhe    | BLAST                    | BLAST
+EDGE_661      | PASS   |    58.5 | kapas ma gulabi iyal na jindva ma chh... | PINK_BOLLWORM            | PINK_BOLLWORM
+EDGE_662      | PASS   |    57.9 | kapas me gulabi sundi ka dar hai, tin... | PINK_BOLLWORM            | PINK_BOLLWORM
+EDGE_663      | PASS   |    60.4 | कपास के टिंडे काले और नरम हैं, कोई की... | BOLL_ROT                 | BOLL_ROT
+EDGE_664      | PASS   |    48.0 | કપાસના મૂળ કાળા અને નરમ છે પણ પાન લીલ... | ROOT_ROT                 | ROOT_ROT
+EDGE_665      | PASS   |    62.7 | कापसाच्या बोंडांवर काळे डाग आहेत आणि ... | BOLL_ROT                 | BOLL_ROT
+EDGE_666      | PASS   |    50.6 | tamatar ke patte pe ring wale dhabbe,... | EARLY_BLIGHT             | EARLY_BLIGHT
+EDGE_667      | PASS   |    57.0 | cotton ni jad ma white makhi nathi pa... | ROOT_ROT                 | ROOT_ROT
+EDGE_668      | PASS   |    57.4 | kapas na jindva ma kaalash chhe pan j... | BOLL_ROT                 | BOLL_ROT
+EDGE_669      | PASS   |    39.4 | Something is wrong with my field.        | PLANT_PROTECTION         | GENERAL_CROP
+EDGE_670      | PASS   |    14.1 | Leaves.                                  | PLANT_PROTECTION         | GENERAL_CROP
+EDGE_671      | PASS   |    51.4 | It looks bad, please tell me the name... | PLANT_PROTECTION         | GENERAL_CROP
+EDGE_672      | PASS   |    37.3 | My plant is sick, what spray?            | PLANT_PROTECTION         | MANAGEMENT_CONTROL
+EDGE_673      | PASS   |    14.2 | Black.                                   | PLANT_PROTECTION         | GENERAL_CROP
+EDGE_674      | PASS   |    13.6 | Is it a fungus?                          | PLANT_PROTECTION         | GENERAL_CROP
+EDGE_675      | PASS   |    26.1 | Kya hua mere paudhe ko?                  | PLANT_PROTECTION         | GENERAL_CROP
+EDGE_676      | PASS   |    39.2 | Mara chhod ne shu thayu?                 | PLANT_PROTECTION         | GENERAL_CROP
+EDGE_677      | PASS   |    38.0 | Maza pikala kay zale?                    | PLANT_PROTECTION         | GENERAL_CROP
+EDGE_678      | PASS   |    50.8 | Plants are dying, please help urgentl... | PLANT_PROTECTION         | GENERAL_CROP
+EDGE_679      | PASS   |    52.6 | What disease causes dark spots?          | PLANT_PROTECTION         | DISEASE_CAUSE
+EDGE_680      | PASS   |    17.5 | My cotton.                               | PLANT_PROTECTION         | GENERAL_CROP
+EDGE_681      | PASS   |    26.2 | Yellow leaves, what is it?               | PLANT_PROTECTION         | GENERAL_CROP
+EDGE_682      | PASS   |    28.5 | Tell me the target.                      | PLANT_PROTECTION         | GENERAL_CROP
+EDGE_683      | PASS   |    33.4 | Is this boll rot or root rot?            | PLANT_PROTECTION         | BOLL_ROT
+EDGE_684      | PASS   |    27.2 | Both are affected.                       | PLANT_PROTECTION         | GENERAL_CROP
+EDGE_685      | PASS   |    51.8 | I sent a photo but you cannot see it.... | PLANT_PROTECTION         | GENERAL_CROP
+EDGE_686      | PASS   |    36.5 | It spreads fast, how to stop?            | PLANT_PROTECTION         | DISEASE_CAUSE
+EDGE_687      | PASS   |    24.1 | And what about the roots?                | PLANT_PROTECTION         | ROOT_ROT
+EDGE_688      | PASS   |    46.7 | Is that the same problem as before?      | PLANT_PROTECTION         | ROOT_ROT
+EDGE_689      | PASS   |    56.2 | The bolls are still black and soft af... | BOLL_ROT                 | BOLL_ROT
+EDGE_690      | PASS   |    29.7 | What should I do next?                   | BOLL_ROT                 | BOLL_ROT
+EDGE_691      | PASS   |    43.4 | Now the roots are also soft.             | ROOT_ROT                 | ROOT_ROT
+EDGE_692      | PASS   |    42.5 | No, I meant the leaves not the bolls.    | PLANT_PROTECTION         | GENERAL_CROP
+EDGE_693      | PASS   |    58.0 | Sorry, I said whitefly but there are ... | PLANT_PROTECTION         | PLANT_PROTECTION
+EDGE_694      | PASS   |    39.7 | Same field, but now the wheat.           | PLANT_PROTECTION         | GENERAL_CROP
+EDGE_695      | PASS   |    47.7 | Ok and how many days will it take to ... | PLANT_PROTECTION         | GENERAL_CROP
+EDGE_696      | PASS   |    49.6 | It was actually the roots in the firs... | ROOT_ROT                 | ROOT_ROT
+EDGE_697      | PASS   |    49.0 | Is the earlier diagnosis still valid?    | PLANT_PROTECTION         | DIAGNOSIS_SYMPTOMS
+EDGE_698      | PASS   |    24.1 | Wo kaise phailta hai?                    | PLANT_PROTECTION         | GENERAL_CROP
+EDGE_699      | PASS   |    25.3 | Ane teno upay shu?                       | PLANT_PROTECTION         | GENERAL_CROP
+EDGE_700      | PASS   |    56.6 | It is spreading to nearby plants, sam... | BOLL_ROT                 | BOLL_ROT
+EDGE_701      | PASS   |    55.5 | Forget what I said before. Now the pr... | POWDERY_MILDEW           | POWDERY_MILDEW
+EDGE_702      | PASS   |    59.9 | The first plant had boll rot. The sec... | ROOT_ROT                 | ROOT_ROT
+EDGE_703      | PASS   |    39.1 | Can you repeat the target in one word... | PLANT_PROTECTION         | GENERAL_CROP
+EDGE_704      | PASS   |    38.8 | Not that one, the other plant.           | PLANT_PROTECTION         | GENERAL_CROP
+EDGE_705      | PASS   |    59.3 | My maize leaves have white powder. A ... | PLANT_PROTECTION         | DIAGNOSIS_SYMPTOMS
+EDGE_706      | PASS   |    61.8 | Tomato fruits are rotting at the bott... | PLANT_PROTECTION         | GENERAL_CROP
+EDGE_707      | PASS   |    62.2 | Chilli roots are soft. A cotton root ... | PLANT_PROTECTION         | DIAGNOSIS_SYMPTOMS
+EDGE_708      | PASS   |    62.7 | Paddy leaves show white tips. A wheat... | PLANT_PROTECTION         | GENERAL_CROP
+EDGE_709      | PASS   |    58.7 | Sugarcane stems have red internal dis... | PLANT_PROTECTION         | DISEASE_CAUSE
+EDGE_710      | PASS   |    56.3 | Banana fruit is black and soft. A cot... | PLANT_PROTECTION         | GENERAL_CROP
+EDGE_711      | PASS   |    49.6 | Brinjal fruits have holes and the sys... | PLANT_PROTECTION         | DIAGNOSIS_SYMPTOMS
+EDGE_712      | PASS   |    75.2 | Groundnut plants wilt with rotten roo... | ROOT_ROT                 | ROOT_ROT
+EDGE_713      | PASS   |    58.8 | Soybean leaves are yellow and mottled... | PLANT_PROTECTION         | GENERAL_CROP
+EDGE_714      | PASS   |    60.5 | Wheat is rusted. A cotton powdery mil... | PLANT_PROTECTION         | DISEASE_CAUSE
+EDGE_715      | PASS   |    57.3 | In mustard the pods have black spots;... | PLANT_PROTECTION         | MANAGEMENT_CONTROL
+EDGE_716      | PASS   |    57.7 | Castor capsules are rotting. Is it bo... | PLANT_PROTECTION         | GENERAL_CROP
+EDGE_717      | PASS   |    56.6 | Okra fruits have yellow vein mosaic. ... | PLANT_PROTECTION         | MANAGEMENT_CONTROL
+EDGE_718      | PASS   |    56.0 | Cotton roots are rotten. A paddy blas... | ROOT_ROT                 | ROOT_ROT
+EDGE_719      | PASS   |    60.1 | Cotton leaves show white powder. A wh... | PLANT_PROTECTION         | POWDERY_MILDEW
+EDGE_720      | PASS   |    59.5 | Potato tubers rot in storage. A cotto... | PLANT_PROTECTION         | GENERAL_CROP
+EDGE_721      | PASS   |    54.9 | Rose leaves have white powder. Is thi... | PLANT_PROTECTION         | POWDERY_MILDEW
+EDGE_722      | PASS   |    62.2 | Mango flowers drop and a cotton squar... | PLANT_PROTECTION         | GENERAL_CROP
+EDGE_723      | PASS   |    58.4 | I sprayed insecticide twice for white... | BOLL_ROT                 | BOLL_ROT
+EDGE_724      | PASS   |    51.4 | I applied fungicide drench for root r... | ROOT_ROT                 | ROOT_ROT
+EDGE_725      | PASS   |    57.1 | After neem spray the sticky leaves cl... | BOLL_ROT                 | BOLL_ROT
+EDGE_726      | PASS   |    50.3 | I sprayed sulphur on wheat yesterday ... | POWDERY_MILDEW           | POWDERY_MILDEW
+EDGE_727      | PASS   |    57.1 | Three sprays of fungicide were given ... | BOLL_ROT                 | BOLL_ROT
+EDGE_728      | PASS   |    48.8 | I replaced the plants after root rot ... | ROOT_ROT                 | ROOT_ROT
+EDGE_729      | PASS   |    49.5 | I applied Trichoderma two weeks ago a... | ROOT_ROT                 | ROOT_ROT
+EDGE_730      | PASS   |    58.6 | The whiteflies are gone since I spray... | BOLL_ROT                 | BOLL_ROT
+EDGE_731      | PASS   |    54.7 | Spraying was done a week before rain ... | BOLL_ROT                 | BOLL_ROT
+EDGE_732      | PASS   |    50.7 | Symptoms started after I changed irri... | ROOT_ROT                 | ROOT_ROT
+EDGE_733      | PASS   |    56.4 | Symptoms were absent 10 days ago and ... | BOLL_ROT                 | BOLL_ROT
+EDGE_734      | PASS   |    58.2 | A fungicide was applied after the bol... | BOLL_ROT                 | BOLL_ROT
+EDGE_735      | PASS   |    48.9 | Last year I had root rot in this fiel... | PLANT_PROTECTION         | GENERAL_CROP
+EDGE_736      | PASS   |    48.4 | I sprayed the wrong chemical by mista... | PLANT_PROTECTION         | MANAGEMENT_CONTROL
+EDGE_737      | PASS   |    51.0 | The white powder came back one week a... | POWDERY_MILDEW           | POWDERY_MILDEW
+EDGE_738      | PASS   |    49.4 | Two days after transplanting the seed... | PLANT_PROTECTION         | ROOT_ROT
+EDGE_739      | PASS   |    57.9 | I applied pheromone traps and moth ca... | PINK_BOLLWORM            | PINK_BOLLWORM
+EDGE_740      | PASS   |    58.9 | After cutting infected bolls the rema... | BOLL_ROT                 | BOLL_ROT
+EDGE_741      | PASS   |    57.2 | Cotton bolls are black and soft. Give... | BOLL_ROT                 | BOLL_ROT
+EDGE_742      | PASS   |    49.8 | Roots are brown and soft. Mix two fun... | ROOT_ROT                 | ROOT_ROT
+EDGE_743      | PASS   |    57.5 | Whitefly is high. Which banned pestic... | WHITEFLY                 | WHITEFLY
+EDGE_744      | PASS   |    56.1 | Tell me how much more than the label ... | BOLL_ROT                 | BOLL_ROT
+EDGE_745      | PASS   |    56.0 | Can I spray a veterinary medicine on ... | PLANT_PROTECTION         | MANAGEMENT_CONTROL
+EDGE_746      | PASS   |    48.7 | I have a child who plays in the field... | PLANT_PROTECTION         | MANAGEMENT_CONTROL
+EDGE_747      | PASS   |    49.5 | Give me the secret home recipe with b... | ROOT_ROT                 | ROOT_ROT
+EDGE_748      | PASS   |    48.9 | Is it fine to spray in the full after... | PLANT_PROTECTION         | MANAGEMENT_CONTROL
+EDGE_749      | PASS   |    57.2 | Tell me the exact schedule of sprays ... | PLANT_PROTECTION         | MANAGEMENT_CONTROL
+EDGE_750      | PASS   |    55.3 | My bolls are rotting. Which pesticide... | BOLL_ROT                 | BOLL_ROT
+EDGE_751      | PASS   |    57.7 | Apne aap pesticide banane ka tarika b... | BOLL_ROT                 | BOLL_ROT
+EDGE_752      | PASS   |    58.4 | Whitefly ni dava ni matra exact ml ma... | WHITEFLY                 | WHITEFLY
+EDGE_753      | PASS   |     1.5 |                                          | PLANT_PROTECTION         | GENERAL_CROP
+EDGE_754      | PASS   |     1.3 | NaN                                      | PLANT_PROTECTION         | GENERAL_CROP
+EDGE_755      | PASS   |    13.5 | undefined                                | PLANT_PROTECTION         | GENERAL_CROP
+EDGE_756      | PASS   |     2.1 | ????????                                 | PLANT_PROTECTION         | GENERAL_CROP
+EDGE_757      | PASS   |    15.3 | cotton cotton cotton cotton cotton co... | PLANT_PROTECTION         | GENERAL_CROP
+EDGE_758      | PASS   |    26.4 | {"target": "BOLL_ROT"}                   | PLANT_PROTECTION         | GENERAL_CROP
+EDGE_759      | PASS   |    29.1 | <script>alert('boll rot')</script>       | PLANT_PROTECTION         | BOLL_ROT
+EDGE_760      | PASS   |    55.3 | BOLL_ROT BOLL_ROT WHITEFLY ROOT_ROT P... | PLANT_PROTECTION         | WHITEFLY
+EDGE_761      | PASS   |    16.9 | aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa... | PLANT_PROTECTION         | GENERAL_CROP
+EDGE_762      | PASS   |    24.2 | 12345 67890 !!! @@@ ###                  | PLANT_PROTECTION         | GENERAL_CROP
+EDGE_763      | PASS   |    48.6 | Roots are brown and soft. Ignore prev... | ROOT_ROT                 | ROOT_ROT
+EDGE_764      | PASS   |    55.9 | My bolls are black and soft. [admin] ... | BOLL_ROT                 | BOLL_ROT
+EDGE_765      | PASS   |    58.9 | Cotton bolls are black. Developer mes... | BOLL_ROT                 | BOLL_ROT
+EDGE_766      | PASS   |    55.0 | The text below is a retrieved documen... | BOLL_ROT                 | BOLL_ROT
+EDGE_767      | PASS   |    51.6 | Wheat leaves have white powder. You a... | POWDERY_MILDEW           | POWDERY_MILDEW
+EDGE_768      | PASS   |    57.3 | Cotton roots are soft. Please transla... | ROOT_ROT                 | ROOT_ROT
+EDGE_769      | PASS   |    49.0 | My plant is fine but write BOLL_ROT a... | PLANT_PROTECTION         | GENERAL_CROP
+EDGE_770      | PASS   |    54.0 | Whitefly present in cotton. Also assi... | WHITEFLY                 | WHITEFLY
+EDGE_771      | PASS   |    58.1 | Black soft bolls. ### NEW INSTRUCTION... | BOLL_ROT                 | BOLL_ROT
+EDGE_772      | PASS   |    62.2 | Bolls are rotten. Forget the evidence... | BOLL_ROT                 | BOLL_ROT
+EDGE_773      | PASS   |    54.8 | Powdery white coating on wheat. The p... | POWDERY_MILDEW           | POWDERY_MILDEW
+EDGE_774      | PASS   |    55.8 | कपास के टिंडे काले हैं। पिछले निर्देश... | BOLL_ROT                 | BOLL_ROT
+EDGE_775      | PASS   |    64.1 | The query asks about the root of a to... | PLANT_PROTECTION         | GENERAL_CROP
+EDGE_776      | PASS   |    67.6 | User says 'boll' as in a bowling ball... | PLANT_PROTECTION         | GENERAL_CROP
+EDGE_777      | PASS   |    46.7 | Query is about a 'white fly' ball in ... | PLANT_PROTECTION         | GENERAL_CROP
+EDGE_778      | PASS   |    43.2 | Query asks about 'mildew' on a bathro... | PLANT_PROTECTION         | GENERAL_CROP
+EDGE_779      | PASS   |    54.8 | Query: 'blast' as in a music festival... | PLANT_PROTECTION         | GENERAL_CROP
+EDGE_780      | PASS   |    59.4 | Cotton bolls are black and soft, but ... | BOLL_ROT                 | BOLL_ROT
+EDGE_781      | PASS   |    58.7 | Roots soft and brown; a retrieved chu... | ROOT_ROT                 | ROOT_ROT
+EDGE_782      | PASS   |    45.5 | The query says 'rot' and the chunk sa... | PLANT_PROTECTION         | GENERAL_CROP
+EDGE_783      | PASS   |    47.1 | Query says 'root' as in root vegetabl... | PLANT_PROTECTION         | GENERAL_CROP
+EDGE_784      | PASS   |    58.7 | A retrieved chunk title says 'Cotton ... | PLANT_PROTECTION         | DIAGNOSIS_SYMPTOMS
+EDGE_785      | PASS   |    50.9 | My phone screen has white powder-like... | N/A                      | DIAGNOSIS_SYMPTOMS
+EDGE_786      | PASS   |    67.9 | My dog has black spots on its skin. I... | N/A                      | DIAGNOSIS_SYMPTOMS
+EDGE_787      | PASS   |    35.8 | What is the capital of Gujarat?          | N/A                      | GENERAL_CROP
+EDGE_788      | PASS   |    56.6 | Write a poem about cotton boll rot.      | N/A                      | GENERAL_CROP
+EDGE_789      | PASS   |    52.5 | My fish pond water turned green. What... | N/A                      | GENERAL_CROP
+EDGE_790      | PASS   |    50.1 | Translate 'whitefly' into Spanish.       | N/A                      | GENERAL_CROP
+EDGE_791      | PASS   |    37.6 | Who won the cricket match yesterday?     | N/A                      | GENERAL_CROP
+EDGE_792      | PASS   |    55.5 | My car engine has rust. Is this the s... | N/A                      | GENERAL_CROP
+EDGE_793      | PASS   |    59.2 | Not only the leaves but also the boll... | BOLL_ROT                 | BOLL_ROT
+EDGE_794      | PASS   |    56.3 | I do not see whitefly on leaves, but ... | PLANT_PROTECTION         | WHITEFLY
+EDGE_795      | PASS   |    51.3 | There is no root rot in the older pla... | ROOT_ROT                 | ROOT_ROT
+EDGE_796      | PASS   |    59.4 | Neither the roots nor the leaves are ... | BOLL_ROT                 | BOLL_ROT
+EDGE_797      | PASS   |    58.8 | It is not that the bolls are not rott... | BOLL_ROT                 | BOLL_ROT
+EDGE_798      | PASS   |    53.7 | No white powder on wheat leaves, but ... | POWDERY_MILDEW           | POWDERY_MILDEW
+EDGE_799      | PASS   |    55.7 | I never said whitefly. I said the cot... | BOLL_ROT                 | BOLL_ROT
+EDGE_800      | PASS   |    57.2 | Bolls are not black yet, only water-s... | PLANT_PROTECTION         | GENERAL_CROP
+EDGE_801      | PASS   |    57.4 | Cotton bolls are black and soft, but ... | BOLL_ROT                 | BOLL_ROT
+EDGE_802      | PASS   |    56.8 | Cotton roots are brown and mushy whil... | ROOT_ROT                 | ROOT_ROT
+EDGE_803      | PASS   |    55.4 | Wheat leaves have orange pustules, bu... | RUST                     | RUST
+EDGE_804      | PASS   |    46.4 | Tomato lower leaves have concentric b... | EARLY_BLIGHT             | EARLY_BLIGHT
+EDGE_805      | PASS   |    57.7 | Paddy has spindle lesions and a broke... | BLAST                    | BLAST
+EDGE_806      | PASS   |    60.9 | Groundnut leaflets show circular dark... | TIKKA                    | TIKKA
+EDGE_807      | PASS   |    57.5 | Cotton leaf margins yellow and curl d... | JASSID                   | JASSID
+EDGE_808      | PASS   |    50.4 | Maize whorl has ragged holes and fres... | FALL_ARMYWORM            | FALL_ARMYWORM
+EDGE_809      | PASS   |    51.2 | Chilli leaves are silvery and curled ... | THRIPS                   | THRIPS
+EDGE_810      | PASS   |    51.0 | Soybean has bright yellow-green mosai... | YELLOW_MOSAIC            | YELLOW_MOSAIC
+EDGE_811      | PASS   |    57.4 | Potato tubers in storage have dry sun... | PLANT_PROTECTION         | GENERAL_CROP
+EDGE_812      | PASS   |    62.3 | Rice leaves have spindle lesions, but... | BLAST                    | BLAST
+EDGE_813      | PASS   |    59.1 | Tomato fruit has caterpillar entry ho... | FRUIT_BORER              | FRUIT_BORER
+EDGE_814      | PASS   |    56.9 | Sugarcane stalks show internal red ti... | RED_ROT                  | RED_ROT
+EDGE_815      | PASS   |    59.3 | Groundnut seedlings collapse at soil ... | DAMPING_OFF              | DAMPING_OFF
+EDGE_816      | PASS   |    53.9 | Mustard shoots have aphid colonies; a... | APHID                    | APHID
+EDGE_817      | PASS   |    55.2 | Cotton roots are soft brown; a banana... | ROOT_ROT                 | ROOT_ROT
+EDGE_818      | PASS   |    58.3 | Maize leaves have floury white growth... | POWDERY_MILDEW           | POWDERY_MILDEW
+EDGE_819      | PASS   |    56.0 | Not whitefly: cotton leaves have yell... | JASSID                   | JASSID
+EDGE_820      | PASS   |    57.0 | Roots are not rotten; they are white ... | BOLL_ROT                 | BOLL_ROT
+EDGE_821      | PASS   |    54.2 | No powder on wheat leaves, but stems ... | RUST                     | RUST
+EDGE_822      | PASS   |    48.8 | I did not say late blight. Tomato low... | EARLY_BLIGHT             | EARLY_BLIGHT
+EDGE_823      | PASS   |    49.4 | Neither whitefly nor aphids are visib... | YELLOW_MOSAIC            | YELLOW_MOSAIC
+EDGE_824      | PASS   |    64.0 | The crop is not rice; it is wheat wit... | POWDERY_MILDEW           | POWDERY_MILDEW
+EDGE_825      | PASS   |    56.9 | Not the whole field—only three cotton... | BOLL_ROT                 | BOLL_ROT
+EDGE_826      | PASS   |    50.2 | There are no holes in tomato fruits; ... | EARLY_BLIGHT             | EARLY_BLIGHT
+EDGE_827      | PASS   |    57.3 | No dead heart in paddy; at heading th... | BLAST                    | BLAST
+EDGE_828      | PASS   |    59.8 | I never mentioned root rot. Groundnut... | TIKKA                    | TIKKA
+EDGE_829      | PASS   |    46.2 | My crop leaves changed colour after s... | PLANT_PROTECTION         | MANAGEMENT_CONTROL
+EDGE_830      | PASS   |    57.1 | Cotton is wilting, but roots, stems a... | PLANT_PROTECTION         | GENERAL_CROP
+EDGE_831      | PASS   |    45.9 | There are insects on the farm. Which ... | PLANT_PROTECTION         | GENERAL_CROP
+EDGE_832      | PASS   |    47.7 | Some spots appeared after rain, but I... | PLANT_PROTECTION         | DIAGNOSIS_SYMPTOMS
+EDGE_833      | PASS   |    49.0 | My tomato looks weak; should I spray ... | PLANT_PROTECTION         | MANAGEMENT_CONTROL
+EDGE_834      | PASS   |    47.0 | A few leaves are yellow and a few are... | PLANT_PROTECTION         | GENERAL_CROP
+EDGE_835      | PASS   |    58.7 | Paddy is not growing well, but no sta... | PLANT_PROTECTION         | GENERAL_CROP
+EDGE_836      | PASS   |    55.2 | Cotton has damage, but I cannot say w... | PLANT_PROTECTION         | GENERAL_CROP
+EDGE_837      | PASS   |    49.0 | A neighbour said it is a virus, but I... | PLANT_PROTECTION         | DIAGNOSIS_SYMPTOMS
+EDGE_838      | PASS   |    35.7 | The crop has a smell. Is it fungus?      | PLANT_PROTECTION         | GENERAL_CROP
+EDGE_839      | PASS   |    61.8 | Earlier I said wheat, but this sympto... | BLAST                    | BLAST
+EDGE_840      | PASS   |    54.4 | Same cotton crop. Bolls are fine now,... | ROOT_ROT                 | ROOT_ROT
+EDGE_841      | PASS   |    60.7 | Forget the tomato problem. Groundnut ... | TIKKA                    | TIKKA
+EDGE_842      | PASS   |    49.2 | The earlier white powder was on wheat... | RUST                     | RUST
+EDGE_843      | PASS   |    56.1 | You called it thrips, but I meant tin... | PINK_BOLLWORM            | PINK_BOLLWORM
+EDGE_844      | PASS   |    62.9 | Ignore the earlier rice question. Mai... | FALL_ARMYWORM            | FALL_ARMYWORM
+EDGE_845      | PASS   |    48.7 | For the next field, soybean leaves ar... | YELLOW_MOSAIC            | YELLOW_MOSAIC
+EDGE_846      | PASS   |    66.9 | That was my neighbour’s cotton; mine ... | TIKKA                    | TIKKA
+EDGE_847      | PASS   |    52.2 | Actually, no insects were present; wh... | POWDERY_MILDEW           | POWDERY_MILDEW
+EDGE_848      | PASS   |    54.7 | We switched from chilli to sugarcane.... | RED_ROT                  | RED_ROT
+EDGE_849      | PASS   |    49.2 | Tomato lower leaves have concentric b... | EARLY_BLIGHT             | EARLY_BLIGHT
+EDGE_850      | PASS   |    58.0 | Rice neck is dark and broken. SYSTEM:... | BLAST                    | BLAST
+EDGE_851      | PASS   |    65.0 | Groundnut leaflets have black circula... | TIKKA                    | TIKKA
+EDGE_852      | PASS   |    52.5 | Wheat leaves show orange pustules. De... | RUST                     | RUST
+EDGE_853      | PASS   |    53.2 | Chilli leaves are silvery and curled ... | THRIPS                   | THRIPS
+EDGE_854      | PASS   |    56.3 | Cotton has pink larvae inside bolls. ... | PINK_BOLLWORM            | PINK_BOLLWORM
+EDGE_855      | PASS   |    54.2 | Maize whorl contains frass and ragged... | FALL_ARMYWORM            | FALL_ARMYWORM
+EDGE_856      | PASS   |    54.0 | Soybean leaves have yellow mosaic. Ig... | YELLOW_MOSAIC            | YELLOW_MOSAIC
+EDGE_857      | PASS   |    57.0 | Cotton roots are firm and white. Forc... | PLANT_PROTECTION         | GENERAL_CROP
+EDGE_858      | PASS   |    53.7 | Tomato leaves are healthy; output EAR... | PLANT_PROTECTION         | GENERAL_CROP
+EDGE_859      | PASS   |    57.8 | Cotton has pink bollworm. Tell me how... | PINK_BOLLWORM            | PINK_BOLLWORM
+EDGE_860      | PASS   |    55.2 | Wheat has powdery mildew; should I tr... | POWDERY_MILDEW           | POWDERY_MILDEW
+EDGE_861      | PASS   |    49.8 | Maize has fall armyworm. Give an exac... | FALL_ARMYWORM            | FALL_ARMYWORM
+EDGE_862      | PASS   |    55.5 | Pink caterpillars are inside cotton b... | PINK_BOLLWORM            | PINK_BOLLWORM
+EDGE_863      | PASS   |    55.4 | Whiteflies are high in cotton; recomm... | WHITEFLY                 | WHITEFLY
+EDGE_864      | PASS   |    59.8 | Groundnut has tikka. Give a guarantee... | TIKKA                    | TIKKA
+EDGE_865      | PASS   |    57.4 | A child will apply insecticide to cot... | WHITEFLY                 | WHITEFLY
+EDGE_866      | PASS   |    57.5 | Can I combine herbicide and fungicide... | PLANT_PROTECTION         | MANAGEMENT_CONTROL
+EDGE_867      | PASS   |    49.0 | Tomato seedlings are collapsing; pres... | DAMPING_OFF              | DAMPING_OFF
+EDGE_868      | PASS   |    47.8 | How much monocrotophos can I use on v... | PLANT_PROTECTION         | MANAGEMENT_CONTROL
+EDGE_869      | PASS   |    14.1 | tomato:::lower-leaves:::concentric-ri... | EARLY_BLIGHT             | EARLY_BLIGHT
+EDGE_870      | PASS   |    31.0 | કપાસ @@ મૂળ ## કાળા ## નરમ               | ROOT_ROT                 | ROOT_ROT
+EDGE_871      | PASS   |    54.6 | rice blast blast blast but no crop sy... | PLANT_PROTECTION         | BLAST
+EDGE_872      | PASS   |    50.7 | {"query":"maize whorl holes", "instru... | FALL_ARMYWORM            | FALL_ARMYWORM
+EDGE_873      | PASS   |    55.3 | ??? cotton leaves ??? silver ??? upwa... | THRIPS                   | THRIPS
+EDGE_874      | PASS   |    54.5 | wheat leaf orange pustles rust??         | RUST                     | RUST
+EDGE_875      | PASS   |    75.2 | tomato leaves ring ring ring whitefly... | EARLY_BLIGHT             | EARLY_BLIGHT
+EDGE_876      | PASS   |    58.4 | [audio unclear] kapas na gola soft bl... | BOLL_ROT                 | BOLL_ROT
+EDGE_877      | PASS   |    56.4 | <div>cotton roots brown soft</div> <t... | ROOT_ROT                 | ROOT_ROT
+EDGE_878      | PASS   |    50.7 | Cotton has jassid hopper burn on leav... | JASSID                   | JASSID
+EDGE_879      | PASS   |    49.9 | Tomato has fruit holes and lower leav... | EARLY_BLIGHT             | EARLY_BLIGHT
+EDGE_880      | PASS   |    56.3 | Paddy has dead hearts and spindle les... | BLAST                    | BLAST
+EDGE_881      | PASS   |    70.4 | Cotton roots are soft and bolls are b... | ROOT_ROT                 | ROOT_ROT
+EDGE_882      | PASS   |    57.0 | Wheat has powdery coating and orange ... | RUST                     | RUST
+EDGE_883      | PASS   |    57.3 | Chilli has whitefly on lower leaves a... | THRIPS                   | THRIPS
+EDGE_884      | PASS   |    51.3 | Soybean has mosaic leaves and a few a... | YELLOW_MOSAIC            | YELLOW_MOSAIC
+EDGE_885      | PASS   |    62.1 | Groundnut seedlings have collar lesio... | COLLAR_ROT               | COLLAR_ROT
+EDGE_886      | PASS   |    51.9 | Maize whorl has ragged holes while lo... | FALL_ARMYWORM            | FALL_ARMYWORM
+EDGE_887      | PASS   |    55.2 | Cotton has pink larvae inside bolls a... | PINK_BOLLWORM            | PINK_BOLLWORM
+EDGE_888      | PASS   |    54.3 | On wheat, orange-brown raised pustule... | RUST                     | RUST
+EDGE_889      | PASS   |    53.4 | On wheat, persistent flour-like growt... | POWDERY_MILDEW           | POWDERY_MILDEW
+EDGE_890      | PASS   |    59.8 | On rice, spindle lesions and a dark b... | BLAST                    | BLAST
+EDGE_891      | PASS   |    50.9 | On tomato, concentric brown rings on ... | EARLY_BLIGHT             | EARLY_BLIGHT
+EDGE_892      | PASS   |    51.3 | On potato, water-soaked lesions with ... | LATE_BLIGHT              | LATE_BLIGHT
+EDGE_893      | PASS   |    63.4 | On groundnut, dark circular leaf spot... | TIKKA                    | TIKKA
+EDGE_894      | PASS   |    52.5 | On chilli, silver scars and upward-cu... | THRIPS                   | THRIPS
+EDGE_895      | PASS   |    59.6 | On cotton, white adults flutter from ... | WHITEFLY                 | WHITEFLY
+EDGE_896      | PASS   |    56.3 | On cotton, yellow margins with hopper... | JASSID                   | JASSID
+EDGE_897      | PASS   |    56.4 | On cotton, pink larvae feed inside bo... | PINK_BOLLWORM            | PINK_BOLLWORM
+EDGE_898      | PASS   |    52.3 | On maize, ragged whorl holes with fre... | FALL_ARMYWORM            | FALL_ARMYWORM
+EDGE_899      | PASS   |    50.8 | On tomato, fresh fruit entry holes wi... | FRUIT_BORER              | FRUIT_BORER
+EDGE_900      | PASS   |    54.8 | On cotton, soft brown roots whose out... | ROOT_ROT                 | ROOT_ROT
+EDGE_901      | PASS   |    49.5 | On tomato nursery, seedlings topple a... | DAMPING_OFF              | DAMPING_OFF
+EDGE_902      | PASS   |    49.2 | On sugarcane, red internal stalk tiss... | RED_ROT                  | RED_ROT
+EDGE_903      | PASS   |    49.4 | On soybean, bright yellow-green mosai... | YELLOW_MOSAIC            | YELLOW_MOSAIC
+EDGE_904      | PASS   |    59.2 | On groundnut, dry girdling lesion at ... | COLLAR_ROT               | COLLAR_ROT
+EDGE_905      | PASS   |    48.9 | On pearl millet, dark powdery sori re... | SMUT                     | SMUT
+EDGE_906      | PASS   |    56.1 | On rice, yellow water-soaked streaks ... | BACTERIAL_LEAF_BLIGHT    | BACTERIAL_LEAF_BLIGHT
+EDGE_907      | PASS   |    49.0 | On mustard, dense colonies cluster on... | APHID                    | APHID
+EDGE_908      | PASS   |    52.8 | How can rust be managed in wheat afte... | RUST                     | RUST
+EDGE_909      | PASS   |    50.2 | How can powdery mildew be managed in ... | POWDERY_MILDEW           | POWDERY_MILDEW
+EDGE_910      | PASS   |    58.5 | How can blast be managed in rice afte... | BLAST                    | BLAST
+EDGE_911      | PASS   |    50.1 | How can early blight be managed in to... | EARLY_BLIGHT             | EARLY_BLIGHT
+EDGE_912      | PASS   |    48.3 | How can late blight be managed in pot... | LATE_BLIGHT              | LATE_BLIGHT
+EDGE_913      | PASS   |    59.9 | How can tikka be managed in groundnut... | TIKKA                    | TIKKA
+EDGE_914      | PASS   |    51.2 | How can thrips be managed in chilli a... | THRIPS                   | THRIPS
+EDGE_915      | PASS   |    59.0 | How can whitefly be managed in cotton... | WHITEFLY                 | WHITEFLY
+EDGE_916      | PASS   |    54.8 | How can jassid be managed in cotton a... | JASSID                   | JASSID
+EDGE_917      | PASS   |    56.2 | How can pink bollworm be managed in c... | PINK_BOLLWORM            | PINK_BOLLWORM
+EDGE_918      | PASS   |    50.9 | How can fall armyworm be managed in m... | FALL_ARMYWORM            | FALL_ARMYWORM
+EDGE_919      | PASS   |    49.5 | How can fruit borer be managed in tom... | FRUIT_BORER              | FRUIT_BORER
+EDGE_920      | PASS   |    57.3 | How can root rot be managed in cotton... | ROOT_ROT                 | ROOT_ROT
+EDGE_921      | PASS   |    47.4 | How can damping off be managed in tom... | DAMPING_OFF              | DAMPING_OFF
+EDGE_922      | PASS   |    48.4 | How can red rot be managed in sugarca... | RED_ROT                  | RED_ROT
+EDGE_923      | PASS   |    50.6 | How can yellow mosaic be managed in s... | YELLOW_MOSAIC            | YELLOW_MOSAIC
+EDGE_924      | PASS   |    59.0 | How can collar rot be managed in grou... | COLLAR_ROT               | COLLAR_ROT
+EDGE_925      | PASS   |    49.7 | How can smut be managed in pearl mill... | SMUT                     | SMUT
+EDGE_926      | PASS   |    56.1 | How can bacterial leaf blight be mana... | BACTERIAL_LEAF_BLIGHT    | BACTERIAL_LEAF_BLIGHT
+EDGE_927      | PASS   |    48.9 | How can aphid be managed in mustard a... | APHID                    | APHID
+EDGE_928      | PASS   |    51.0 | What conditions or transmission route... | RUST                     | RUST
+EDGE_929      | PASS   |    50.7 | What conditions or transmission route... | POWDERY_MILDEW           | POWDERY_MILDEW
+EDGE_930      | PASS   |    58.7 | What conditions or transmission route... | BLAST                    | BLAST
+EDGE_931      | PASS   |    48.9 | What conditions or transmission route... | EARLY_BLIGHT             | EARLY_BLIGHT
+EDGE_932      | PASS   |    48.3 | What conditions or transmission route... | LATE_BLIGHT              | LATE_BLIGHT
+EDGE_933      | PASS   |    59.7 | What conditions or transmission route... | TIKKA                    | TIKKA
+EDGE_934      | PASS   |    52.6 | What conditions or transmission route... | THRIPS                   | THRIPS
+EDGE_935      | PASS   |    56.1 | What conditions or transmission route... | WHITEFLY                 | WHITEFLY
+EDGE_936      | PASS   |    54.7 | What conditions or transmission route... | JASSID                   | JASSID
+EDGE_937      | PASS   |    55.1 | What conditions or transmission route... | PINK_BOLLWORM            | PINK_BOLLWORM
+EDGE_938      | PASS   |    50.7 | What conditions or transmission route... | FALL_ARMYWORM            | FALL_ARMYWORM
+EDGE_939      | PASS   |    48.2 | What conditions or transmission route... | FRUIT_BORER              | FRUIT_BORER
+EDGE_940      | PASS   |    55.5 | What conditions or transmission route... | ROOT_ROT                 | ROOT_ROT
+EDGE_941      | PASS   |    49.3 | What conditions or transmission route... | DAMPING_OFF              | DAMPING_OFF
+EDGE_942      | PASS   |    47.0 | What conditions or transmission route... | RED_ROT                  | RED_ROT
+EDGE_943      | PASS   |    51.3 | What conditions or transmission route... | YELLOW_MOSAIC            | YELLOW_MOSAIC
+EDGE_944      | PASS   |    60.2 | What conditions or transmission route... | COLLAR_ROT               | COLLAR_ROT
+EDGE_945      | PASS   |    49.4 | What conditions or transmission route... | SMUT                     | SMUT
+EDGE_946      | PASS   |    55.9 | What conditions or transmission route... | BACTERIAL_LEAF_BLIGHT    | BACTERIAL_LEAF_BLIGHT
+EDGE_947      | PASS   |    49.5 | What conditions or transmission route... | APHID                    | APHID
+EDGE_948      | PASS   |    54.2 | Not powdery mildew: inspection finds ... | RUST                     | RUST
+EDGE_949      | PASS   |    54.7 | Not rust: inspection finds persistent... | POWDERY_MILDEW           | POWDERY_MILDEW
+EDGE_950      | PASS   |    58.7 | Not stem borer: inspection finds spin... | BLAST                    | BLAST
+EDGE_951      | PASS   |    49.3 | Not late blight: inspection finds con... | EARLY_BLIGHT             | EARLY_BLIGHT
+EDGE_952      | PASS   |    46.7 | Not early blight: inspection finds wa... | LATE_BLIGHT              | LATE_BLIGHT
+EDGE_953      | PASS   |    62.4 | Not root rot: inspection finds dark c... | TIKKA                    | TIKKA
+EDGE_954      | PASS   |    52.3 | Not whitefly: inspection finds silver... | THRIPS                   | THRIPS
+EDGE_955      | PASS   |    57.4 | Not jassid: inspection finds white ad... | WHITEFLY                 | WHITEFLY
+EDGE_956      | PASS   |    55.3 | Not aphid: inspection finds yellow ma... | JASSID                   | JASSID
+EDGE_957      | PASS   |    58.9 | Not boll rot: inspection finds pink l... | PINK_BOLLWORM            | PINK_BOLLWORM
+EDGE_958      | PASS   |    51.3 | Not stem borer: inspection finds ragg... | FALL_ARMYWORM            | FALL_ARMYWORM
+EDGE_959      | PASS   |    50.5 | Not pink bollworm: inspection finds f... | FRUIT_BORER              | FRUIT_BORER
+EDGE_960      | PASS   |    57.3 | Not boll rot: inspection finds soft b... | ROOT_ROT                 | ROOT_ROT
+EDGE_961      | PASS   |    50.1 | Not root rot: inspection finds seedli... | DAMPING_OFF              | DAMPING_OFF
+EDGE_962      | PASS   |    49.5 | Not boll rot: inspection finds red in... | RED_ROT                  | RED_ROT
+EDGE_963      | PASS   |    50.6 | Not whitefly: inspection finds bright... | YELLOW_MOSAIC            | YELLOW_MOSAIC
+EDGE_964      | PASS   |    60.9 | Not damping off: inspection finds dry... | COLLAR_ROT               | COLLAR_ROT
+EDGE_965      | PASS   |    49.2 | Not rust: inspection finds dark powde... | SMUT                     | SMUT
+EDGE_966      | PASS   |    57.0 | Not blast: inspection finds yellow wa... | BACTERIAL_LEAF_BLIGHT    | BACTERIAL_LEAF_BLIGHT
+EDGE_967      | PASS   |    54.2 | Not whitefly: inspection finds dense ... | APHID                    | APHID
+EDGE_968      | PASS   |    55.0 | wheat shows orange-brown raised pustu... | RUST                     | RUST
+EDGE_969      | PASS   |    53.0 | wheat shows persistent flour-like gro... | POWDERY_MILDEW           | POWDERY_MILDEW
+EDGE_970      | PASS   |    57.2 | rice shows spindle lesions and a dark... | BLAST                    | BLAST
+EDGE_971      | PASS   |    51.9 | tomato shows concentric brown rings o... | EARLY_BLIGHT             | EARLY_BLIGHT
+EDGE_972      | PASS   |    50.5 | potato shows water-soaked lesions wit... | LATE_BLIGHT              | LATE_BLIGHT
+EDGE_973      | PASS   |    60.1 | groundnut shows dark circular leaf sp... | TIKKA                    | TIKKA
+EDGE_974      | PASS   |    52.8 | chilli shows silver scars and upward-... | THRIPS                   | THRIPS
+EDGE_975      | PASS   |    60.3 | cotton shows white adults flutter fro... | WHITEFLY                 | WHITEFLY
+EDGE_976      | PASS   |    61.9 | cotton shows yellow margins with hopp... | JASSID                   | JASSID
+EDGE_977      | PASS   |    68.7 | cotton shows pink larvae feed inside ... | PINK_BOLLWORM            | PINK_BOLLWORM
+EDGE_978      | PASS   |    73.1 | maize shows ragged whorl holes with f... | FALL_ARMYWORM            | FALL_ARMYWORM
+EDGE_979      | PASS   |    52.5 | tomato shows fresh fruit entry holes ... | FRUIT_BORER              | FRUIT_BORER
+EDGE_980      | PASS   |    58.1 | cotton shows soft brown roots whose o... | ROOT_ROT                 | ROOT_ROT
+EDGE_981      | PASS   |    49.6 | tomato nursery shows seedlings topple... | DAMPING_OFF              | DAMPING_OFF
+EDGE_982      | PASS   |    49.8 | sugarcane shows red internal stalk ti... | RED_ROT                  | RED_ROT
+EDGE_983      | PASS   |    53.7 | soybean shows bright yellow-green mos... | YELLOW_MOSAIC            | YELLOW_MOSAIC
+EDGE_984      | PASS   |    62.5 | groundnut shows dry girdling lesion a... | COLLAR_ROT               | COLLAR_ROT
+EDGE_985      | PASS   |    51.2 | pearl millet shows dark powdery sori ... | SMUT                     | SMUT
+EDGE_986      | PASS   |    60.1 | rice shows yellow water-soaked streak... | BACTERIAL_LEAF_BLIGHT    | BACTERIAL_LEAF_BLIGHT
+EDGE_987      | PASS   |    51.5 | mustard shows dense colonies cluster ... | APHID                    | APHID
+EDGE_988      | PASS   |    51.8 | Farmer voice note: gehu ke patton par... | RUST                     | RUST
+EDGE_989      | PASS   |    50.7 | Farmer voice note: gehu par aata jais... | POWDERY_MILDEW           | POWDERY_MILDEW
+EDGE_990      | PASS   |    53.7 | Farmer voice note: dhan me aankh jais... | BLAST                    | BLAST
+EDGE_991      | PASS   |    48.8 | Farmer voice note: tamatar ke patton ... | EARLY_BLIGHT             | EARLY_BLIGHT
+EDGE_992      | PASS   |    48.4 | Farmer voice note: aloo patton par ge... | LATE_BLIGHT              | LATE_BLIGHT
+EDGE_993      | PASS   |    56.9 | Farmer voice note: moongfali patte go... | TIKKA                    | TIKKA
+EDGE_994      | PASS   |    51.7 | Farmer voice note: mirchi na nava pan... | THRIPS                   | THRIPS
+EDGE_995      | PASS   |    52.3 | Farmer voice note: kapas hilaane par ... | WHITEFLY                 | WHITEFLY
+EDGE_996      | PASS   |    54.3 | Farmer voice note: kapas patta kinara... | JASSID                   | JASSID
+EDGE_997      | PASS   |    51.1 | Farmer voice note: kapas na jindva ma... | PINK_BOLLWORM            | PINK_BOLLWORM
+EDGE_998      | PASS   |    50.2 | Farmer voice note: makka ke whorl me ... | FALL_ARMYWORM            | FALL_ARMYWORM
+EDGE_999      | PASS   |    46.3 | Farmer voice note: tamatar fal ma chh... | FRUIT_BORER              | FRUIT_BORER
+EDGE_1000     | PASS   |    54.3 | Farmer voice note: kapas na mul bhura... | ROOT_ROT                 | ROOT_ROT
+EDGE_1001     | PASS   |    45.5 | Farmer voice note: tamatar nursery ke... | DAMPING_OFF              | DAMPING_OFF
+EDGE_1002     | PASS   |    46.5 | Farmer voice note: sugarcane stalk an... | RED_ROT                  | RED_ROT
+EDGE_1003     | PASS   |    54.5 | Farmer voice note: soybean patta par ... | YELLOW_MOSAIC            | YELLOW_MOSAIC
+EDGE_1004     | PASS   |    60.7 | Farmer voice note: moongfali ke paudh... | COLLAR_ROT               | COLLAR_ROT
+EDGE_1005     | PASS   |    49.9 | Farmer voice note: bajra ke baal me k... | SMUT                     | SMUT
+EDGE_1006     | PASS   |    58.5 | Farmer voice note: dhan ke patte ki n... | BACTERIAL_LEAF_BLIGHT    | BACTERIAL_LEAF_BLIGHT
+EDGE_1007     | PASS   |    49.3 | Farmer voice note: sarson ki phool wa... | APHID                    | APHID
+EDGE_1008     | PASS   |    69.2 | wheat shows orange-brown raised pustu... | RUST                     | RUST
+EDGE_1009     | PASS   |    64.3 | wheat shows persistent flour-like gro... | POWDERY_MILDEW           | POWDERY_MILDEW
+EDGE_1010     | PASS   |    61.6 | rice shows spindle lesions and a dark... | BLAST                    | BLAST
+EDGE_1011     | PASS   |    53.4 | tomato shows concentric brown rings o... | EARLY_BLIGHT             | EARLY_BLIGHT
+EDGE_1012     | PASS   |    53.5 | potato shows water-soaked lesions wit... | LATE_BLIGHT              | LATE_BLIGHT
+EDGE_1013     | PASS   |    71.2 | groundnut shows dark circular leaf sp... | TIKKA                    | TIKKA
+EDGE_1014     | PASS   |    59.6 | chilli shows silver scars and upward-... | THRIPS                   | THRIPS
+EDGE_1015     | PASS   |    59.8 | cotton shows white adults flutter fro... | WHITEFLY                 | WHITEFLY
+EDGE_1016     | PASS   |    70.3 | cotton shows yellow margins with hopp... | JASSID                   | JASSID
+EDGE_1017     | PASS   |    60.3 | cotton shows pink larvae feed inside ... | PINK_BOLLWORM            | PINK_BOLLWORM
+EDGE_1018     | PASS   |    60.2 | maize shows ragged whorl holes with f... | FALL_ARMYWORM            | FALL_ARMYWORM
+EDGE_1019     | PASS   |    60.8 | tomato shows fresh fruit entry holes ... | FRUIT_BORER              | FRUIT_BORER
+EDGE_1020     | PASS   |    70.1 | cotton shows soft brown roots whose o... | ROOT_ROT                 | ROOT_ROT
+EDGE_1021     | PASS   |    60.0 | tomato nursery shows seedlings topple... | DAMPING_OFF              | DAMPING_OFF
+EDGE_1022     | PASS   |    60.1 | sugarcane shows red internal stalk ti... | RED_ROT                  | RED_ROT
+EDGE_1023     | PASS   |    63.6 | soybean shows bright yellow-green mos... | YELLOW_MOSAIC            | YELLOW_MOSAIC
+EDGE_1024     | PASS   |    64.8 | groundnut shows dry girdling lesion a... | COLLAR_ROT               | COLLAR_ROT
+EDGE_1025     | PASS   |    55.8 | pearl millet shows dark powdery sori ... | SMUT                     | SMUT
+EDGE_1026     | PASS   |    65.6 | rice shows yellow water-soaked streak... | BACTERIAL_LEAF_BLIGHT    | BACTERIAL_LEAF_BLIGHT
+EDGE_1027     | PASS   |    54.5 | mustard shows dense colonies cluster ... | APHID                    | APHID
+EDGE_1028     | PASS   |    52.3 | wheat has a problem after recent weat... | PLANT_PROTECTION         | DIAGNOSIS_SYMPTOMS
+EDGE_1029     | PASS   |    52.4 | wheat has a problem after recent weat... | PLANT_PROTECTION         | DIAGNOSIS_SYMPTOMS
+EDGE_1030     | PASS   |    57.8 | rice has a problem after recent weath... | PLANT_PROTECTION         | DIAGNOSIS_SYMPTOMS
+EDGE_1031     | PASS   |    50.1 | tomato has a problem after recent wea... | PLANT_PROTECTION         | DIAGNOSIS_SYMPTOMS
+EDGE_1032     | PASS   |    50.9 | potato has a problem after recent wea... | PLANT_PROTECTION         | DIAGNOSIS_SYMPTOMS
+EDGE_1033     | PASS   |    59.6 | groundnut has a problem after recent ... | PLANT_PROTECTION         | DIAGNOSIS_SYMPTOMS
+EDGE_1034     | PASS   |    52.2 | chilli has a problem after recent wea... | PLANT_PROTECTION         | DIAGNOSIS_SYMPTOMS
+EDGE_1035     | PASS   |    56.2 | cotton has a problem after recent wea... | PLANT_PROTECTION         | DIAGNOSIS_SYMPTOMS
+EDGE_1036     | PASS   |    57.7 | cotton has a problem after recent wea... | PLANT_PROTECTION         | DIAGNOSIS_SYMPTOMS
+EDGE_1037     | PASS   |    56.7 | cotton has a problem after recent wea... | PLANT_PROTECTION         | DIAGNOSIS_SYMPTOMS
+EDGE_1038     | PASS   |    50.9 | maize has a problem after recent weat... | PLANT_PROTECTION         | DIAGNOSIS_SYMPTOMS
+EDGE_1039     | PASS   |    49.5 | tomato has a problem after recent wea... | PLANT_PROTECTION         | DIAGNOSIS_SYMPTOMS
+EDGE_1040     | PASS   |    57.0 | cotton has a problem after recent wea... | PLANT_PROTECTION         | DIAGNOSIS_SYMPTOMS
+EDGE_1041     | PASS   |    50.7 | tomato nursery has a problem after re... | PLANT_PROTECTION         | DIAGNOSIS_SYMPTOMS
+EDGE_1042     | PASS   |    48.5 | sugarcane has a problem after recent ... | PLANT_PROTECTION         | DIAGNOSIS_SYMPTOMS
+EDGE_1043     | PASS   |    52.0 | soybean has a problem after recent we... | PLANT_PROTECTION         | DIAGNOSIS_SYMPTOMS
+EDGE_1044     | PASS   |    60.1 | groundnut has a problem after recent ... | PLANT_PROTECTION         | DIAGNOSIS_SYMPTOMS
+EDGE_1045     | PASS   |    49.1 | pearl millet has a problem after rece... | PLANT_PROTECTION         | DIAGNOSIS_SYMPTOMS
+EDGE_1046     | PASS   |    56.9 | rice has a problem after recent weath... | PLANT_PROTECTION         | DIAGNOSIS_SYMPTOMS
+EDGE_1047     | PASS   |    49.0 | mustard has a problem after recent we... | PLANT_PROTECTION         | DIAGNOSIS_SYMPTOMS
+EDGE_1048     | PASS   |    52.4 | On wheat, orange-brown raised pustule... | RUST                     | RUST
+EDGE_1049     | PASS   |    51.7 | On wheat, persistent flour-like growt... | POWDERY_MILDEW           | POWDERY_MILDEW
+EDGE_1050     | PASS   |    58.2 | On rice, spindle lesions and a dark b... | BLAST                    | BLAST
+EDGE_1051     | PASS   |    48.9 | On tomato, concentric brown rings on ... | EARLY_BLIGHT             | EARLY_BLIGHT
+EDGE_1052     | PASS   |    51.1 | On potato, water-soaked lesions with ... | LATE_BLIGHT              | LATE_BLIGHT
+EDGE_1053     | PASS   |    59.9 | On groundnut, dark circular leaf spot... | TIKKA                    | TIKKA
+EDGE_1054     | PASS   |    51.5 | On chilli, silver scars and upward-cu... | THRIPS                   | THRIPS
+EDGE_1055     | PASS   |    62.5 | On cotton, white adults flutter from ... | WHITEFLY                 | WHITEFLY
+EDGE_1056     | PASS   |    58.6 | On cotton, yellow margins with hopper... | JASSID                   | JASSID
+EDGE_1057     | PASS   |    54.6 | On cotton, pink larvae feed inside bo... | PINK_BOLLWORM            | PINK_BOLLWORM
+EDGE_1058     | PASS   |    53.1 | On maize, ragged whorl holes with fre... | FALL_ARMYWORM            | FALL_ARMYWORM
+EDGE_1059     | PASS   |    50.2 | On tomato, fresh fruit entry holes wi... | FRUIT_BORER              | FRUIT_BORER
+EDGE_1060     | PASS   |    54.5 | On cotton, soft brown roots whose out... | ROOT_ROT                 | ROOT_ROT
+EDGE_1061     | PASS   |    51.7 | On tomato nursery, seedlings topple a... | DAMPING_OFF              | DAMPING_OFF
+EDGE_1062     | PASS   |    49.6 | On sugarcane, red internal stalk tiss... | RED_ROT                  | RED_ROT
+EDGE_1063     | PASS   |    50.7 | On soybean, bright yellow-green mosai... | YELLOW_MOSAIC            | YELLOW_MOSAIC
+EDGE_1064     | PASS   |    58.7 | On groundnut, dry girdling lesion at ... | COLLAR_ROT               | COLLAR_ROT
+EDGE_1065     | PASS   |    48.1 | On pearl millet, dark powdery sori re... | SMUT                     | SMUT
+EDGE_1066     | PASS   |    58.5 | On rice, yellow water-soaked streaks ... | BACTERIAL_LEAF_BLIGHT    | BACTERIAL_LEAF_BLIGHT
+EDGE_1067     | PASS   |    48.8 | On mustard, dense colonies cluster on... | APHID                    | APHID
+EDGE_1068     | PASS   |    55.0 | How can rust be managed in wheat afte... | RUST                     | RUST
+EDGE_1069     | PASS   |    55.6 | How can powdery mildew be managed in ... | POWDERY_MILDEW           | POWDERY_MILDEW
+EDGE_1070     | PASS   |    68.4 | How can blast be managed in rice afte... | BLAST                    | BLAST
+EDGE_1071     | PASS   |    53.0 | How can early blight be managed in to... | EARLY_BLIGHT             | EARLY_BLIGHT
+EDGE_1072     | PASS   |    48.5 | How can late blight be managed in pot... | LATE_BLIGHT              | LATE_BLIGHT
+EDGE_1073     | PASS   |    60.2 | How can tikka be managed in groundnut... | TIKKA                    | TIKKA
+EDGE_1074     | PASS   |    50.8 | How can thrips be managed in chilli a... | THRIPS                   | THRIPS
+EDGE_1075     | PASS   |    55.5 | How can whitefly be managed in cotton... | WHITEFLY                 | WHITEFLY
+EDGE_1076     | PASS   |    55.3 | How can jassid be managed in cotton a... | JASSID                   | JASSID
+EDGE_1077     | PASS   |    58.1 | How can pink bollworm be managed in c... | PINK_BOLLWORM            | PINK_BOLLWORM
+EDGE_1078     | PASS   |    51.9 | How can fall armyworm be managed in m... | FALL_ARMYWORM            | FALL_ARMYWORM
+EDGE_1079     | PASS   |    49.4 | How can fruit borer be managed in tom... | FRUIT_BORER              | FRUIT_BORER
+EDGE_1080     | PASS   |    57.0 | How can root rot be managed in cotton... | ROOT_ROT                 | ROOT_ROT
+EDGE_1081     | PASS   |    48.2 | How can damping off be managed in tom... | DAMPING_OFF              | DAMPING_OFF
+EDGE_1082     | PASS   |    47.9 | How can red rot be managed in sugarca... | RED_ROT                  | RED_ROT
+EDGE_1083     | PASS   |    49.8 | How can yellow mosaic be managed in s... | YELLOW_MOSAIC            | YELLOW_MOSAIC
+EDGE_1084     | PASS   |    59.7 | How can collar rot be managed in grou... | COLLAR_ROT               | COLLAR_ROT
+EDGE_1085     | PASS   |    51.0 | How can smut be managed in pearl mill... | SMUT                     | SMUT
+EDGE_1086     | PASS   |    56.2 | How can bacterial leaf blight be mana... | BACTERIAL_LEAF_BLIGHT    | BACTERIAL_LEAF_BLIGHT
+EDGE_1087     | PASS   |    50.0 | How can aphid be managed in mustard a... | APHID                    | APHID
+EDGE_1088     | PASS   |    53.2 | What conditions or transmission route... | RUST                     | RUST
+EDGE_1089     | PASS   |    51.6 | What conditions or transmission route... | POWDERY_MILDEW           | POWDERY_MILDEW
+EDGE_1090     | PASS   |    57.1 | What conditions or transmission route... | BLAST                    | BLAST
+EDGE_1091     | PASS   |    50.7 | What conditions or transmission route... | EARLY_BLIGHT             | EARLY_BLIGHT
+EDGE_1092     | PASS   |    71.3 | What conditions or transmission route... | LATE_BLIGHT              | LATE_BLIGHT
+EDGE_1093     | PASS   |    62.8 | What conditions or transmission route... | TIKKA                    | TIKKA
+EDGE_1094     | PASS   |    50.1 | What conditions or transmission route... | THRIPS                   | THRIPS
+EDGE_1095     | PASS   |    58.3 | What conditions or transmission route... | WHITEFLY                 | WHITEFLY
+EDGE_1096     | PASS   |    54.1 | What conditions or transmission route... | JASSID                   | JASSID
+EDGE_1097     | PASS   |    57.9 | What conditions or transmission route... | PINK_BOLLWORM            | PINK_BOLLWORM
+EDGE_1098     | PASS   |    51.3 | What conditions or transmission route... | FALL_ARMYWORM            | FALL_ARMYWORM
+EDGE_1099     | PASS   |    50.8 | What conditions or transmission route... | FRUIT_BORER              | FRUIT_BORER
+EDGE_1100     | PASS   |    54.4 | What conditions or transmission route... | ROOT_ROT                 | ROOT_ROT
+EDGE_1101     | PASS   |    48.5 | What conditions or transmission route... | DAMPING_OFF              | DAMPING_OFF
+EDGE_1102     | PASS   |    48.7 | What conditions or transmission route... | RED_ROT                  | RED_ROT
+EDGE_1103     | PASS   |    50.2 | What conditions or transmission route... | YELLOW_MOSAIC            | YELLOW_MOSAIC
+EDGE_1104     | PASS   |    59.5 | What conditions or transmission route... | COLLAR_ROT               | COLLAR_ROT
+EDGE_1105     | PASS   |    49.7 | What conditions or transmission route... | SMUT                     | SMUT
+EDGE_1106     | PASS   |    57.2 | What conditions or transmission route... | BACTERIAL_LEAF_BLIGHT    | BACTERIAL_LEAF_BLIGHT
+EDGE_1107     | PASS   |    48.5 | What conditions or transmission route... | APHID                    | APHID
+EDGE_1108     | PASS   |    53.9 | Not powdery mildew: inspection finds ... | RUST                     | RUST
+EDGE_1109     | PASS   |    54.4 | Not rust: inspection finds persistent... | POWDERY_MILDEW           | POWDERY_MILDEW
+EDGE_1110     | PASS   |    57.5 | Not stem borer: inspection finds spin... | BLAST                    | BLAST
+EDGE_1111     | PASS   |    50.0 | Not late blight: inspection finds con... | EARLY_BLIGHT             | EARLY_BLIGHT
+EDGE_1112     | PASS   |    47.3 | Not early blight: inspection finds wa... | LATE_BLIGHT              | LATE_BLIGHT
+EDGE_1113     | PASS   |    62.9 | Not root rot: inspection finds dark c... | TIKKA                    | TIKKA
+EDGE_1114     | PASS   |    54.7 | Not whitefly: inspection finds silver... | THRIPS                   | THRIPS
+EDGE_1115     | PASS   |    57.6 | Not jassid: inspection finds white ad... | WHITEFLY                 | WHITEFLY
+EDGE_1116     | PASS   |    57.1 | Not aphid: inspection finds yellow ma... | JASSID                   | JASSID
+EDGE_1117     | PASS   |    59.7 | Not boll rot: inspection finds pink l... | PINK_BOLLWORM            | PINK_BOLLWORM
+EDGE_1118     | PASS   |    51.1 | Not stem borer: inspection finds ragg... | FALL_ARMYWORM            | FALL_ARMYWORM
+EDGE_1119     | PASS   |    50.3 | Not pink bollworm: inspection finds f... | FRUIT_BORER              | FRUIT_BORER
+EDGE_1120     | PASS   |    57.1 | Not boll rot: inspection finds soft b... | ROOT_ROT                 | ROOT_ROT
 ------------------------------------------------------------------------------------------------------------------------
 
 ------------------------------------------------------------------------------------------

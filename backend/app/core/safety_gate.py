@@ -2,13 +2,16 @@ from typing import Dict, Any, Tuple
 
 class PreSafetyGate:
     def __init__(self):
-        self.banned_chemicals = ["monocrotophos", "paraquat", "phorate", "endosulfan"]
+        self.banned_chemicals = ["monocrotophos", "paraquat", "phorate", "endosulfan", "carbofuran", "methyl parathion", "ddt", "triazophos"]
         self.out_of_domain_keywords = [
             "python", "bitcoin", "crypto", "election", "movie", "cricket", "politics",
             "tell me a joke", "joke about", "cow", "fever in my cow", "cattle", "animal",
             "prime minister", "president", "sort a list", "write a python", "program to sort",
             "ignore previous instructions", "system prompt",
-            "highest profit this year", "banned pesticides", "mix different pesticides"
+            "highest profit this year", "banned pesticides", "mix different pesticides",
+            "football", "bollywood", "song lyrics", "write essay", "homework",
+            "actor", "actress", "cinema", "chatgpt", "jailbreak", "stock market investing",
+            "dog illness", "goat disease", "buffalo fever", "veterinary injection"
         ]
 
     def evaluate(self, text: str, structured_query: Dict[str, Any], context: Dict[str, Any]) -> Tuple[bool, str, str]:
