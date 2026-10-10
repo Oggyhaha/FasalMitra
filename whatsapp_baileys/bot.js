@@ -26,6 +26,16 @@ console.log(`🔗 Connected Backend API: ${FASTAPI_URL}`);
 // Set to keep track of processed message IDs to prevent duplicates
 const processedMessageIds = new Set();
 
+// If --clean flag passed or explicitly requested, clear old session before starting
+if (process.argv.includes('--clean') || process.env.CLEAN_AUTH === 'true') {
+    if (fs.existsSync(AUTH_DIR)) {
+        console.log('🧹 Clearing previous WhatsApp auth session for a fresh QR scan...');
+        try {
+            fs.rmSync(AUTH_DIR, { recursive: true, force: true });
+        } catch (e) {}
+    }
+}
+
 async function connectToWhatsApp() {
     const { state, saveCreds } = await useMultiFileAuthState(AUTH_DIR);
     const { version, isLatest } = await fetchLatestBaileysVersion();
@@ -60,14 +70,22 @@ async function connectToWhatsApp() {
 
         if (connection === 'close') {
             const statusCode = (lastDisconnect?.error)?.output?.statusCode;
-            const shouldReconnect = statusCode !== DisconnectReason.loggedOut;
+            const isLoggedOut = statusCode === DisconnectReason.loggedOut || statusCode === 401;
 
-            console.log(`⚠️ Connection closed (statusCode: ${statusCode}). Reconnecting: ${shouldReconnect}`);
-
-            if (shouldReconnect) {
-                setTimeout(() => connectToWhatsApp(), 3000);
+            if (isLoggedOut) {
+                console.log(`\n🔄 Device logged out from phone (statusCode: ${statusCode}). Auto-resetting session...`);
+                try {
+                    if (fs.existsSync(AUTH_DIR)) {
+                        fs.rmSync(AUTH_DIR, { recursive: true, force: true });
+                    }
+                } catch (rmErr) {
+                    console.error('Error clearing auth dir:', rmErr.message);
+                }
+                console.log('📲 Generating a brand new QR Code scanner in 2 seconds...\n');
+                setTimeout(() => connectToWhatsApp(), 2000);
             } else {
-                console.log('❌ Device logged out. To re-link, delete the "auth_info_baileys" folder and restart.');
+                console.log(`⚠️ Connection closed (statusCode: ${statusCode}). Reconnecting in 3 seconds...`);
+                setTimeout(() => connectToWhatsApp(), 3000);
             }
         } else if (connection === 'open') {
             console.log('\n🌾 ========================================================');
