@@ -1,7 +1,8 @@
 import makeWASocket, {
     DisconnectReason,
     useMultiFileAuthState,
-    fetchLatestBaileysVersion
+    fetchLatestBaileysVersion,
+    downloadMediaMessage
 } from '@whiskeysockets/baileys';
 import qrcode from 'qrcode-terminal';
 import pino from 'pino';
@@ -17,8 +18,8 @@ const FASTAPI_URL = process.env.FASTAPI_URL || 'http://localhost:8000/api/v1/web
 const AUTH_DIR = path.resolve(__dirname, 'auth_info_baileys');
 
 console.log('🌾 ========================================================');
-console.log('🌾   FASALMITRA (फसलमित्र) - WHATSAPP AI ASSISTANT BOT    ');
-console.log('🌾   Powered by Baileys Multi-Device WebSocket Gateway    ');
+console.log('🌾   FASALMITRA (फसलमित्र) - MULTIMODAL WHATSAPP BOT      ');
+console.log('🌾   Supports Text & Real Voice Note (Audio) Input/Output ');
 console.log('🌾 ========================================================');
 console.log(`🔗 Connected Backend API: ${FASTAPI_URL}`);
 
@@ -51,7 +52,7 @@ async function connectToWhatsApp() {
             console.log('========================================================\n');
             qrcode.generate(qr, { small: true });
             console.log('\n📋 INSTRUCTIONS:');
-            console.log('1. Open WhatsApp on your phone (use test/secondary SIM)');
+            console.log('1. Open WhatsApp on your phone');
             console.log('2. Tap Settings (iOS) or 3 Dots (Android) -> Linked Devices');
             console.log('3. Tap "Link a Device" and point camera at the QR code above.');
             console.log('========================================================\n');
@@ -71,7 +72,7 @@ async function connectToWhatsApp() {
         } else if (connection === 'open') {
             console.log('\n🌾 ========================================================');
             console.log('✅ SUCCESS: FASALMITRA WHATSAPP BOT IS CONNECTED & ACTIVE!');
-            console.log('   Ready to receive farmer questions in Marathi, Hindi, Gujarati, English.');
+            console.log('   Ready for both TEXT messages and VOICE NOTES (Audio Mic)!');
             console.log('🌾 ========================================================\n');
         }
     });
@@ -98,56 +99,88 @@ async function connectToWhatsApp() {
                 processedMessageIds.clear();
             }
 
-            // Extract sender text
-            const userText = msg.message?.conversation ||
-                             msg.message?.extendedTextMessage?.text ||
-                             msg.message?.imageMessage?.caption ||
-                             '';
-
-            if (!userText || !userText.trim()) continue;
-
             const senderPhone = '+' + remoteJid.replace('@s.whatsapp.net', '').replace('@c.us', '');
             const now = new Date().toLocaleTimeString();
 
-            console.log(`\n[${now}] 📩 [NEW WHATSAPP MESSAGE] From ${senderPhone}: "${userText.trim()}"`);
+            // 1. Check for Text Query
+            let userText = msg.message?.conversation ||
+                           msg.message?.extendedTextMessage?.text ||
+                           msg.message?.imageMessage?.caption ||
+                           '';
+
+            // 2. Check for Voice Message (Farmer speaking into the mic)
+            let audioBase64 = null;
+            const isVoiceNote = !!(msg.message?.audioMessage);
+
+            if (isVoiceNote) {
+                try {
+                    console.log(`\n[${now}] 🎙️ [INCOMING VOICE NOTE DETECTED] From ${senderPhone}...`);
+                    const audioBuffer = await downloadMediaMessage(msg, 'buffer', {});
+                    audioBase64 = audioBuffer.toString('base64');
+                    console.log(`[${now}] 🎙️ [AUDIO DOWNLOADED] ${audioBuffer.length} bytes received`);
+                } catch (downloadErr) {
+                    console.error(`[${now}] ❌ Failed to download audio media:`, downloadErr.message);
+                }
+            }
+
+            // Skip if no text and no audio
+            if (!userText.trim() && !audioBase64) continue;
+
+            if (userText.trim()) {
+                console.log(`\n[${now}] 📩 [NEW TEXT MESSAGE] From ${senderPhone}: "${userText.trim()}"`);
+            }
 
             try {
-                // 1. Simulate typing indicator on WhatsApp
-                await sock.sendPresenceUpdate('composing', remoteJid);
+                // Show typing / recording presence on WhatsApp
+                await sock.sendPresenceUpdate(isVoiceNote ? 'recording' : 'composing', remoteJid);
 
-                // 2. Query FasalMitra FastAPI Advisory Pipeline
+                // Send request to FasalMitra FastAPI Backend
                 const response = await axios.post(FASTAPI_URL, {
                     phone: senderPhone,
                     message: userText.trim(),
+                    audio_base64: audioBase64,
                     language: 'auto',
                     district: 'Latur'
-                }, { timeout: 35000 });
+                }, { timeout: 45000 });
 
-                // 3. Stop typing indicator
                 await sock.sendPresenceUpdate('paused', remoteJid);
 
                 const data = response.data;
                 const replyText = data.reply_body || "नमस्कार! आपल्या प्रश्नावर सल्ला तयार करण्यात आला आहे.";
 
-                // 4. Send Grounded Text Advisory Reply
+                // 1. Send Grounded Text Advisory Reply
                 await sock.sendMessage(remoteJid, { text: replyText }, { quoted: msg });
-                console.log(`[${now}] 🚀 [REPLY SENT] To ${senderPhone}`);
+                console.log(`[${now}] 🚀 [TEXT REPLY SENT] To ${senderPhone}`);
 
-                // 5. Send Audio Voice Note (PTT) if available
+                // 2. Send Native Voice Note (PTT Waveform) if available
                 const audioUrl = data.audio_url || data.pipeline_result?.audio_url;
                 if (audioUrl) {
                     const audioFilename = path.basename(audioUrl);
-                    const localAudioPath = path.resolve(__dirname, '..', 'static', 'audio', audioFilename);
+                    const oggFilename = audioFilename.replace(/\.mp3$/i, '.ogg');
+                    const localOggPath = path.resolve(__dirname, '..', 'static', 'audio', oggFilename);
+                    const localMp3Path = path.resolve(__dirname, '..', 'static', 'audio', audioFilename);
 
-                    if (fs.existsSync(localAudioPath)) {
-                        console.log(`[${now}] 🎙️ [SENDING VOICE NOTE] ${localAudioPath}...`);
-                        const audioBuffer = fs.readFileSync(localAudioPath);
+                    // A) Native WhatsApp Voice Note requires OGG Opus format
+                    if (fs.existsSync(localOggPath)) {
+                        console.log(`[${now}] 🎙️ [SENDING NATIVE OGG VOICE NOTE] ${localOggPath}...`);
+                        const oggBuffer = fs.readFileSync(localOggPath);
                         await sock.sendMessage(remoteJid, {
-                            audio: audioBuffer,
-                            mimetype: 'audio/mp4',
-                            ptt: true // WhatsApp native voice note waveform!
+                            audio: oggBuffer,
+                            mimetype: 'audio/ogg; codecs=opus',
+                            ptt: true // Real WhatsApp voice note waveform player!
                         }, { quoted: msg });
                         console.log(`[${now}] ✅ [VOICE NOTE DELIVERED] To ${senderPhone}`);
+                    }
+                    // B) Fallback: Standard MP3 audio track (ptt: false so WhatsApp won't fail with corrupt player)
+                    else if (fs.existsSync(localMp3Path)) {
+                        console.log(`[${now}] 🎵 [SENDING MP3 AUDIO] ${localMp3Path}...`);
+                        const mp3Buffer = fs.readFileSync(localMp3Path);
+                        await sock.sendMessage(remoteJid, {
+                            audio: mp3Buffer,
+                            mimetype: 'audio/mpeg',
+                            ptt: false
+                        }, { quoted: msg });
+                        console.log(`[${now}] ✅ [MP3 AUDIO DELIVERED] To ${senderPhone}`);
                     }
                 }
             } catch (err) {

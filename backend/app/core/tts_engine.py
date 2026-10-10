@@ -49,6 +49,7 @@ class TTSEngine:
             communicate = edge_tts.Communicate(clean_text, voice_name, rate=self.speech_rate)
             await communicate.save(str(filepath))
             if filepath.exists() and filepath.stat().st_size > 1000:
+                self._convert_to_ogg(filepath, filepath.with_suffix(".ogg"))
                 return f"/api/v1/voice/audio/{filename}"
         except Exception as e:
             print(f"[TTSEngine] EdgeTTS notice ({e}), switching to gTTS fallback...", flush=True)
@@ -57,16 +58,35 @@ class TTSEngine:
         try:
             target_lang = self.gtts_lang_map.get(lang_key, "mr")
             await asyncio.to_thread(self._generate_gtts_mp3, clean_text, target_lang, filepath)
+            if filepath.exists():
+                self._convert_to_ogg(filepath, filepath.with_suffix(".ogg"))
             return f"/api/v1/voice/audio/{filename}"
         except Exception as e2:
             print(f"[TTSEngine] gTTS fallback error: {e2}", flush=True)
             try:
                 # English fallback
                 await asyncio.to_thread(self._generate_gtts_mp3, clean_text, "en", filepath)
+                if filepath.exists():
+                    self._convert_to_ogg(filepath, filepath.with_suffix(".ogg"))
             except Exception as e3:
                 print(f"[TTSEngine] English emergency fallback error: {e3}", flush=True)
 
         return f"/api/v1/voice/audio/{filename}"
+
+    def _convert_to_ogg(self, mp3_path: Path, ogg_path: Path):
+        """Converts generated MP3 to WhatsApp-native OGG Opus format."""
+        try:
+            import subprocess
+            import imageio_ffmpeg
+            ffmpeg_exe = imageio_ffmpeg.get_ffmpeg_exe()
+            subprocess.run(
+                [ffmpeg_exe, "-y", "-i", str(mp3_path), "-c:a", "libopus", "-b:a", "32k", "-vbr", "on", str(ogg_path)],
+                stdout=subprocess.DEVNULL,
+                stderr=subprocess.DEVNULL,
+                check=True
+            )
+        except Exception as e:
+            print(f"[TTSEngine] OGG conversion notice: {e}", flush=True)
 
     def _generate_gtts_mp3(self, text: str, lang: str, filepath: Path):
         """Thread-safe MP3 generation using gTTS."""
@@ -95,11 +115,11 @@ class TTSEngine:
         # Normalize whitespace
         t = re.sub(r'\s+', ' ', t).strip()
 
-        # Generous limit up to 4000 characters to ensure the complete answer is spoken
-        if len(t) > 4000:
-            t = t[:4000]
-            last_period = max(t.rfind('.'), t.rfind('।'), t.rfind('?'), t.rfind('!'))
-            if last_period > 1000:
+        # Crisp spoken voice note limit (under 500 characters) so voice notes render in 2-3s and play naturally
+        if len(t) > 500:
+            t = t[:500]
+            last_period = max(t.rfind('.'), t.rfind('।'), t.rfind('?'), t.rfind('!'), t.rfind(','))
+            if last_period > 250:
                 t = t[:last_period + 1]
 
         return t.strip()

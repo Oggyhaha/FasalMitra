@@ -19,6 +19,7 @@ router = APIRouter(prefix="/webhooks", tags=["webhooks"])
 class WhatsAppJsonRequest(BaseModel):
     phone: str = "+919823012345"
     message: str = ""
+    audio_base64: Optional[str] = None
     language: str = "auto"
     crop_override: Optional[str] = None
     district: Optional[str] = "Latur"
@@ -195,6 +196,7 @@ async def whatsapp_json_endpoint(
         channel="WHATSAPP",
         language=req.language,
         text=user_text,
+        audio_base64=req.audio_base64,
         crop_override=req.crop_override,
         location_district=req.district or "Latur",
         location_state="Maharashtra"
