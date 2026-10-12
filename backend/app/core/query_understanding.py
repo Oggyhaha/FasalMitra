@@ -24,7 +24,7 @@ class HybridQueryUnderstandingEngine:
             "wheat": ["wheat", "गहू", "गेहूं", "gehun", "gehu", "ઘઉં"],
             "soybean": ["soybean", "soyabean", "सोयाबीन", "सोयाबिन", "सोया"],
             "groundnut": ["groundnut", "peanut", "भुईमूग", "मूंगफली", "mungphalli", "moongfali", "મગફળી"],
-            "potato": ["potato", "बटाटा", "आलू", "aloo", "batata", "બટાકા", "બટાટા"],
+            "potato": ["potato", "बटाटा", "आलू", "aloo", "batata", "bataka", "bataaka", "બટાકા", "બટાટા"],
             "tomato": ["tomato", "टोमॅटो", "टमाटर", "tamatar", "ટમેટા", "ટમેટું"],
             "chilli": ["chilli", "chili", "मिरची", "मिर्च", "mirch", "mirchi", "મરચાં"],
             "chickpea": ["gram", "chickpea", "चना", "हरभरा", "chana", "harbhara"],
@@ -34,7 +34,7 @@ class HybridQueryUnderstandingEngine:
             "maize": ["maize", "corn", "मका", "मक्का", "makka"],
             "pigeonpea": ["pigeonpea", "arhar", "tur", "तूर", "अरहर"],
             "mango": ["mango", "आंबा", "आम", "aam"],
-            "bajra": ["bajra", "pearl millet", "बाजरी", "बाजरा"],
+            "bajra": ["bajra", "bajari", "bajri", "pearl millet", "बाजरी", "बाजरा", "બાજરી"],
             "brinjal": ["brinjal", "eggplant", "वांगी", "बैंगन"],
             "banana": ["banana", "केळी", "केला"],
             "okra": ["okra", "bhindi", "भिंडी", "ભીંડા"]
