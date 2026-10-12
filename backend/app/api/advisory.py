@@ -1,5 +1,5 @@
 import uuid
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, Request
 from sqlalchemy.orm import Session
 from backend.app.db.database import get_db
 from backend.app.db.models import Message, Conversation
@@ -24,9 +24,21 @@ router = APIRouter(prefix="/advisory", tags=["advisory"])
 @router.post("/query", response_model=AdvisoryQueryResponse)
 async def process_advisory_query(
     req: AdvisoryQueryRequest,
-    db: Session = Depends(get_db)
+    db: Session = Depends(get_db),
+    request: Request = None
 ):
     query_id = f"QRY-{uuid.uuid4().hex[:8].upper()}"
+
+    # Extract Client IP from Request if not already specified
+    client_ip = req.client_ip
+    if not client_ip and request:
+        forwarded = request.headers.get("x-forwarded-for")
+        if forwarded:
+            client_ip = forwarded.split(",")[0].strip()
+        elif request.headers.get("x-real-ip"):
+            client_ip = request.headers.get("x-real-ip")
+        elif getattr(request, "client", None):
+            client_ip = request.client.host
 
     # 1. ASR & Transcript Normalization
     transcript, detected_lang, asr_conf = await asr_engine.transcribe(
@@ -45,7 +57,7 @@ async def process_advisory_query(
         urgency=nlp_res["urgency"]
     )
 
-    # 3. Context Engine (with multi-turn dialogue memory resolution)
+    # 3. Context Engine (with multi-turn dialogue memory & dynamic Gujarat / Pan-India geolocation resolution)
     ctx = await context_engine.resolve_context(
         farmer_id=req.farmer_id or "FARM-1001",
         crop=nlp_res["crop"],
@@ -53,7 +65,12 @@ async def process_advisory_query(
         district=req.location_district,
         state=req.location_state,
         db=db,
-        conversation_id=req.conversation_id
+        conversation_id=req.conversation_id,
+        query_text=transcript,
+        client_ip=client_ip,
+        lat=req.latitude,
+        lon=req.longitude,
+        detected_lang=detected_lang
     )
 
     # 4. Pre-Safety Gate
@@ -66,10 +83,13 @@ async def process_advisory_query(
             nlp_res["crop"], ctx["district"], risk_lvl, pre_reason, []
         )
         
-        fallback_msg = (
-            "आपला प्रश्न उच्च जोखीम किंवा अपुऱ्या माहितीचा आहे. "
-            "सुरक्षिततेसाठी आमचे कृषी तज्ञ आपल्याशी लवकरच संपर्क साधतील."
-        ) if detected_lang == "mr" else "आपका प्रश्न सुरक्षा नीति के अंतर्गत विशेषज्ञ समीक्षा के लिए भेज दिया गया है।"
+        fallback_messages = {
+            "mr": "आपला प्रश्न उच्च जोखीम किंवा अपुऱ्या माहितीचा आहे. सुरक्षिततेसाठी आमचे कृषी तज्ञ आपल्याशी लवकरच संपर्क साधतील.",
+            "gu": "આ પ્રશ્ન સુરક્ષા નીતિ હેઠળ નિષ્ણાત સમીક્ષા માટે મોકલવામાં આવ્યો છે. અમારા કૃષિ નિષ્ણાત ટૂંક સમયમાં સંપર્ક કરશે.",
+            "hi": "आपका प्रश्न सुरक्षा नीति के अंतर्गत विशेषज्ञ समीक्षा के लिए भेज दिया गया है। हमारे कृषि विशेषज्ञ जल्द संपर्क करेंगे।",
+            "en": "Your inquiry has been escalated to our senior agricultural agronomist for safety verification."
+        }
+        fallback_msg = fallback_messages.get(detected_lang, fallback_messages["hi"])
 
         return AdvisoryQueryResponse(
             query_id=query_id,
@@ -103,10 +123,13 @@ async def process_advisory_query(
             db, req.farmer_id or "FARM-1001", query_id, transcript,
             ctx["crop"], ctx["district"], risk_lvl, f"GROUNDING_{ground_status}", reranked_evidence
         )
-        esc_msg = (
-            "या प्रश्नावर आमच्याकडे पूर्णपणे पडताळलेला पुरावा उपलब्ध नाही. "
-            "चुकीचा सल्ला टाळण्यासाठी ही केस आमच्या कृषी तज्ञांकडे वर्ग केली आहे."
-        )
+        esc_messages = {
+            "mr": "या प्रश्नावर आमच्याकडे पूर्णपणे पडताळलेला पुरावा उपलब्ध नाही. चुकीचा सल्ला टाळण्यासाठी ही केस आमच्या कृषी तज्ञांकडे वर्ग केली आहे.",
+            "gu": "આ પ્રશ્ન પર સંપૂર્ણ ચકાસાયેલ પુરાવા ઉપલબ્ધ નથી. સચોટ સલાહ માટે આ કેસ અમારા કૃષિ નિષ્ણાતોને મોકલવામાં આવ્યો છે.",
+            "hi": "इस प्रश्न पर पूरी तरह से सत्यापित प्रमाण उपलब्ध नहीं है। सटीक सलाह हेतु यह केस कृषि विशेषज्ञों को भेजा गया है।",
+            "en": "Official agricultural evidence is limited for this inquiry. Forwarded to senior KVK agronomists for review."
+        }
+        esc_msg = esc_messages.get(detected_lang, esc_messages["hi"])
         return AdvisoryQueryResponse(
             query_id=query_id,
             status="ESCALATED_TO_EXPERT",
@@ -123,10 +146,11 @@ async def process_advisory_query(
             escalation_id=esc_id
         )
 
-    # 8. Grounded LLM Response Generation (with dialogue history)
+    # 8. Grounded LLM Response Generation (with dialogue history and regional location profile)
     raw_answer = await llm_generator.generate_response(
         transcript, reranked_evidence, ctx["crop"], ctx["stage_name"],
-        ctx["weather"]["condition"], detected_lang, ctx.get("conversation_history")
+        ctx["weather"]["condition"], detected_lang, ctx.get("conversation_history"),
+        location_info=ctx.get("location_profile")
     )
 
 

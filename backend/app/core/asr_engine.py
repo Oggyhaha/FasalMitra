@@ -148,12 +148,65 @@ class ASREngine:
         return ""
 
     def _detect_language(self, text: str) -> str:
-        # 1. Native Gujarati Unicode script range (\u0A80-\u0AFF)
+        # 1. Native Script Ranges for all 22 Scheduled Indian Languages + English
+        # Gujarati: \u0A80 - \u0AFF
         if any('\u0a80' <= c <= '\u0aff' for c in text):
             return "gu"
 
-        # 2. Native Devanagari script range (\u0900-\u097F)
+        # Gurmukhi (Punjabi): \u0A00 - \u0A7F
+        if any('\u0a00' <= c <= '\u0a7f' for c in text):
+            return "pa"
+
+        # Telugu: \u0C00 - \u0C7F
+        if any('\u0c00' <= c <= '\u0c7f' for c in text):
+            return "te"
+
+        # Tamil: \u0B80 - \u0BFF
+        if any('\u0b80' <= c <= '\u0bff' for c in text):
+            return "ta"
+
+        # Kannada: \u0C80 - \u0CFF
+        if any('\u0c80' <= c <= '\u0cff' for c in text):
+            return "kn"
+
+        # Malayalam: \u0D00 - \u0D7F
+        if any('\u0d00' <= c <= '\u0d7f' for c in text):
+            return "ml"
+
+        # Bengali & Assamese: \u0980 - \u09FF
+        if any('\u0980' <= c <= '\u09ff' for c in text):
+            # Assamese specific characters 'ৰ' (\u09F0) or 'ৱ' (\u09F1)
+            if any(c in text for c in ['\u09f0', '\u09f1']):
+                return "as"
+            return "bn"
+
+        # Odia: \u0B00 - \u0B7F
+        if any('\u0b00' <= c <= '\u0b7f' for c in text):
+            return "or"
+
+        # Perso-Arabic (Urdu, Kashmiri, Sindhi): \u0600 - \u06FF
+        if any('\u0600' <= c <= '\u06ff' for c in text):
+            return "ur"
+
+        # Ol Chiki (Santali): \u1C50 - \u1C7F
+        if any('\u1c50' <= c <= '\u1c7f' for c in text):
+            return "sat"
+
+        # Meetei Mayek (Manipuri): \uABC0 - \uABFF
+        if any('\uabc0' <= c <= '\uabff' for c in text):
+            return "mni"
+
+        # Devanagari script range (\u0900 - \u097F) (Hindi, Marathi, Sanskrit, Nepali, Konkani, Maithili, Bodo, Dogri)
         if any('\u0900' <= c <= '\u097f' for c in text):
+            # Check regional dialect markers
+            if any(w in text for w in ["अस्ति", "कृषिः", "भवति", "नमः"]):
+                return "sa" # Sanskrit
+            if any(w in text for w in ["छ", "छन्", "भयो", "गर्ने", "हाम्रो"]):
+                return "ne" # Nepali
+            if any(w in text for w in ["आसा", "आहेत", "करचे", "भास"]):
+                return "kok" # Konkani
+            if any(w in text for w in ["अछि", "छथि", "हमर", "करब"]):
+                return "mai" # Maithili
             for kw in self.marathi_keywords:
                 if kw in text:
                     return "mr"

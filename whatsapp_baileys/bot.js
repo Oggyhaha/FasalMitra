@@ -126,7 +126,26 @@ async function connectToWhatsApp() {
                            msg.message?.imageMessage?.caption ||
                            '';
 
-            // 2. Check for Voice Message (Farmer speaking into the mic)
+            // 2. Check for WhatsApp Location Pin
+            let lat = null;
+            let lon = null;
+            if (msg.message?.locationMessage) {
+                lat = msg.message.locationMessage.degreesLatitude;
+                lon = msg.message.locationMessage.degreesLongitude;
+                if (!userText) {
+                    userText = `📍 Farmer Location Pin: ${lat}, ${lon} ${msg.message.locationMessage.name || ''}`;
+                }
+                console.log(`\n[${now}] 📍 [LOCATION PIN RECEIVED] Lat: ${lat}, Lon: ${lon} from ${senderPhone}`);
+            } else if (msg.message?.liveLocationMessage) {
+                lat = msg.message.liveLocationMessage.degreesLatitude;
+                lon = msg.message.liveLocationMessage.degreesLongitude;
+                if (!userText) {
+                    userText = `📍 Farmer Location Pin: ${lat}, ${lon}`;
+                }
+                console.log(`\n[${now}] 📍 [LIVE LOCATION PIN RECEIVED] Lat: ${lat}, Lon: ${lon} from ${senderPhone}`);
+            }
+
+            // 3. Check for Voice Message (Farmer speaking into the mic)
             let audioBase64 = null;
             const isVoiceNote = !!(msg.message?.audioMessage);
 
@@ -141,7 +160,7 @@ async function connectToWhatsApp() {
                 }
             }
 
-            // Skip if no text and no audio
+            // Skip if no text, no audio, and no location
             if (!userText.trim() && !audioBase64) continue;
 
             if (userText.trim()) {
@@ -152,13 +171,14 @@ async function connectToWhatsApp() {
                 // Show typing / recording presence on WhatsApp
                 await sock.sendPresenceUpdate(isVoiceNote ? 'recording' : 'composing', remoteJid);
 
-                // Send request to FasalMitra FastAPI Backend
+                // Send request to FasalMitra FastAPI Backend (Dynamic Geolocation & 23 Languages)
                 const response = await axios.post(FASTAPI_URL, {
                     phone: senderPhone,
                     message: userText.trim(),
                     audio_base64: audioBase64,
                     language: 'auto',
-                    district: 'Latur'
+                    latitude: lat,
+                    longitude: lon
                 }, { timeout: 45000 });
 
                 await sock.sendPresenceUpdate('paused', remoteJid);

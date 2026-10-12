@@ -13,6 +13,8 @@ from backend.app.api.advisory import process_advisory_query
 from backend.app.db.models import Farmer, CropPassport, Escalation, KnowledgeDocument
 from backend.app.core.tts_engine import tts_engine
 
+from backend.app.core.geo_tracker import geo_tracker
+
 sys.stdout.reconfigure(encoding='utf-8')
 router = APIRouter(prefix="/webhooks", tags=["webhooks"])
 
@@ -22,7 +24,11 @@ class WhatsAppJsonRequest(BaseModel):
     audio_base64: Optional[str] = None
     language: str = "auto"
     crop_override: Optional[str] = None
-    district: Optional[str] = "Latur"
+    district: Optional[str] = None
+    state: Optional[str] = None
+    client_ip: Optional[str] = None
+    latitude: Optional[float] = None
+    longitude: Optional[float] = None
 
 
 # Meta WhatsApp Cloud API Verification (GET)
@@ -125,15 +131,35 @@ async def meta_whatsapp_webhook(request: Request, db: Session = Depends(get_db))
             return {"status": "SUCCESS", "reply": reply_text, "audio_url": audio_url}
 
         # 14-Stage Grounded Pipeline Execution
+        lat = None
+        lon = None
+        if msg_type == "location":
+            loc = msg.get("location", {})
+            lat = loc.get("latitude")
+            lon = loc.get("longitude")
+
+        client_ip = None
+        if request:
+            forwarded = request.headers.get("x-forwarded-for")
+            if forwarded:
+                client_ip = forwarded.split(",")[0].strip()
+            elif request.headers.get("x-real-ip"):
+                client_ip = request.headers.get("x-real-ip")
+            elif getattr(request, "client", None):
+                client_ip = request.client.host
+
         advisory_req = AdvisoryQueryRequest(
             farmer_id=f"FARM-{from_phone[-4:]}",
             channel="WHATSAPP",
             language="auto",
             text=user_text,
-            location_district="Latur",
-            location_state="Maharashtra"
+            location_district=None,
+            location_state=None,
+            client_ip=client_ip,
+            latitude=lat,
+            longitude=lon
         )
-        pipeline_res = await process_advisory_query(advisory_req, db)
+        pipeline_res = await process_advisory_query(advisory_req, db, request)
 
         grounding_badge = "✅ ICAR/KVK Grounded Evidence" if pipeline_res.grounding_status == "SUPPORTED" else "⚠️ Escalated to Expert Queue"
         source_title = pipeline_res.retrieved_evidence[0].title if pipeline_res.retrieved_evidence else "ICAR/KVK Advisory"
@@ -159,36 +185,51 @@ async def meta_whatsapp_webhook(request: Request, db: Session = Depends(get_db))
 @router.post("/whatsapp/json")
 async def whatsapp_json_endpoint(
     req: WhatsAppJsonRequest,
-    db: Session = Depends(get_db)
+    db: Session = Depends(get_db),
+    request: Request = None
 ):
     """
     JSON Endpoint for WhatsApp Automation & Web Simulator.
     """
     now_str = datetime.now().strftime("%H:%M:%S")
-    user_text = req.message.strip() if req.message.strip() else "माझ्या सोयाबीनची पाने पिवळी पडत आहेत"
+    user_text = req.message.strip() if req.message.strip() else "માझ्या સોયાબીનની પાંદડા પીળા પડી રહ્યા છે"
     print(f"\n[{now_str}] 📩 [JSON API WHATSAPP MESSAGE]: '{user_text}' (Phone: {req.phone})", flush=True)
 
+    # Extract Client IP from Request if not supplied
+    client_ip = req.client_ip
+    if not client_ip and request:
+        forwarded = request.headers.get("x-forwarded-for")
+        if forwarded:
+            client_ip = forwarded.split(",")[0].strip()
+        elif request.headers.get("x-real-ip"):
+            client_ip = request.headers.get("x-real-ip")
+        elif getattr(request, "client", None):
+            client_ip = request.client.host
+
     input_lower = user_text.lower()
-    if input_lower in ["2", "/weather", "weather", "हवामान"]:
+    if input_lower in ["2", "/weather", "weather", "हवामान", "હવામાન"]:
+        st, dist = geo_tracker.detect_location(query_text=user_text, lat=req.latitude, lon=req.longitude)
+        agro_prof = geo_tracker.get_regional_agro_profile(st, dist)
         weather_doc = db.query(KnowledgeDocument).filter(KnowledgeDocument.crop == "General").first()
-        weather_text = weather_doc.content if weather_doc else "लातूर जिल्ह्यात पुढील ४८ तासांत हलक्या ते मध्यम स्वरूपाचा पाऊस अपेक्षित आहे. फवारणी पुढे ढकलावी."
-        reply_body = f"🌧️ *[IMD Agromet Weather Advisory - Latur]*\n\n{weather_text}\n\n🛡️ *Source:* IMD Agromet Advisory Service\n🎙️ *व्हॉईस संदेश (Voice Note):* खालील ऑडिओ प्लेयरद्वारे ऐका"
-        audio_url = await tts_engine.synthesize("weather", weather_text, req.language if req.language != "auto" else "mr")
+        weather_text = f"{dist} ({st}) વિસ્તારમાં હવામાન સામાન્ય રીતે સ્વચ્છ અને ખુલ્લું રહેશે. છંટકાવ અનુકૂળ રહેશે." if "Gujarat" in st else (weather_doc.content if weather_doc else f"{dist} जिल्ह्यात हवामान स्वच्छ राहील.")
+        reply_body = f"🌧️ *[{agro_prof['weather_station']}]*\n\n{weather_text}\n\n🛡️ *Source:* IMD Agromet Advisory Service\n🎙️ *व्हॉईस संदेश (Voice Note):* खालील ऑडिओ प्लेयरद्वारे ऐका"
+        audio_url = await tts_engine.synthesize("weather", weather_text, req.language if req.language != "auto" else ("gu" if "Gujarat" in st else "mr"))
         return {"reply_body": reply_body, "pipeline_result": None, "audio_url": audio_url}
 
-    if input_lower in ["3", "/passport", "passport", "पिक"]:
+    if input_lower in ["3", "/passport", "passport", "પિક", "પાક"]:
+        st, dist = geo_tracker.detect_location(query_text=user_text, lat=req.latitude, lon=req.longitude)
         passport = db.query(CropPassport).first()
         reply_body = (
-            f"🌱 *[Farmer Crop Passport]*\n\n"
+            f"🌱 *[Farmer Crop Passport - {dist}, {st}]*\n\n"
             f"• *Crop:* {passport.crop_name if passport else 'Soybean'}\n"
             f"• *Variety:* {passport.variety if passport else 'JS 335'}\n"
             f"• *Sowing Date:* {passport.sowing_date if passport else '2026-06-15'}\n"
             f"• *Stage:* {passport.stage_days if passport else 35} Days\n"
-            f"• *District:* Latur, Maharashtra\n"
+            f"• *District & State:* {dist}, {st}\n"
             f"🎙️ *व्हॉईस संदेश (Voice Note):* खालील ऑडिओ प्लेयरद्वारे ऐका"
         )
-        passport_voice = f"शेतकरी पिक पासपोर्ट माहिती: पिक {passport.crop_name if passport else 'सोयाबीन'}, जात {passport.variety if passport else 'JS 335'}, पेरणी दिनांक {passport.sowing_date if passport else '१५ जून'}, वाढीचा टप्पा ३५ दिवस."
-        audio_url = await tts_engine.synthesize("passport", passport_voice, req.language if req.language != "auto" else "mr")
+        passport_voice = f"શેટકરી પાક પાસપોર્ટ માહિતી: પાક {passport.crop_name if passport else 'સોયાબીન'}, જાત {passport.variety if passport else 'JS 335'}, વાવણી તારીખ {passport.sowing_date if passport else '૧૫ જૂન'}." if "Gujarat" in st else f"शेतकरी पिक पासपोर्ट माहिती: पिक {passport.crop_name if passport else 'सोयाबीन'}."
+        audio_url = await tts_engine.synthesize("passport", passport_voice, req.language if req.language != "auto" else ("gu" if "Gujarat" in st else "mr"))
         return {"reply_body": reply_body, "pipeline_result": None, "audio_url": audio_url}
     
     advisory_req = AdvisoryQueryRequest(
@@ -198,11 +239,14 @@ async def whatsapp_json_endpoint(
         text=user_text,
         audio_base64=req.audio_base64,
         crop_override=req.crop_override,
-        location_district=req.district or "Latur",
-        location_state="Maharashtra"
+        location_district=req.district,
+        location_state=req.state,
+        client_ip=client_ip,
+        latitude=req.latitude,
+        longitude=req.longitude
     )
 
-    pipeline_res = await process_advisory_query(advisory_req, db)
+    pipeline_res = await process_advisory_query(advisory_req, db, request)
     grounding_badge = "✅ ICAR/KVK Grounded Evidence" if pipeline_res.grounding_status == "SUPPORTED" else "⚠️ Escalated to Expert Queue"
     source_title = pipeline_res.retrieved_evidence[0].title if pipeline_res.retrieved_evidence else "ICAR/KVK Advisory"
 

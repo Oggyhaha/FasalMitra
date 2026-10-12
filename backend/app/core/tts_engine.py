@@ -10,18 +10,56 @@ AUDIO_DIR.mkdir(parents=True, exist_ok=True)
 
 class TTSEngine:
     def __init__(self):
-        # High quality regional neural voices with natural human intonation
+        # High quality regional neural voices with natural human intonation for all 23 Indian Languages
         self.edge_voice_map = {
             "mr": "mr-IN-AarohiNeural",
             "hi": "hi-IN-SwaraNeural",
             "gu": "gu-IN-DhwaniNeural",
-            "en": "en-IN-NeerjaNeural"
+            "en": "en-IN-NeerjaNeural",
+            "bn": "bn-IN-TanishaaNeural",
+            "te": "te-IN-ShrutiNeural",
+            "ta": "ta-IN-PallaviNeural",
+            "kn": "kn-IN-SapnaNeural",
+            "ml": "ml-IN-SobhanaNeural",
+            "ur": "ur-IN-GulNeural",
+            "pa": "hi-IN-SwaraNeural", # Hindi neural fallback for Punjabi
+            "as": "bn-IN-TanishaaNeural", # Bengali neural fallback for Assamese
+            "or": "hi-IN-SwaraNeural",
+            "sa": "hi-IN-SwaraNeural",
+            "ne": "hi-IN-SwaraNeural",
+            "kok": "mr-IN-AarohiNeural",
+            "mai": "hi-IN-SwaraNeural",
+            "doi": "hi-IN-SwaraNeural",
+            "ks": "ur-IN-GulNeural",
+            "sd": "ur-IN-GulNeural",
+            "mni": "bn-IN-TanishaaNeural",
+            "brx": "hi-IN-SwaraNeural",
+            "sat": "hi-IN-SwaraNeural"
         }
         self.gtts_lang_map = {
             "mr": "mr",
             "hi": "hi",
             "gu": "gu",
-            "en": "en"
+            "en": "en",
+            "bn": "bn",
+            "te": "te",
+            "ta": "ta",
+            "kn": "kn",
+            "ml": "ml",
+            "pa": "pa",
+            "ur": "ur",
+            "ne": "ne",
+            "as": "bn",
+            "or": "hi",
+            "sa": "hi",
+            "kok": "mr",
+            "mai": "hi",
+            "doi": "hi",
+            "ks": "ur",
+            "sd": "ur",
+            "mni": "bn",
+            "brx": "hi",
+            "sat": "hi"
         }
         # Increased speech rate (+18%) so voice notes are fast, crisp and consume less time
         self.speech_rate = "+18%"
@@ -110,8 +148,8 @@ class TTSEngine:
         # Remove decorative borders and bullet symbols
         t = re.sub(r'[-•*~_—=]{2,}', ' ', t)
         t = re.sub(r'[-•*]\s*', ' ', t)
-        # Clean emojis while keeping Devanagari, Gujarati, Latin, digits, punctuation
-        t = re.sub(r'[^\w\s\.,;:!?\u0900-\u097F\u0A80-\u0AFF%/\-]', ' ', t)
+        # Clean emojis while keeping Devanagari, Bengali, Gurmukhi, Gujarati, Odia, Tamil, Telugu, Kannada, Malayalam, Perso-Arabic, Ol Chiki, Meetei Mayek, Latin, digits, punctuation
+        t = re.sub(r'[^\w\s\.,;:!?%/\-\u0900-\u097F\u0980-\u09FF\u0A00-\u0A7F\u0A80-\u0AFF\u0B00-\u0B7F\u0B80-\u0BFF\u0C00-\u0C7F\u0C80-\u0CFF\u0D00-\u0D7F\u0600-\u06FF\u1C50-\u1C7F\uABC0-\uABFF]', ' ', t)
         # Normalize whitespace
         t = re.sub(r'\s+', ' ', t).strip()
 

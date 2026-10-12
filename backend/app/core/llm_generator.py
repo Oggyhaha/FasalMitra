@@ -19,7 +19,8 @@ class GroundedLLMGenerator:
         stage_name: str,
         weather_info: str,
         language: str = "mr",
-        conversation_history: List[Dict[str, str]] = None
+        conversation_history: List[Dict[str, str]] = None,
+        location_info: Optional[Dict[str, str]] = None
     ) -> str:
         """
         Generates comprehensive, grounded agronomist advisory strictly utilizing
@@ -34,18 +35,45 @@ class GroundedLLMGenerator:
             ) + "\n"
 
         lang_names = {
-            "mr": "Marathi (मराठी)",
             "hi": "Hindi (हिंदी)",
+            "mr": "Marathi (मराठी)",
+            "gu": "Gujarati (ગુજરાતી)",
             "en": "English",
-            "gu": "Gujarati (ગુજરાતી)"
+            "bn": "Bengali (বাংলা)",
+            "te": "Telugu (తెలుగు)",
+            "ta": "Tamil (தமிழ்)",
+            "kn": "Kannada (ಕನ್ನಡ)",
+            "ml": "Malayalam (മലയാളം)",
+            "pa": "Punjabi (ਪੰਜਾਬੀ)",
+            "or": "Odia (ଓડ଼િଆ)",
+            "as": "Assamese (অসমীয়া)",
+            "ur": "Urdu (اردو)",
+            "sa": "Sanskrit (संस्कृतम्)",
+            "ks": "Kashmiri (कश्मीरी / كٲશُر)",
+            "sd": "Sindhi (सिन्धी / سنڌي)",
+            "ne": "Nepali (नेपाली)",
+            "kok": "Konkani (कोंकणी)",
+            "mai": "Maithili (मैथिली)",
+            "doi": "Dogri (डोगरी)",
+            "mni": "Manipuri (মৈতৈલોન્ / Meitei)",
+            "brx": "Bodo (बड़ो)",
+            "sat": "Santali (संताली / ᱥᱟᱱᱛᱟᱲᱤ)"
         }
-        target_lang_name = lang_names.get(language, "Marathi (मराठी)")
+        target_lang_name = lang_names.get(language, "Gujarati (ગુજરાતી)" if language == "gu" else "Marathi (मराठी)")
+
+        loc_str = ""
+        if location_info:
+            state = location_info.get("state", "Gujarat")
+            dist = location_info.get("district", "Anand")
+            auth = location_info.get("authorities", "")
+            scheme = location_info.get("portal_scheme", "")
+            loc_str = f"• Location: {dist}, {state}\n• Regional Authority: {auth}\n• Government Schemes/Portals: {scheme}\n"
 
         system_prompt = (
             f"You are FasalMitra (फसलमित्र), an expert senior agricultural advisor and ICAR/KVK certified agronomist helping Indian farmers.\n\n"
             f"MANDATORY INSTRUCTIONS:\n"
             f"1. LANGUAGE: You MUST write your entire response fluently and warmly in {target_lang_name}.\n"
-            f"2. GROUNDING: Base your diagnosis, treatment, varieties, and dosages strictly on the official agricultural evidence provided below.\n"
+            f"2. GROUNDING & REGIONAL ACCURACY: Base your diagnosis, treatment, varieties, and dosages strictly on official agricultural evidence tailored to the farmer's state (e.g. Gujarat AAU/JAU/NAU/SDAU universities if Gujarat; MPKV/VNMKV if Maharashtra).\n"
             f"3. THOROUGHNESS & DEPTH:\n"
             f"   - Explain the CAUSE (Why this happens - e.g. pest lifecycle, nutrient deficiency, weather condition).\n"
             f"   - Detail the ACTION PLAN / PROCESS (Step 1, Step 2, Step 3 clearly formatted with bullet points).\n"
@@ -55,6 +83,7 @@ class GroundedLLMGenerator:
             f"Farmer Context:\n"
             f"• Crop: {crop}\n"
             f"• Crop Stage: {stage_name}\n"
+            f"{loc_str}"
             f"• Current Weather: {weather_info}\n"
             f"{history_text}\n"
             f"Official Agricultural Evidence (ICAR/KVK/KCC):\n"

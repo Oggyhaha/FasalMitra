@@ -6,13 +6,16 @@ class AdvisoryQueryRequest(BaseModel):
     farmer_id: Optional[str] = "FARM-1001"
     conversation_id: Optional[str] = None
     channel: str = Field(default="WEB_SIMULATOR", description="PHONE, WHATSAPP, WEB_SIMULATOR")
-    language: str = Field(default="auto", description="mr, hi, gu, en, auto")
+    language: str = Field(default="auto", description="Supports all 23 Indian languages: gu, mr, hi, bn, te, ta, kn, ml, pa, or, as, ur, etc.")
     text: str
     audio_base64: Optional[str] = None
     crop_override: Optional[str] = None
     crop_stage_days: Optional[int] = 35
-    location_district: Optional[str] = "Latur"
-    location_state: Optional[str] = "Maharashtra"
+    location_district: Optional[str] = None
+    location_state: Optional[str] = None
+    client_ip: Optional[str] = None
+    latitude: Optional[float] = None
+    longitude: Optional[float] = None
 
 class EvidenceChunk(BaseModel):
     source_id: str
