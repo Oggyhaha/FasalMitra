@@ -234,7 +234,8 @@ class HybridRetrievalEngine:
         query_text: str,
         crop: str,
         district: str,
-        top_k: int = 5
+        top_k: int = 5,
+        state: str = None
     ) -> List[EvidenceChunk]:
         """
         Executes fast, indexed hybrid retrieval using SQL-level candidate selection
@@ -312,29 +313,33 @@ class HybridRetrievalEngine:
         for doc in candidate_docs:
             doc_text = (doc.title + " " + doc.content).lower()
             
-            # A. Term overlap score (combining Devanagari and English synonyms)
+            # A. Term overlap score (combining Devanagari, Gurmukhi, Bengali, Telugu, Tamil, Gujarati, etc. and English synonyms)
             matched_terms = [t for t in search_terms if t in doc_text]
-            term_score = min(1.0, len(matched_terms) * 0.18)
+            term_score = min(1.0, len(matched_terms) * 0.22)
             
-            # B. Authority Tier weight
-            authority_boost = 0.35 if doc.authority_tier == 1 else 0.20
+            # B. Authority Tier weight (ICAR, KVK, SAUs)
+            authority_boost = 0.30 if doc.authority_tier == 1 else 0.20
             
             # C. Target Crop Match weight
             crop_match = 0.0
             if crop and doc.crop and crop.lower() == doc.crop.lower():
-                crop_match = 0.30
+                crop_match = 0.35
             elif any(c.lower() == doc.crop.lower() for c in target_crops if doc.crop):
-                crop_match = 0.25
+                crop_match = 0.28
             elif doc.crop == "General":
                 crop_match = 0.15
 
-            # D. District / Location Match weight
+            # D. District / State / Regional Location Match weight
             location_match = 0.0
             if district and doc.district and district.lower() in doc.district.lower():
                 location_match = 0.15
+            elif state and doc.state and state.lower() in doc.state.lower():
+                location_match = 0.10
+            elif doc.state == "All-India" or not doc.state:
+                location_match = 0.05
 
-            # Final weighted score
-            final_score = round(min(0.98, (term_score * 0.40) + authority_boost + (crop_match * 0.30) + location_match), 2)
+            # Final weighted score (combines semantic term overlap, official authority, and crop grounding)
+            final_score = round(min(0.98, (term_score * 0.35) + authority_boost + crop_match + location_match), 2)
             
             # Threshold for inclusion
             if final_score >= 0.25:

@@ -18,13 +18,16 @@ class ConfidenceEngine:
 
         top_evidence_score = retrieval_evidence[0].score if retrieval_evidence else 0.0
         
-        # Weighted formula
-        final_score = (top_evidence_score * 0.5) + (asr_confidence * 0.3) + (1.0 if claims_passed else 0.0) * 0.2
+        # Multi-factor grounded confidence formula:
+        # 1. Official ICAR/KVK Evidence relevance & grounding depth: 50%
+        # 2. Post-LLM verified chemical safety & claim grounding: 30%
+        # 3. Transcript normalization / speech acoustic clarity: 20%
+        final_score = (top_evidence_score * 0.50) + (0.30 if claims_passed else 0.0) + (asr_confidence * 0.20)
         final_score = round(min(0.98, max(0.1, final_score)), 2)
 
-        if final_score >= 0.75:
+        if final_score >= 0.85:
             level = "HIGH"
-        elif final_score >= 0.55:
+        elif final_score >= 0.70:
             level = "MEDIUM"
         else:
             level = "LOW"

@@ -110,7 +110,7 @@ async def process_advisory_query(
         )
 
     # 5. Hybrid Retrieval
-    candidates = retrieval_engine.retrieve(db, transcript, ctx["crop"], ctx["district"])
+    candidates = retrieval_engine.retrieve(db, transcript, ctx["crop"], ctx["district"], state=ctx.get("state"))
     
     # 6. Reranking
     reranked_evidence = reranker.rerank(candidates, ctx["crop"], ctx["stage_days"], ctx["district"])
