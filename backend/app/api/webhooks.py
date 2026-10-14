@@ -18,6 +18,35 @@ from backend.app.core.geo_tracker import geo_tracker
 sys.stdout.reconfigure(encoding='utf-8')
 router = APIRouter(prefix="/webhooks", tags=["webhooks"])
 
+VOICE_NOTE_FOOTERS = {
+    "mr": "🎙️ *व्हॉईस संदेश (Voice Note):* खालील ऑडिओ प्लेयरद्वारे ऐका",
+    "hi": "🎙️ *वॉइस संदेश (Voice Note):* नीचे दिए गए ऑडियो प्लेयर से सुनें",
+    "gu": "🎙️ *વૉઇસ સંદેશ (Voice Note):* નીચેના ઑડિઓ પ્લેયર દ્વારા સાંભળો",
+    "pa": "🎙️ *ਆਵਾਜ਼ ਸੁਨੇਹਾ (Voice Note):* ਹੇਠਾਂ ਦਿੱਤੇ ਆਡੀਓ ਪਲੇਅਰ ਰਾਹੀਂ ਸੁਣੋ",
+    "bn": "🎙️ *ভয়েস বার্তা (Voice Note):* নিচের অডিও প্লেয়ারে শুনুন",
+    "te": "🎙️ *వాయిస్ సందేశం (Voice Note):* దిగువ ఆడియో ప్లేయర్ ద్వారా వినండి",
+    "ta": "🎙️ *குரல் செய்தி (Voice Note):* கீழே உள்ள ஆடியோ பிளேயர் மூலம் கேளுங்கள்",
+    "kn": "🎙️ *ಧ್ವನಿ ಸಂದೇಶ (Voice Note):* ಕೆಳಗಿನ ಆಡಿಯೊ ಪ್ಲೇಯರ್ ಮೂಲಕ ಆಲಿಸಿ",
+    "ml": "🎙️ *ശബ്ദ സന്ദേശം (Voice Note):* താഴെയുള്ള ഓഡിയോ പ്ലെയറിലൂടെ കേൾക്കുക",
+    "or": "🎙️ *ଭଏସ୍ ବାର୍ତ୍ତା (Voice Note):* ତଳେ ଥିବା ଅଡିଓ ପ୍ଲେୟାର୍ ମାଧ୍ୟମରେ ଶୁଣନ୍ତୁ",
+    "as": "🎙️ *ভইচ বাৰ্তা (Voice Note):* তলৰ অডিঅ' প্লেয়াৰযোগে শুনক",
+    "ur": "🎙️ *صوتی پیغام (Voice Note):* نیچے دیے گئے آڈیو پلیئر کے ذریعے سنیں",
+    "sa": "🎙️ *ध्वनिसन्देशः (Voice Note):* अधस्तन-श्रव्ययन्त्रेण शृण्वन्तु",
+    "ne": "🎙️ *भ्वाइस सन्देश (Voice Note):* तल दिइएको अडियो प्लेयरबाट सुन्नुहोस्",
+    "kok": "🎙️ *व्हॉईस संदेश (Voice Note):* सकयल्या ऑडिओ प्लेयरार आयकात",
+    "mai": "🎙️ *वॉइस संदेश (Voice Note):* नीचा देल ऑडियो प्लेयर सँ सुनू",
+    "doi": "🎙️ *आवाज़ सुनेहा (Voice Note):* हेठ दित्ते गेदे आडियो प्लेयर थमां सुणो",
+    "ks": "🎙️ *صوتی پیغام (Voice Note):* بۄنہِ دِژمٕژ آڈیو پلیئر کٔنؠ بوزِو",
+    "sd": "🎙️ *صوتي پيغام (Voice Note):* هيٺين آڊيو پليئر ذريعي ٻڌو",
+    "mni": "🎙️ *খোন্থোক পাউজেল (Voice Note):* মখাগী অডিও প্লেয়ারদা তাবীয়ু",
+    "brx": "🎙️ *राव खौरां (Voice Note):* गाहायाव थानाय अडिअ' प्लेयारजों खनासं",
+    "sat": "🎙️ *ᱟᱲᱟᱝ ᱠᱷᱚᱵᱚᱨ (Voice Note):* ᱞᱟᱛᱟᱨ ᱨᱮᱱᱟᱜ ᱚᱰᱤᱭᱳ ᱯᱞᱮᱭᱟᱨ ᱛᱮ ᱟᱧᱡᱚᱢ ᱢᱮ",
+    "en": "🎙️ *Voice Note:* Listen via the audio player below"
+}
+
+def get_voice_footer(lang_code: str) -> str:
+    return VOICE_NOTE_FOOTERS.get(lang_code, VOICE_NOTE_FOOTERS["en"])
+
 class WhatsAppJsonRequest(BaseModel):
     phone: str = "+919823012345"
     message: str = ""
@@ -207,18 +236,30 @@ async def whatsapp_json_endpoint(
             client_ip = request.client.host
 
     input_lower = user_text.lower()
-    if input_lower in ["2", "/weather", "weather", "हवामान", "હવામાન"]:
+    if input_lower in ["2", "/weather", "weather", "हवामान", "હવામાન", "ਮੌਸਮ", "আবহাওয়া", "వాతావరణం"]:
         st, dist = geo_tracker.detect_location(query_text=user_text, lat=req.latitude, lon=req.longitude)
+        if req.state:
+            st = req.state
+        if req.district:
+            dist = req.district
         agro_prof = geo_tracker.get_regional_agro_profile(st, dist)
         weather_doc = db.query(KnowledgeDocument).filter(KnowledgeDocument.crop == "General").first()
-        weather_text = f"{dist} ({st}) વિસ્તારમાં હવામાન સામાન્ય રીતે સ્વચ્છ અને ખુલ્લું રહેશે. છંટકાવ અનુકૂળ રહેશે." if "Gujarat" in st else (weather_doc.content if weather_doc else f"{dist} जिल्ह्यात हवामान स्वच्छ राहील.")
-        reply_body = f"🌧️ *[{agro_prof['weather_station']}]*\n\n{weather_text}\n\n🛡️ *Source:* IMD Agromet Advisory Service\n🎙️ *व्हॉईस संदेश (Voice Note):* खालील ऑडिओ प्लेयरद्वारे ऐका"
-        audio_url = await tts_engine.synthesize("weather", weather_text, req.language if req.language != "auto" else ("gu" if "Gujarat" in st else "mr"))
+        weather_text = f"{dist} ({st}) વિસ્તારમાં હવામાન સામાન્ય રીતે સ્વચ્છ અને ખુલ્લું રહેશે. છંટકાવ અનુકૂળ રહેશે." if "Gujarat" in st else (weather_doc.content if weather_doc and "Maharashtra" in st else f"{dist} ({st}) weather is generally clear and favorable for agricultural operations.")
+        det_lang = req.language if req.language != "auto" else ("gu" if "Gujarat" in st else ("pa" if "Punjab" in st else ("bn" if "Bengal" in st else "hi")))
+        footer = get_voice_footer(det_lang)
+        reply_body = f"🌧️ *[{agro_prof['weather_station']}]*\n\n{weather_text}\n\n🛡️ *Source:* IMD Agromet Advisory Service\n{footer}"
+        audio_url = await tts_engine.synthesize("weather", weather_text, det_lang)
         return {"reply_body": reply_body, "pipeline_result": None, "audio_url": audio_url}
 
-    if input_lower in ["3", "/passport", "passport", "પિક", "પાક"]:
+    if input_lower in ["3", "/passport", "passport", "પિક", "પાક", "ਫਸਲ"]:
         st, dist = geo_tracker.detect_location(query_text=user_text, lat=req.latitude, lon=req.longitude)
+        if req.state:
+            st = req.state
+        if req.district:
+            dist = req.district
         passport = db.query(CropPassport).first()
+        det_lang = req.language if req.language != "auto" else ("gu" if "Gujarat" in st else "hi")
+        footer = get_voice_footer(det_lang)
         reply_body = (
             f"🌱 *[Farmer Crop Passport - {dist}, {st}]*\n\n"
             f"• *Crop:* {passport.crop_name if passport else 'Soybean'}\n"
@@ -226,10 +267,10 @@ async def whatsapp_json_endpoint(
             f"• *Sowing Date:* {passport.sowing_date if passport else '2026-06-15'}\n"
             f"• *Stage:* {passport.stage_days if passport else 35} Days\n"
             f"• *District & State:* {dist}, {st}\n"
-            f"🎙️ *व्हॉईस संदेश (Voice Note):* खालील ऑडिओ प्लेयरद्वारे ऐका"
+            f"{footer}"
         )
-        passport_voice = f"શેટકરી પાક પાસપોર્ટ માહિતી: પાક {passport.crop_name if passport else 'સોયાબીન'}, જાત {passport.variety if passport else 'JS 335'}, વાવણી તારીખ {passport.sowing_date if passport else '૧૫ જૂન'}." if "Gujarat" in st else f"शेतकरी पिक पासपोर्ट माहिती: पिक {passport.crop_name if passport else 'सोयाबीन'}."
-        audio_url = await tts_engine.synthesize("passport", passport_voice, req.language if req.language != "auto" else ("gu" if "Gujarat" in st else "mr"))
+        passport_voice = f"શેટકરી પાક પાસપોર્ટ માહિતી: પાક {passport.crop_name if passport else 'સોયાબીન'}, જાત {passport.variety if passport else 'JS 335'}." if "Gujarat" in st else f"किसान फसल पासपोर्ट: फसल {passport.crop_name if passport else 'सोयाबीन'}."
+        audio_url = await tts_engine.synthesize("passport", passport_voice, det_lang)
         return {"reply_body": reply_body, "pipeline_result": None, "audio_url": audio_url}
     
     advisory_req = AdvisoryQueryRequest(
@@ -249,6 +290,7 @@ async def whatsapp_json_endpoint(
     pipeline_res = await process_advisory_query(advisory_req, db, request)
     grounding_badge = "✅ ICAR/KVK Grounded Evidence" if pipeline_res.grounding_status == "SUPPORTED" else "⚠️ Escalated to Expert Queue"
     source_title = pipeline_res.retrieved_evidence[0].title if pipeline_res.retrieved_evidence else "ICAR/KVK Advisory"
+    footer = get_voice_footer(pipeline_res.language_detected)
 
     reply_body = (
         f"🌾 *[FasalMitra Grounded Agri-Advisory]*\n"
@@ -257,7 +299,7 @@ async def whatsapp_json_endpoint(
         f"📌 *Confidence:* {int(pipeline_res.confidence_score * 100)}% ({pipeline_res.confidence_level})\n"
         f"🛡️ *Grounding Status:* {grounding_badge}\n"
         f"📖 *Evidence Source:* {source_title}\n"
-        f"🎙️ *व्हॉईस संदेश (Voice Note):* खालील ऑडिओ प्लेयरद्वारे ऐका"
+        f"{footer}"
     )
 
     return {

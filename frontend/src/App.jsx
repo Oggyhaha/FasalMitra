@@ -125,9 +125,74 @@ export default function App() {
   // Phone IVR Simulator State
   const [inputText, setInputText] = useState('माझ्या सोयाबीनची पाने पिवळी पडत आहेत, मी काय करू?');
   const [cropOverride, setCropOverride] = useState('Soybean');
+  const [selectedState, setSelectedState] = useState('auto');
   const [language, setLanguage] = useState('auto');
   const [isLoading, setIsLoading] = useState(false);
   const [pipelineResult, setPipelineResult] = useState(null);
+
+  const INDIAN_STATES = [
+    { value: 'auto', label: '🌐 Auto-Detect State (IP / GPS / Text)' },
+    { value: 'Andhra Pradesh', label: 'Andhra Pradesh (ఆంధ్రప్రదేశ్)' },
+    { value: 'Arunachal Pradesh', label: 'Arunachal Pradesh' },
+    { value: 'Assam', label: 'Assam (অসম)' },
+    { value: 'Bihar', label: 'Bihar (बिहार)' },
+    { value: 'Chhattisgarh', label: 'Chhattisgarh (छत्तीसगढ़)' },
+    { value: 'Goa', label: 'Goa (गोंय)' },
+    { value: 'Gujarat', label: 'Gujarat (ગુજરાત)' },
+    { value: 'Haryana', label: 'Haryana (हरियाणा)' },
+    { value: 'Himachal Pradesh', label: 'Himachal Pradesh (हिमाचल)' },
+    { value: 'Jharkhand', label: 'Jharkhand (झारखंड)' },
+    { value: 'Karnataka', label: 'Karnataka (ಕರ್ನಾಟಕ)' },
+    { value: 'Kerala', label: 'Kerala (കേരളം)' },
+    { value: 'Madhya Pradesh', label: 'Madhya Pradesh (मध्य प्रदेश)' },
+    { value: 'Maharashtra', label: 'Maharashtra (महाराष्ट्र)' },
+    { value: 'Manipur', label: 'Manipur (মণিপুর)' },
+    { value: 'Meghalaya', label: 'Meghalaya' },
+    { value: 'Mizoram', label: 'Mizoram' },
+    { value: 'Nagaland', label: 'Nagaland' },
+    { value: 'Odisha', label: 'Odisha (ଓଡ଼ିଶା)' },
+    { value: 'Punjab', label: 'Punjab (ਪੰਜਾਬ)' },
+    { value: 'Rajasthan', label: 'Rajasthan (राजस्थान)' },
+    { value: 'Sikkim', label: 'Sikkim' },
+    { value: 'Tamil Nadu', label: 'Tamil Nadu (தமிழ்நாடு)' },
+    { value: 'Telangana', label: 'Telangana (తెలంగాణ)' },
+    { value: 'Tripura', label: 'Tripura (ত্রিপুরা)' },
+    { value: 'Uttar Pradesh', label: 'Uttar Pradesh (उत्तर प्रदेश)' },
+    { value: 'Uttarakhand', label: 'Uttarakhand (उत्तराखंड)' },
+    { value: 'West Bengal', label: 'West Bengal (পশ্চিমবঙ্গ)' },
+    { value: 'Delhi', label: 'Delhi NCR (दिल्ली)' },
+    { value: 'Jammu and Kashmir', label: 'Jammu & Kashmir (جموں و کشمیر)' },
+    { value: 'Ladakh', label: 'Ladakh (ལ་དྭགས)' },
+    { value: 'Puducherry', label: 'Puducherry' },
+    { value: 'Chandigarh', label: 'Chandigarh' }
+  ];
+
+  const INDIAN_LANGUAGES = [
+    { value: 'auto', label: '🌐 Auto-Detect (All 23 Indian Languages)' },
+    { value: 'hi', label: 'Hindi (हिंदी)' },
+    { value: 'mr', label: 'Marathi (मराठी)' },
+    { value: 'gu', label: 'Gujarati (ગુજરાતી)' },
+    { value: 'pa', label: 'Punjabi (ਪੰਜਾਬੀ)' },
+    { value: 'bn', label: 'Bengali (বাংলা)' },
+    { value: 'te', label: 'Telugu (తెలుగు)' },
+    { value: 'ta', label: 'Tamil (தமிழ்)' },
+    { value: 'kn', label: 'Kannada (ಕನ್ನಡ)' },
+    { value: 'ml', label: 'Malayalam (മലയാളം)' },
+    { value: 'or', label: 'Odia (ଓଡ଼ିଆ)' },
+    { value: 'as', label: 'Assamese (অসমীয়া)' },
+    { value: 'ur', label: 'Urdu (اردو)' },
+    { value: 'sa', label: 'Sanskrit (संस्कृतम्)' },
+    { value: 'ne', label: 'Nepali (नेपाली)' },
+    { value: 'kok', label: 'Konkani (कोंकणी)' },
+    { value: 'mai', label: 'Maithili (मैथिली)' },
+    { value: 'doi', label: 'Dogri (डोगरी)' },
+    { value: 'ks', label: 'Kashmiri (कश्मीरी / كٲଶُر)' },
+    { value: 'sd', label: 'Sindhi (सिन्धी / سنڌي)' },
+    { value: 'mni', label: 'Manipuri (মৈতৈলোন্)' },
+    { value: 'brx', label: 'Bodo (बड़ो)' },
+    { value: 'sat', label: 'Santali (संताली / ᱥᱟᱱᱛᱟᱲᱤ)' },
+    { value: 'en', label: 'English' }
+  ];
 
   // Live Speech-to-Text (STT) State
   const [isRecording, setIsRecording] = useState(false);
@@ -350,7 +415,12 @@ export default function App() {
       const res = await fetch('/api/v1/webhooks/whatsapp/json', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message: textToSend, phone: '+919823012345' })
+        body: JSON.stringify({ 
+          message: textToSend, 
+          phone: '+919823012345',
+          state: selectedState === 'auto' ? null : selectedState,
+          language: language
+        })
       });
       const data = await res.json();
       const botText = data.reply_body || "उत्तर प्रक्रियेत त्रुटी आली.";
@@ -393,8 +463,8 @@ export default function App() {
           crop_override: cropOverride,
           language: language,
           crop_stage_days: 35,
-          location_district: 'Latur',
-          location_state: 'Maharashtra'
+          location_district: null,
+          location_state: selectedState === 'auto' ? null : selectedState
         })
       });
       const data = await res.json();
@@ -523,17 +593,84 @@ export default function App() {
                 <span className="badge badge-green">STT & TTS Enabled</span>
               </div>
               
-              {/* Preset Scenario Buttons */}
-              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px', marginBottom: '20px' }}>
+              {/* Preset Scenario Buttons across Indian States & Languages */}
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', marginBottom: '20px' }}>
                 <button 
                   className="btn-secondary" 
                   onClick={() => {
                     setInputText('माझ्या सोयाबीनची पाने पिवळी पडत आहेत, मी काय करू?');
                     setCropOverride('Soybean');
+                    setSelectedState('Maharashtra');
+                    setLanguage('mr');
                   }}
-                  style={{ fontSize: '0.85rem' }}
+                  style={{ fontSize: '0.8rem', padding: '6px 12px' }}
                 >
-                  🟢 Marathi: Soybean Yellowing
+                  🟢 Maharashtra (मराठी): Soybean
+                </button>
+
+                <button 
+                  className="btn-secondary" 
+                  onClick={() => {
+                    setInputText('કપાસમાં ગુલાબી ઈયળનું નિયંત્રણ કેવી રીતે કરવું? દવા જણાવો');
+                    setCropOverride('Cotton');
+                    setSelectedState('Gujarat');
+                    setLanguage('gu');
+                  }}
+                  style={{ fontSize: '0.8rem', padding: '6px 12px' }}
+                >
+                  🟢 Gujarat (ગુજરાતી): Cotton
+                </button>
+
+                <button 
+                  className="btn-secondary" 
+                  onClick={() => {
+                    setInputText('ਕਣਕ ਵਿੱਚ ਪੀਲੀ ਕੁੰਗੀ ਦਾ ਹੱਲ ਦੱਸੋ');
+                    setCropOverride('Wheat');
+                    setSelectedState('Punjab');
+                    setLanguage('pa');
+                  }}
+                  style={{ fontSize: '0.8rem', padding: '6px 12px' }}
+                >
+                  🟢 Punjab (ਪੰਜਾਬੀ): Wheat Rust
+                </button>
+
+                <button 
+                  className="btn-secondary" 
+                  onClick={() => {
+                    setInputText('ধানের ব্লাস্ট রোগ নিয়ন্ত্রণের উপায় কি?');
+                    setCropOverride('Rice');
+                    setSelectedState('West Bengal');
+                    setLanguage('bn');
+                  }}
+                  style={{ fontSize: '0.8rem', padding: '6px 12px' }}
+                >
+                  🟢 West Bengal (বাংলা): Rice Blast
+                </button>
+
+                <button 
+                  className="btn-secondary" 
+                  onClick={() => {
+                    setInputText('వరిలో అగ్గి తెగులు నివారణ మందులు ఏవి?');
+                    setCropOverride('Rice');
+                    setSelectedState('Andhra Pradesh');
+                    setLanguage('te');
+                  }}
+                  style={{ fontSize: '0.8rem', padding: '6px 12px' }}
+                >
+                  🟢 AP / Telangana (తెలుగు): Rice
+                </button>
+
+                <button 
+                  className="btn-secondary" 
+                  onClick={() => {
+                    setInputText('பருத்தியில் புழு தாக்குதலை கட்டுப்படுத்துவது எப்படி?');
+                    setCropOverride('Cotton');
+                    setSelectedState('Tamil Nadu');
+                    setLanguage('ta');
+                  }}
+                  style={{ fontSize: '0.8rem', padding: '6px 12px' }}
+                >
+                  🟢 Tamil Nadu (தமிழ்): Cotton
                 </button>
 
                 <button 
@@ -541,10 +678,12 @@ export default function App() {
                   onClick={() => {
                     setInputText('कपास में गुलाबी इल्ली का प्रकोप है, कौन सी दवा स्प्रे करें?');
                     setCropOverride('Cotton');
+                    setSelectedState('Gujarat');
+                    setLanguage('hi');
                   }}
-                  style={{ fontSize: '0.85rem' }}
+                  style={{ fontSize: '0.8rem', padding: '6px 12px' }}
                 >
-                  🟢 Hindi: Cotton Pink Bollworm
+                  🟢 Hindi (हिंदी): Cotton Bollworm
                 </button>
 
                 <button 
@@ -552,8 +691,10 @@ export default function App() {
                   onClick={() => {
                     setInputText('Spraying paraquat and monocrotophos mix on wheat crop without dosage');
                     setCropOverride('Wheat');
+                    setSelectedState('auto');
+                    setLanguage('en');
                   }}
-                  style={{ fontSize: '0.85rem', borderColor: '#fca5a5', color: '#dc2626', background: '#fef2f2' }}
+                  style={{ fontSize: '0.8rem', padding: '6px 12px', borderColor: '#fca5a5', color: '#dc2626', background: '#fef2f2' }}
                 >
                   🔴 High-Risk Chemical Refusal
                 </button>
@@ -603,8 +744,21 @@ export default function App() {
                 )}
               </div>
 
-              <div style={{ display: 'flex', gap: '16px', marginBottom: '20px' }}>
-                <div style={{ flex: 1 }}>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '14px', marginBottom: '20px' }}>
+                <div>
+                  <label style={{ display: 'block', fontSize: '0.8rem', color: 'var(--text-muted)', marginBottom: '6px', fontWeight: '600' }}>State / Region (All 28 States):</label>
+                  <select 
+                    value={selectedState}
+                    onChange={(e) => setSelectedState(e.target.value)}
+                    style={{ width: '100%', background: '#ffffff', border: '1px solid #cbd5e1', color: '#0f172a', padding: '10px', borderRadius: '10px', fontWeight: '500' }}
+                  >
+                    {INDIAN_STATES.map((st) => (
+                      <option key={st.value} value={st.value}>{st.label}</option>
+                    ))}
+                  </select>
+                </div>
+
+                <div>
                   <label style={{ display: 'block', fontSize: '0.8rem', color: 'var(--text-muted)', marginBottom: '6px', fontWeight: '600' }}>Target Crop:</label>
                   <select 
                     value={cropOverride}
@@ -616,20 +770,23 @@ export default function App() {
                     <option value="Wheat">Wheat (40 Days - Vegetative)</option>
                     <option value="Rice">Rice (Paddy - Panicle Initiation)</option>
                     <option value="Chickpea">Chickpea (Gram - Pod Formation)</option>
+                    <option value="Groundnut">Groundnut (मूंगफली / મગફળી)</option>
+                    <option value="Mustard">Mustard (सरसों / ਰਾਈ)</option>
+                    <option value="Maize">Maize (मक्का / ਮੱਕੀ / మొక్కజొన్న)</option>
+                    <option value="Sugarcane">Sugarcane (गन्ना / கரும்பு)</option>
                   </select>
                 </div>
 
-                <div style={{ flex: 1 }}>
-                  <label style={{ display: 'block', fontSize: '0.8rem', color: 'var(--text-muted)', marginBottom: '6px', fontWeight: '600' }}>Language:</label>
+                <div>
+                  <label style={{ display: 'block', fontSize: '0.8rem', color: 'var(--text-muted)', marginBottom: '6px', fontWeight: '600' }}>Language (All 23 Languages):</label>
                   <select 
                     value={language}
                     onChange={(e) => setLanguage(e.target.value)}
                     style={{ width: '100%', background: '#ffffff', border: '1px solid #cbd5e1', color: '#0f172a', padding: '10px', borderRadius: '10px', fontWeight: '500' }}
                   >
-                    <option value="auto">Auto-detect (Marathi/Hindi/English)</option>
-                    <option value="mr">Marathi (मराठी)</option>
-                    <option value="hi">Hindi (हिंदी)</option>
-                    <option value="en">English</option>
+                    {INDIAN_LANGUAGES.map((l) => (
+                      <option key={l.value} value={l.value}>{l.label}</option>
+                    ))}
                   </select>
                 </div>
               </div>
@@ -707,9 +864,17 @@ export default function App() {
                     </h3>
                   </div>
 
-                  <span className={`badge ${pipelineResult.confidence_level === 'HIGH' ? 'badge-green' : pipelineResult.confidence_level === 'MEDIUM' ? 'badge-gold' : 'badge-red'}`}>
-                    Confidence: {(pipelineResult.confidence_score * 100).toFixed(0)}%
-                  </span>
+                  <div style={{ display: 'flex', gap: '8px', alignItems: 'center', flexWrap: 'wrap' }}>
+                    <span className="badge badge-cyan" style={{ fontSize: '0.75rem' }}>
+                      📍 {pipelineResult.location_state || (selectedState !== 'auto' ? selectedState : 'National Grounding')}
+                    </span>
+                    <span className="badge badge-green" style={{ fontSize: '0.75rem' }}>
+                      🗣️ {pipelineResult.language_detected ? pipelineResult.language_detected.toUpperCase() : 'INDIC'}
+                    </span>
+                    <span className={`badge ${pipelineResult.confidence_level === 'HIGH' ? 'badge-green' : pipelineResult.confidence_level === 'MEDIUM' ? 'badge-gold' : 'badge-red'}`} style={{ fontSize: '0.75rem' }}>
+                      Confidence: {(pipelineResult.confidence_score * 100).toFixed(0)}%
+                    </span>
+                  </div>
                 </div>
 
                 {/* Response Text & Interactive Audio Voice Button */}

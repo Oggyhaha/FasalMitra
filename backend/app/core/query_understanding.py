@@ -19,25 +19,85 @@ class HybridQueryUnderstandingEngine:
         self.segmenter = discourse_segmenter
 
         self.crop_dictionary = {
-            "cotton": ["cotton", "कापूस", "कपास", "kapas", "kapus", "cotan", "જીંડવા", "કપાસ", "boll", "bolls", "bowl", "tinde", "bondya"],
-            "rice": ["rice", "paddy", "भात", "धान", "चावल", "dhan", "dhaan", "ડાંગર", "panicle"],
-            "wheat": ["wheat", "गहू", "गेहूं", "gehun", "gehu", "ઘઉં"],
-            "soybean": ["soybean", "soyabean", "सोयाबीन", "सोयाबिन", "सोया"],
-            "groundnut": ["groundnut", "peanut", "भुईमूग", "मूंगफली", "mungphalli", "moongfali", "મગફળી"],
-            "potato": ["potato", "बटाटा", "आलू", "aloo", "batata", "bataka", "bataaka", "બટાકા", "બટાટા"],
-            "tomato": ["tomato", "टोमॅटो", "टमाटर", "tamatar", "ટમેટા", "ટમેટું"],
-            "chilli": ["chilli", "chili", "मिरची", "मिर्च", "mirch", "mirchi", "મરચાં"],
-            "chickpea": ["gram", "chickpea", "चना", "हरभरा", "chana", "harbhara"],
-            "sugarcane": ["sugarcane", "ऊस", "गन्ना", "ganna"],
-            "mustard": ["mustard", "मोहरी", "सरसों", "sarson", "raya"],
-            "onion": ["onion", "कांदा", "प्याज", "pyaj", "kanda"],
-            "maize": ["maize", "corn", "मका", "मक्का", "makka"],
-            "pigeonpea": ["pigeonpea", "arhar", "tur", "तूर", "अरहर"],
-            "mango": ["mango", "आंबा", "आम", "aam"],
-            "bajra": ["bajra", "bajari", "bajri", "pearl millet", "बाजरी", "बाजरा", "બાજરી"],
-            "brinjal": ["brinjal", "eggplant", "वांगी", "बैंगन"],
-            "banana": ["banana", "केळी", "केला"],
-            "okra": ["okra", "bhindi", "भिंडी", "ભીંડા"]
+            "cotton": [
+                "cotton", "कापूस", "कपास", "kapas", "kapus", "cotan", "જીંડવા", "કપાસ",
+                "boll", "bolls", "bowl", "tinde", "bondya",
+                "ਕਪਾਹ", "ਕਪਾਸ", "kapah", "তুলা", "কার্পাস", "tula",
+                "పత్తి", "patti", "பருத்தி", "paruthi", "ಹತ್ತಿ", "hatti",
+                "പരുത്തി", "କପା", "kapa", "কপাহ", "kopah", "کپاس"
+            ],
+            "rice": [
+                "rice", "paddy", "भात", "धान", "चावल", "dhan", "dhaan", "ડાંગર", "panicle",
+                "ਝੋਨਾ", "jhona", "ধান", "চাল", "వరి", "ధాన్యం", "vari",
+                "நெல்", "அரிசி", "nel", "ಭತ್ತ", "ಅಕ್ಕಿ", "bhatta",
+                "നെല്ല്", "അരി", "nellu", "ଧାନ", "ଚାଉଳ", "dhana", "دھان", "چاول"
+            ],
+            "wheat": [
+                "wheat", "गहू", "गेहूं", "gehun", "gehu", "ઘઉં", "ગહુ", "ghau",
+                "ਕਣਕ", "kanak", "গম", "gom", "గోధుమ", "godhuma",
+                "கோதுமை", "gothumai", "ಗೋಧಿ", "godhi", "ഗോതമ്പ്", "gothambu",
+                "ଗହମ", "gahama", "ঘেঁহু", "ghehu", "گندم", "gandum"
+            ],
+            "soybean": [
+                "soybean", "soyabean", "सोयाबीन", "सोयाबिन", "सोया", "સોયાબીન",
+                "ਸੋਇਆਬੀਨ", "সয়াবিন", "సోయాబీన్", "சோயாபீன்", "ಸೋಯಾಬೀನ್",
+                "സോയാബീൻ", "ସୋୟାବିନ୍", "سویا بین"
+            ],
+            "groundnut": [
+                "groundnut", "peanut", "भुईमूग", "मूंगफली", "mungphalli", "moongfali", "મગફળી", "sing",
+                "ਮੂੰਗਫਲੀ", "চিনাবাদাম", "వేరుశనగ", "நிலக்கடலை", "ಕಡಲೆಕಾಯಿ",
+                "നിലക്കടല", "ଚିନାବାଦାମ", "বাদাম", "مونگ پھلی"
+            ],
+            "potato": [
+                "potato", "बटाटा", "आलू", "aloo", "batata", "bataka", "bataaka", "બટાકા", "બટાટા",
+                "ਆਲੂ", "আলু", "బంగాళాదుంప", "உருளைக்கிழங்கு", "ಆಲೂಗಡ್ಡೆ",
+                "ഉരുളക്കിഴങ്ങ്", "ଆଳୁ", "آلو"
+            ],
+            "tomato": [
+                "tomato", "टोमॅटो", "टमाटर", "tamatar", "ટમેટા", "ટમેટું",
+                "ਟਮਾਟਰ", "টমেটো", "టమోటా", "தக்காளி", "ಟೊಮೆಟೊ",
+                "തക്കാളി", "ଟମାଟୋ", "বিলাহী", "ٹماٹر"
+            ],
+            "chilli": [
+                "chilli", "chili", "मिरची", "मिर्च", "mirch", "mirchi", "મરચાં", "મરચી",
+                "ਮਿਰਚ", "লঙ্কা", "మిరప", "மிளகாய்", "ಮೆಣಸಿನಕಾಯಿ",
+                "മുളക്", "ଲଙ୍କା", "জলকীয়া", "مرچ"
+            ],
+            "chickpea": [
+                "gram", "chickpea", "चना", "हरभरा", "chana", "harbhara", "ચણા",
+                "ਛੋਲੇ", "ছোলা", "శనగలు", "கொண்டைக்கடலை", "ಕಡಲೆ",
+                "കടല", "ବୁଟ", "বুট", "چنا"
+            ],
+            "sugarcane": [
+                "sugarcane", "ऊस", "गन्ना", "ganna", "શેરડી",
+                "ਗੰਨਾ", "আখ", "చెరకు", "கரும்பு", "ಕಬ್ಬು", "കരിമ്പ്", "ଆଖୁ", "কুঁহিয়াৰ", "گنا"
+            ],
+            "mustard": [
+                "mustard", "मोहरी", "सरसों", "sarson", "raya", "રાયડો", "સરસવ",
+                "ਸਰ੍ਹੋਂ", "সরিষা", "ఆవాలు", "கடுகு", "ಸಾಸಿವೆ", "കടുക്", "ସୋରିଷ", "সৰিয়হ", "سرسوں"
+            ],
+            "onion": [
+                "onion", "कांदा", "प्याज", "pyaj", "kanda", "ડુંગળી", "કાંદા",
+                "ਪਿਆਜ਼", "পেঁয়াজ", "ఉల్లిపాయ", "வெங்காயம்", "ಈರುಳ್ಳಿ",
+                "உള്ളി", "ପିଆଜ", "পিয়াঁজ", "پیاز"
+            ],
+            "maize": [
+                "maize", "corn", "मका", "मक्का", "makka", "મકાઈ",
+                "ਮੱਕੀ", "ভুট্টা", "మొక్కజొన్న", "மக்காச்சோளம்", "ಜೋಳ",
+                "ചോളം", "ମକା", "গোমধান", "مکئی"
+            ],
+            "pigeonpea": ["pigeonpea", "arhar", "tur", "तूर", "अरहर", "તુવેર", "ਅਰਹਰ"],
+            "mango": ["mango", "आंबा", "आम", "aam", "કેરી", "ਅੰਬ", "আম", "మామిడి", "மாம்பழம்", "ಮಾವು"],
+            "bajra": [
+                "bajra", "bajari", "bajri", "pearl millet", "बाजरी", "बाजरा", "બાજરી",
+                "ਬਾਜਰਾ", "বাজরা", "సజ్జలు", "கம்பு", "ಸಜ್ಜೆ", "കമ്പം", "ବାଜରା", "باجرہ"
+            ],
+            "brinjal": [
+                "brinjal", "eggplant", "वांगी", "बैंगन", "રીંગણ",
+                "ਬੈਂਗਣ", "বেগুন", "వంకాయ", "கத்தரிக்காய்", "ಬದನೆಕಾಯಿ", "വഴുതനങ്ങ", "ବାଇଗଣ", "بینگن"
+            ],
+            "banana": ["banana", "केळी", "केला", "કેળા", "ਕੇਲਾ", "কলা", "అరటి", "வாழைப்பழம்", "ಬಾಳೆಹಣ್ಣು"],
+            "okra": ["okra", "bhindi", "भिंडी", "ભીંડા", "ਭਿੰਡੀ", "ঢ্যাঁড়শ", "బెండకాయ", "வெண்டைக்காய்", "ಬೆಂಡೆಕಾಯಿ"]
         }
 
         self.raw_target_patterns = {
@@ -92,7 +152,9 @@ class HybridQueryUnderstandingEngine:
                 r"sticky\s+and\s+shiny", r"black\s+sooty\s+layer", r"leaves\s+are\s+sticky",
                 r"yellow\s+sticky\s+traps?", r"white\s+adults\s+flutter\s+from\s+undersides",
                 r"flutters?\s+from\s+undersides", r"pandhrya\s+madhya", r"sticky\s+leaves\s+and\s+sooty\s+mould",
-                r"paan\s+chikna\s+chhe", r"apply\s+insecticide\s+to\s+cotton"
+                r"paan\s+chikna\s+chhe", r"apply\s+insecticide\s+to\s+cotton",
+                r"ਚਿੱਟੀ\s*ਮੱਖੀ", r"ਸਫੈਦ\s*ਮੱਖੀ", r"সাদা\s*মাছি", r"தெల్ల\s*దోమ", r"வெள்ளை\s*ஈ",
+                r"ಬಿಳಿ\s*ನೊಣ", r"വെള്ളീച്ച", r"ଧଳା\s*ମାଛି", r"বগা\s*মাখি", r"سفید\s*مکھی"
             ],
             "ROOT_ROT": [
                 r"\broot\s*rot\b", r"root\s+comes\s+out\s+easily", r"root\s+was\s+brown\s+and\s+rotten",
@@ -124,7 +186,9 @@ class HybridQueryUnderstandingEngine:
                 r"गुलाबी\s*बोंड\s*अळी", r"rosette\s+flower", r"look\s+like\s+rosette", r"small\s+holes\s+on\s+cotton\s+bolls",
                 r"pink\s+larvae\s+inside\s+bolls", r"pink\s+caterpillar\s+inside\s+boll", r"holes\s+in\s+bolls\s+remain",
                 r"pink\s+larvae\s+feed\s+inside\s+bolls", r"tinde\s+me\s+chhed", r"gulabi\s+sundi",
-                r"pink\s+caterpillars?.*?(?:inside|in).*?bolls?", r"caterpillars\s+inside\s+(?:cotton\s+)?bolls"
+                r"pink\s+caterpillars?.*?(?:inside|in).*?bolls?", r"caterpillars\s+inside\s+(?:cotton\s+)?bolls",
+                r"ਗੁਲਾਬੀ\s*ਸੁੰਡੀ", r"ਪਿੰਕ\s*ਬੋਲਵਰਮ", r"গোলাপী\s*পোকা", r"గులాబీ\s*(?:రంగు\s*)?పురుగు",
+                r"இளஞ்சிவப்பு\s*காய்ப்புழு", r"புழு\s*தாக்குதல்", r"காய்ப்புழு", r"புழு", r"ಗುಲಾಬಿ\s*ಹುಳು", r"കായ്തുരപ്പൻ", r"ଗୋଲାପୀ\s*ପୋକ", r"گلابی\s*سنڈی"
             ],
             "BLAST": [
                 r"\b(?:rice|paddy|dhaan)?\s*blast\b", r"\brise\s*blast\b",
@@ -133,7 +197,9 @@ class HybridQueryUnderstandingEngine:
                 r"spindle\s+lesions", r"dark\s+broken\s+panicle\s+neck", r"spindle\s+spots\s+with\s+grey\s+centres",
                 r"aankh\s+jeva\s+ghaat", r"panicle\s+neck\s+is\s+dark\s+and\s+breaks\s+easily",
                 r"neck\s+is\s+dark\s+and\s+broken", r"neck\s+is\s+(?:dark|black|broken)",
-                r"broken\s+and\s+black\b", r"aankh\s+jaisa\s+daag", r"gardan\s+tootna"
+                r"broken\s+and\s+black\b", r"aankh\s+jaisa\s+daag", r"gardan\s+tootna",
+                r"ਬਲਾਸਟ", r"ব্লাস্ট", r"ব্লাষ্ট", r"అగ్గి\s*తెగులు", r"குலை\s*நோய்", r"பிளாஸ்ட்",
+                r"ಬೆಂಕಿ\s*ರೋಗ", r"കുലവാട്ടം", r"ବ୍ଲାଷ୍ଟ", r"بلاسٹ"
             ],
             "BACTERIAL_LEAF_BLIGHT": [
                 r"\bbacterial\s+leaf\s+blight\b", r"\bblb\b",
@@ -183,7 +249,9 @@ class HybridQueryUnderstandingEngine:
             ],
             "STEM_BORER": [
                 r"\bstem\s*borer\b", r"\bshoot\s*borer\b", r"खोडकिडा", r"तना\s+छेदक",
-                r"dead\s+heart", r"white\s+ears"
+                r"dead\s+heart", r"white\s+ears",
+                r"ਤਣਾ\s*ਛੇਦਕ", r"ਮਾਝਰਾ\s*ਕੀੜਾ", r"মাজরা\s*পোকা", r"కాండం\s*తొలుచు\s*పురుగు",
+                r"தண்டு\s*துளைப்பான்", r"ಕಾಂಡ\s*ಕೊರೆಯುವ\s*ಹುಳು", r"തണ്ടുതുരപ്പൻ", r"କାଣ୍ଡ\s*ବିନ୍ଧା", r"تنے\s*کی\s*سنڈی"
             ],
             "FRUIT_BORER": [
                 r"\bfruit\s*borer\b", r"\bpod\s*borer\b", r"घांटी\s*सुंडी", r"घांटी\s*अळी", r"शेंगा\s*पोखरणारी",
@@ -198,7 +266,9 @@ class HybridQueryUnderstandingEngine:
             "YELLOW_MOSAIC": [
                 r"\byellow\s*mosaic\b", r"पिवळा\s+मोझॅक", r"पीला\s+मोजेक", r"पीली\s+पत्तियां",
                 r"yellow\s+mosaic\s+patches", r"yellow-green\s+mosaic", r"mosaic\s+pattern",
-                r"mosaic\s+leaves", r"pila\s+mosaic"
+                r"mosaic\s+leaves", r"pila\s+mosaic",
+                r"ਪੀਲਾ\s*ਮੋਜ਼ੇਕ", r"ਪੀਲੇ\s*ਪੱਤੇ", r"হলুদ\s*মোজাইক", r"পাতা\s*হলুদ", r"పసుపు\s*మొజాయిక్",
+                r"மஞ்சள்\s*மொசைக்", r"ಹಳದಿ\s*ಮೊಸಾಯಿಕ್", r"മഞ്ഞളിപ്പ്", r"ହଳଦିଆ\s*ମୋଜାଇକ୍", r"پیلے\s*پتے"
             ],
             "FALL_ARMYWORM": [
                 r"\bfall\s*armyworm\b", r"whorl\s+holes", r"maize\s+whorl\s+holes",
@@ -207,7 +277,9 @@ class HybridQueryUnderstandingEngine:
                 r"whorl\s+contains\s+frass"
             ],
             "APHID": [
-                r"\baphids?\b", r"मावा", r"चेपा", r"मोलो", r"dense\s+colonies\s+cluster\s+on\s+flowering\s+shoots"
+                r"\baphids?\b", r"मावा", r"चेपा", r"मोलो", r"dense\s+colonies\s+cluster\s+on\s+flowering\s+shoots",
+                r"ਤੇਲਾ", r"ਸੁਸਤ\s*ਤੇਲਾ", r"জাব\s*পোকা", r"పేనుబంక", r"அசுவினி",
+                r"ಜಿಗಿ\s*ಹುಳು", r"മുഞ്ഞ", r"ଜାଉ\s*ପୋକ", r"মোৱਾ\s*পোক", r"تیلا"
             ],
             "JASSID": [
                 r"\bjassids?\b", r"\bleafhoppers?\b", r"तुडतुडे", r"hopper\s*burn", r"તડતડિયાં",
@@ -216,12 +288,15 @@ class HybridQueryUnderstandingEngine:
                 r"leaf\s+margins\s+yellow\s+and\s+curl\s+down"
             ],
             "WILT": [
-                r"\bwilt\b", r"\bfusarium\b", r"उकठा", r"विल्ट", r"मर\s*रोग", r"सुकवा", r"સુકારો"
+                r"\bwilt\b", r"\bfusarium\b", r"उकठा", r"विल्ट", r"मर\s*रोग", r"सुकवा", r"સુકારો",
+                r"ਉਖੜਾ", r"ਸੁੱਕਣਾ", r"উইল্ট", r"ఎండు\s*తెగులు", r"வாடல்\s*நோய்", r"ಬಾಡು\s*ರೋಗ", r"വാട്ടം", r"ଉଖୁଡା"
             ],
             "RUST": [
                 r"\brust\b", r"yellow\s*rust", r"brown\s*rust", r"गेरुआ", r"तांबेरा", r"गैरिक",
                 r"orange-brown\s+raised\s+pustules", r"orange\s+pustules", r"raised\s+pustules\s+aligned\s+along\s+leaf\s+veins",
-                r"narangi\s+dane"
+                r"narangi\s+dane",
+                r"ਪੀਲੀ\s*ਕੁੰਗੀ", r"ਕੁੰਗੀ", r"ਕਣਕ\s*ਕੁੰਗੀ", r"মরিচা", r"হলুদ\s*মরিচা", r"తుప్పు\s*తెగులు",
+                r"துரு\s*நோய்", r"ತುಕ್ಕು\s*ರೋಗ", r"തുരുമ്പ്", r"କଳଙ୍କୀ", r"মামৰে\s*ধৰা", r"زنگ", r"پیلا\s*زنگ"
             ],
             "SMUT": [
                 r"\bsmut\b", r"loose\s*smut", r"false\s*smut", r"कांगियारी", r"काजळी",
@@ -501,12 +576,31 @@ class HybridQueryUnderstandingEngine:
             r"नियंत्रण", r"उपाय", r"दवा", r"દવા", r"નિયંત્રણ", r"અટકાવવા", r"શું\s+કરવું", r"उपचार", r"रोकथाम", r"छांटना", r"केमिकल",
             r"bio\s+control", r"resistant", r"weedicide", r"herbicide", r"irrigation\s+schedule", r"npk",
             r"how\s+to\s+use.*?to\s+control", r"dawai\b", r"kaise\s+roke\b", r"ilaj\b", r"sprey\b",
-            r"medicine\b", r"kem\s+control\b", r"controll\b"
+            r"medicine\b", r"kem\s+control\b", r"controll\b",
+            # Punjabi
+            r"ਰੋਕਥਾਮ", r"ਇਲਾਜ", r"ਦਵਾਈ", r"ਸਪਰੇਅ", r"ਕਿਵੇਂ\s+ਕਰੀਏ", r"ਉਪਾਅ", r"ਕੰਟਰੋਲ",
+            # Bengali
+            r"প্রতিকার", r"নিয়ন্ত্রণ", r"ঔষধ", r"স্প্রে", r"কি\s+করব", r"চিকিৎসা", r"উপায়",
+            # Telugu
+            r"నివారణ", r"మందులు", r"స్ప్రే", r"చికిత్స", r"ఎలా\s+చేయాలి", r"యాజమాన్యం",
+            # Tamil
+            r"கட்டுப்பாடு", r"கட்டுப்படுத்த", r"கட்டுப்படுத்துவது", r"மருந்து", r"தெளிப்பு", r"தீர்வு", r"என்ன\s+செய்வது", r"எப்படி",
+            # Kannada
+            r"ನಿಯಂತ್ರಣ", r"ಔಷಧಿ", r"ಸಿಂಪಡಣೆ", r"ಪರಿಹಾರ", r"ಏನು\s+ಮಾಡಬೇಕು",
+            # Malayalam
+            r"നിയന്ത്രണം", r"മരുന്ന്", r"തളിക്കൽ", r"പരിഹാരം", r"എന്ത്\s+ചെയ്യണം",
+            # Odia
+            r"ନିୟନ୍ତ୍ରଣ", r"ଔଷଧ", r"ସ୍ପ୍ରେ", r"ପ୍ରତିକାର", r"କଣ\s+କରିବେ",
+            # Assamese
+            r"নিয়ন্ত্ৰণ", r"ঔষধ", r"স্প্ৰে", r"উপায়", r"কি\s+কৰিব",
+            # Urdu
+            r"علاج", r"روک\s*تھام", r"دوا", r"سپرے", r"کیا\s+کریں"
         ]
         diagnostic_keywords = [
             r"what\s+does\s+it\s+suggest", r"what\s+does\s+it\s+mean", r"what\s+is\s+the\s+(?:likely\s+)?problem",
             r"final\s+diagnosis", r"which\s+issue\s+best\s+matches", r"what\s+explains", r"which\s+should\s+be\s+used",
-            r"which\s+evidence\s+should\s+control", r"what\s+target\s+fits"
+            r"which\s+evidence\s+should\s+control", r"what\s+target\s+fits",
+            r"ਲੱਛਣ", r"লক্ষণ", r"లక్షణాలు", r"அறிகுறிகள்", r"ಲಕ್ಷಣಗಳು", r"ലക്ഷണങ്ങൾ", r"ଲକ୍ଷଣ", r"علامات"
         ]
 
         intent = "GENERAL_CROP"

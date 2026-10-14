@@ -50,6 +50,8 @@ class AdvisoryQueryResponse(BaseModel):
     retrieved_evidence: List[EvidenceChunk] = []
     claims_verified: List[VerifiedClaim] = []
     escalation_id: Optional[str] = None
+    location_state: Optional[str] = None
+    location_district: Optional[str] = None
 
 class ExpertRespondRequest(BaseModel):
     expert_id: str = "EXP-01"

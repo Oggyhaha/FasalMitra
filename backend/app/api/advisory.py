@@ -46,8 +46,8 @@ async def process_advisory_query(
     )
     audit_logger.log_event(db, query_id, "ASR_COMPLETED", {"transcript": transcript, "lang": detected_lang})
 
-    # 2. Query Understanding
-    nlp_res = query_understanding_engine.parse_query(transcript, req.crop_override)
+    # 2. Query Understanding (Fast Local Botanical Match + Async Cognitive Fallback)
+    nlp_res = await query_understanding_engine.parse_query_async(transcript, req.crop_override)
     structured_info = StructuredQueryInfo(
         intent=nlp_res["intent"],
         crop=nlp_res["crop"],
@@ -104,7 +104,9 @@ async def process_advisory_query(
             safety_status="FAILED",
             retrieved_evidence=[],
             claims_verified=[],
-            escalation_id=esc_id
+            escalation_id=esc_id,
+            location_state=ctx.get("state"),
+            location_district=ctx.get("district")
         )
 
     # 5. Hybrid Retrieval
@@ -143,7 +145,9 @@ async def process_advisory_query(
             safety_status="PASSED",
             retrieved_evidence=reranked_evidence,
             claims_verified=[],
-            escalation_id=esc_id
+            escalation_id=esc_id,
+            location_state=ctx.get("state"),
+            location_district=ctx.get("district")
         )
 
     # 8. Grounded LLM Response Generation (with dialogue history and regional location profile)
@@ -168,12 +172,28 @@ async def process_advisory_query(
             db, req.farmer_id or "FARM-1001", query_id, transcript,
             nlp_res["crop"], ctx["district"], risk_lvl, "POST_SAFETY_UNSUPPORTED_CLAIM", reranked_evidence
         )
+        esc_messages_post = {
+            "mr": "उत्तर अचूक नसल्याच्या शंकेमुळे ही माहिती तज्ञांच्या तपासणीसाठी पाठवण्यात आली आहे.",
+            "gu": "સચોટ માહિતી માટે આ પ્રશ્ન અમારા કૃષિ નિષ્ણાતોની સમીક્ષા માટે મોકલવામાં આવ્યો છે.",
+            "hi": "सटीक जानकारी सुनिश्चित करने के लिए यह प्रश्न हमारे कृषि विशेषज्ञों की समीक्षा हेतु भेजा गया है।",
+            "pa": "ਸਟੀਕ ਜਾਣਕਾਰੀ ਯਕੀਨੀ ਬਣਾਉਣ ਲਈ ਇਹ ਸਵਾਲ ਖੇਤੀਬਾੜੀ ਮਾਹਿਰਾਂ ਦੀ ਸਮੀਖਿਆ ਲਈ ਭੇਜਿਆ ਗਿਆ ਹੈ।",
+            "bn": "সঠিক তথ্যের জন্য এই প্রশ্নটি আমাদের কৃষি বিশেষজ্ঞদের পর্যালোচনার জন্য পাঠানো হয়েছে।",
+            "te": "ఖచ్చితమైన సమాచారం కోసం ఈ ప్రశ్న మా వ్యవసాయ నిపుణుల సమీక్షకు పంపబడింది.",
+            "ta": "துல்லியமான தகவலுக்கு இந்த கேள்வி எங்கள் வேளாண்மை நிபுணர்களின் ஆய்வுக்கு அனுப்பப்பட்டுள்ளது.",
+            "kn": "ನಿಖರವಾದ ಮಾಹಿತಿಗಾಗಿ ಈ ಪ್ರಶ್ನೆಯನ್ನು ನಮ್ಮ ಕೃಷಿ ತಜ್ಞರ ಪರಿಶೀಲನೆಗೆ ಕಳುಹಿಸಲಾಗಿದೆ.",
+            "ml": "കൃത്യമായ വിവരങ്ങൾക്കായി ഈ ചോദ്യം ഞങ്ങളുടെ കാർഷിക വിദഗ്ദ്ധരുടെ പരിശോധനയ്ക്കായി അയച്ചിരിക്കുന്നു.",
+            "or": "ସଠିକ୍ ତଥ୍ୟ ପାଇଁ ଏହି ପ୍ରଶ୍ନଟି ଆମର କୃଷି ବିଶେଷଜ୍ଞଙ୍କ ନିକଟକୁ ପଠାଯାଇଛି।",
+            "as": "সঠিক তথ্যৰ বাবে এই প্ৰশ্নটো আমাৰ কৃষি বিশেষজ্ঞৰ পৰ্যালোচনাৰ বাবে প্ৰেৰণ কৰা হৈছে।",
+            "ur": "درست معلومات کی تصدیق کے لیے یہ سوال ہمارے زرعی ماہرین کو بھیج دیا گیا ہے۔",
+            "en": "To ensure 100% accuracy, this case has been forwarded to senior agricultural experts for review."
+        }
+        answer_esc = esc_messages_post.get(detected_lang, esc_messages_post["en"])
         return AdvisoryQueryResponse(
             query_id=query_id,
             status="ESCALATED_TO_EXPERT",
             language_detected=detected_lang,
             structured_query=structured_info,
-            answer_text="उत्तर अचूक नसल्याच्या शंकेमुळे ही माहिती तज्ञांच्या तपासणीसाठी पाठवण्यात आली आहे.",
+            answer_text=answer_esc,
             audio_url=None,
             confidence_score=conf_score,
             confidence_level=conf_level,
@@ -181,7 +201,9 @@ async def process_advisory_query(
             safety_status="FAILED" if not claims_passed else "PASSED",
             retrieved_evidence=reranked_evidence,
             claims_verified=claims_list,
-            escalation_id=esc_id
+            escalation_id=esc_id,
+            location_state=ctx.get("state"),
+            location_district=ctx.get("district")
         )
 
     # 12. Translation Layer
@@ -204,5 +226,7 @@ async def process_advisory_query(
         safety_status="PASSED",
         retrieved_evidence=reranked_evidence,
         claims_verified=claims_list,
-        escalation_id=None
+        escalation_id=None,
+        location_state=ctx.get("state"),
+        location_district=ctx.get("district")
     )
