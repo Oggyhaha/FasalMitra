@@ -134,7 +134,7 @@ Every farmer interaction travels through 14 verifiable, isolated stages in [`bac
 - **[`grounding_gate.py`](file:///c:/FasalMitra/backend/app/core/grounding_gate.py)**:
   - Gatekeeper that prevents ungrounded LLM invocation if retrieved documents do not sufficiently cover the question.
 - **[`llm_generator.py`](file:///c:/FasalMitra/backend/app/core/llm_generator.py)**:
-  - Gemini Flash generator with multi-model failover (`gemini-flash-lite-latest`, `gemini-flash-latest`, `gemini-2.5-flash`).
+  - Gemini Flash generator with multi-model failover (`gemini-3.5-flash`, `gemini-3-flash-preview`, `gemini-flash-lite-latest`, `gemini-flash-latest`).
   - Includes deterministic localized fallback templates across all 23 Indian languages if the API is offline.
 - **[`claim_verifier.py`](file:///c:/FasalMitra/backend/app/core/claim_verifier.py)**:
   - Post-generation safety net. Parses active ingredients and dosage numbers from LLM output and cross-checks them against source evidence.
@@ -196,7 +196,7 @@ Every farmer interaction travels through 14 verifiable, isolated stages in [`bac
 | Domain | Technology / Model / Algorithm | Purpose |
 | :--- | :--- | :--- |
 | **Backend Framework** | **FastAPI (Python 3.11)** | High-concurrency async REST API handling webhooks, audio streaming, and RAG execution. |
-| **Cognitive Reasoning** | **Google Gemini Flash (`gemini-flash-lite-latest`, `gemini-2.5-flash`)** | Grounded agronomist advisory generation and semantic query parsing. |
+| **Cognitive Reasoning** | **Google Gemini Flash (`gemini-3.5-flash`, `gemini-3-flash-preview`, `gemini-flash-lite-latest`)** | Grounded agronomist advisory generation and semantic query parsing. |
 | **Multimodal Speech-to-Text** | **Gemini Multimodal Audio ASR** | Directly transcribes Indian regional farmer voice notes in `.ogg`/`.mp3` without external transcription APIs. |
 | **Text-to-Speech (TTS)** | **Microsoft Edge-TTS Neural Voices** | High-fidelity human intonation in Hindi, Marathi, Gujarati, Tamil, Telugu, etc. |
 | **TTS Failover** | **Google Text-to-Speech (gTTS)** | Resilient fallback ensuring audio notes are generated even if EdgeTTS endpoints are throttled. |
