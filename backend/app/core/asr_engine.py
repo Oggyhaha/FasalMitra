@@ -214,7 +214,7 @@ class ASREngine:
                 return "sa" # Sanskrit
             if any(w in text for w in ["छ", "छन्", "भयो", "गर्ने", "हाम्रो"]):
                 return "ne" # Nepali
-            if any(w in text for w in ["आसा", "आहेत", "करचे", "भास"]):
+            if any(w in text for w in ["आसा", "आसात", "करचे", "भास"]):
                 return "kok" # Konkani
             if any(w in text for w in ["अछि", "छथि", "हमर", "करब"]):
                 return "mai" # Maithili
@@ -224,7 +224,7 @@ class ASREngine:
             for kw in self.hindi_keywords:
                 if kw in text:
                     return "hi"
-            return "mr" if ("आहे" in text or "माझ्या" in text or "शेती" in text) else "hi"
+            return "mr" if ("आहे" in text or "आहेत" in text or "माझ्या" in text or "शेती" in text) else "hi"
 
         # 3. Transliterated / Romanized Script Recognition (English alphabet used for Indian languages)
         text_clean = text.lower()

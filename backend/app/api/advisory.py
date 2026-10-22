@@ -18,6 +18,7 @@ from backend.app.core.escalation_engine import escalation_engine
 from backend.app.core.translation_engine import translation_engine
 from backend.app.core.tts_engine import tts_engine
 from backend.app.core.audit_logger import audit_logger
+from backend.app.core.advisory_cache import advisory_cache
 
 router = APIRouter(prefix="/advisory", tags=["advisory"])
 
@@ -108,6 +109,33 @@ async def process_advisory_query(
             location_state=ctx.get("state"),
             location_district=ctx.get("district")
         )
+
+    # 4b. High-Speed Semantic Cache Check (sub-50ms response for recurrent / seasonal inquiries)
+    target_or_intent = nlp_res.get("target") or nlp_res["intent"]
+    if not ctx.get("conversation_history"):
+        cached_result = advisory_cache.get(
+            ctx["crop"], target_or_intent, detected_lang,
+            district=ctx.get("district", ""), state=ctx.get("state", "")
+        )
+        if cached_result:
+            audit_logger.log_event(db, query_id, "CACHE_HIT", {"target": target_or_intent, "crop": ctx["crop"]})
+            return AdvisoryQueryResponse(
+                query_id=query_id,
+                status="ANSWERED",
+                language_detected=detected_lang,
+                structured_query=structured_info,
+                answer_text=cached_result["answer_text"],
+                audio_url=cached_result["audio_url"],
+                confidence_score=cached_result["confidence_score"],
+                confidence_level=cached_result["confidence_level"],
+                grounding_status="SUPPORTED",
+                safety_status="PASSED",
+                retrieved_evidence=cached_result.get("retrieved_evidence", []),
+                claims_verified=cached_result.get("claims_verified", []),
+                escalation_id=None,
+                location_state=ctx.get("state"),
+                location_district=ctx.get("district")
+            )
 
     # 5. Hybrid Retrieval
     candidates = retrieval_engine.retrieve(db, transcript, ctx["crop"], ctx["district"], state=ctx.get("state"))
@@ -212,6 +240,24 @@ async def process_advisory_query(
     # 13. TTS Synthesis
     audio_url = await tts_engine.synthesize(query_id, translated_answer, detected_lang)
     audit_logger.log_event(db, query_id, "PIPELINE_SUCCESS", {"confidence": conf_score})
+
+    # Cache high-confidence verified responses for recurrent farmer queries
+    if conf_level in ["HIGH", "MEDIUM"] and not ctx.get("conversation_history"):
+        advisory_cache.set(
+            ctx["crop"],
+            target_or_intent,
+            detected_lang,
+            {
+                "answer_text": translated_answer,
+                "audio_url": audio_url,
+                "confidence_score": conf_score,
+                "confidence_level": conf_level,
+                "retrieved_evidence": reranked_evidence,
+                "claims_verified": claims_list
+            },
+            district=ctx.get("district", ""),
+            state=ctx.get("state", "")
+        )
 
     return AdvisoryQueryResponse(
         query_id=query_id,

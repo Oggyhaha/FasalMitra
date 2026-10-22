@@ -228,6 +228,17 @@ MULTILINGUAL_SYNONYMS = {
 }
 
 class HybridRetrievalEngine:
+    def _calculate_vector_similarity(self, text_a: str, text_b: str) -> float:
+        """
+        Calculates lexical/semantic vector similarity between two texts using token-based cosine similarity.
+        """
+        words_a = set(re.findall(r'\w+', text_a.lower()))
+        words_b = set(re.findall(r'\w+', text_b.lower()))
+        if not words_a or not words_b:
+            return 0.0
+        intersection = words_a.intersection(words_b)
+        return len(intersection) / math.sqrt(len(words_a) * len(words_b))
+
     def retrieve(
         self,
         db: Session,

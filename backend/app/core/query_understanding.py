@@ -265,6 +265,7 @@ class HybridQueryUnderstandingEngine:
             ],
             "YELLOW_MOSAIC": [
                 r"\byellow\s*mosaic\b", r"पिवळा\s+मोझॅक", r"पीला\s+मोजेक", r"पीली\s+पत्तियां",
+                r"पाने\s+पिवळ[ीे]", r"पिवळ[ीे]\s+पडत", r"yellowing", r"yellow\s+leaves",
                 r"yellow\s+mosaic\s+patches", r"yellow-green\s+mosaic", r"mosaic\s+pattern",
                 r"mosaic\s+leaves", r"pila\s+mosaic",
                 r"ਪੀਲਾ\s*ਮੋਜ਼ੇਕ", r"ਪੀਲੇ\s*ਪੱਤੇ", r"হলুদ\s*মোজাইক", r"পাতা\s*হলুদ", r"పసుపు\s*మొజాయిక్",
@@ -571,12 +572,13 @@ class HybridQueryUnderstandingEngine:
             r"why\s+do\s+seedlings\s+girdle"
         ]
         management_keywords = [
-            r"how\s+to\s+control", r"how\s+to\s+manage", r"spray", r"treatment", r"fungicide", r"insecticide",
+            r"how\s+to\s+control", r"how\s+to\s+manage", r"\bcontrol\b", r"\bmanage\b", r"spray", r"treatment", r"fungicide", r"insecticide",
             r"pesticide", r"remedy", r"organic", r"neem", r"drench", r"traps", r"dose", r"dosage",
             r"नियंत्रण", r"उपाय", r"दवा", r"દવા", r"નિયંત્રણ", r"અટકાવવા", r"શું\s+કરવું", r"उपचार", r"रोकथाम", r"छांटना", r"केमिकल",
             r"bio\s+control", r"resistant", r"weedicide", r"herbicide", r"irrigation\s+schedule", r"npk",
-            r"how\s+to\s+use.*?to\s+control", r"dawai\b", r"kaise\s+roke\b", r"ilaj\b", r"sprey\b",
-            r"medicine\b", r"kem\s+control\b", r"controll\b",
+            r"how\s+to\s+use.*?to\s+control", r"dawai\b", r"dava\b", r"kaise\s+roke\b", r"ilaj\b", r"sprey\b",
+            r"medicine\b", r"kem\s+control\b", r"controll\b", r"bachavva\b", r"shu\s+karvu\b", r"kya\s+kare\b",
+            r"क्या\s+करें", r"इलाज", r"काय\s+करावे", r"काय\s+फवारावे",
             # Punjabi
             r"ਰੋਕਥਾਮ", r"ਇਲਾਜ", r"ਦਵਾਈ", r"ਸਪਰੇਅ", r"ਕਿਵੇਂ\s+ਕਰੀਏ", r"ਉਪਾਅ", r"ਕੰਟਰੋਲ",
             # Bengali
@@ -594,7 +596,7 @@ class HybridQueryUnderstandingEngine:
             # Assamese
             r"নিয়ন্ত্ৰণ", r"ঔষধ", r"স্প্ৰে", r"উপায়", r"কি\s+কৰিব",
             # Urdu
-            r"علاج", r"روک\s*تھام", r"دوا", r"سپرے", r"کیا\s+کریں"
+            r"علاج", r"روک\s*تھام", r"دवा", r"سپرے", r"کیا\s+کریں"
         ]
         diagnostic_keywords = [
             r"what\s+does\s+it\s+suggest", r"what\s+does\s+it\s+mean", r"what\s+is\s+the\s+(?:likely\s+)?problem",
@@ -625,7 +627,14 @@ class HybridQueryUnderstandingEngine:
         ]) or detected_target:
             intent = "DIAGNOSIS_SYMPTOMS"
 
+        if intent == "DIAGNOSIS_SYMPTOMS" and any(w in text_clean for w in ["पाने पिवळी", "पिवळी पडत", "पिवळे पडत", "पिवळा मोझॅक"]):
+            intent = "PEST_DISEASE"
+
         symptoms = [detected_target.lower()] if detected_target else []
+        if any(w in text_clean for w in ["पिवळी", "पिवळे", "पीला", "पीली", "yellow"]):
+            if "yellowing" not in symptoms:
+                symptoms.append("yellowing")
+
         urgency = "HIGH" if detected_target or detected_chemicals else "MEDIUM"
 
         return {
