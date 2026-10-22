@@ -236,6 +236,63 @@ async def whatsapp_json_endpoint(
             client_ip = request.client.host
 
     input_lower = user_text.lower()
+
+    # Friendly Greeting & Interactive Menu Shortcut
+    if input_lower in ["hi", "hello", "hey", "namaste", "namaskar", "kem cho", "ram ram", "pranam", "help", "/start", "/help", "મેન્યુ", "મેનુ", "मेनू", "मेन्यू", "શરૂ", "શરૂઆત", "start", "menu"]:
+        st, dist = geo_tracker.detect_location(
+            query_text=user_text,
+            lat=req.latitude,
+            lon=req.longitude,
+            requested_district=req.district,
+            requested_state=req.state
+        )
+
+        det_lang = req.language if req.language != "auto" else ("gu" if "Gujarat" in st else ("mr" if "Maharashtra" in st else ("pa" if "Punjab" in st else ("bn" if "Bengal" in st else "hi"))))
+        footer = get_voice_footer(det_lang)
+
+        if "Gujarat" in st or det_lang == "gu":
+            welcome_text = (
+                f"🌾 *[FasalMitra (ફસલમિત્ર) - કૃષિ સહાયક]*\n"
+                f"_________________________________________\n"
+                f"નમસ્કાર ખેડૂત મિત્ર! હું તમારો ૨૪/૭ AI કૃષિ સલાહકાર છું ({dist}, {st}).\n\n"
+                f"તમે નીચેના વિકલ્પો પસંદ કરી શકો છો અથવા બોલીને વૉઇસ નોટ 🎙️ મોકલી શકો છો:\n\n"
+                f"1️⃣ *પાક રોગ/જીવાત સલાહ:* કોઈપણ પ્રશ્ન પૂછો (દા.ત. *'કપાસમાં ગુલાબી ઈયળ આવી ગઈ છે'*, *'સોયાબીનના પાંદડા પીળા કેમ પડે છે'*)\n"
+                f"2️⃣ *હવામાન અને છંટકાવ આગાહી:* *2* અથવા *weather* લખો\n"
+                f"3️⃣ *પાક પાસપોર્ટ વિગતો:* *3* અથવા *passport* લખો\n\n"
+                f"🛡️ *સંપૂર્ણપણે ICAR / JAU / AAU પ્રમાણિત અને ૨૩ ભાષાઓમાં ઉપલબ્ધ!*\n"
+                f"{footer}"
+            )
+            voice_text = "નમસ્કાર ખેડૂત મિત્ર! ફસલમિત્ર કૃષિ સહાયકમાં આપનું સ્વાગત છે. તમારા પાકનો કોઈપણ પ્રશ્ન પૂછવા માટે વૉઇસ નોટ મોકલો અથવા મેસેજ ટાઈપ કરો."
+        elif "Maharashtra" in st or det_lang == "mr":
+            welcome_text = (
+                f"🌾 *[FasalMitra (फसलमित्र) - कृषी सहाय्यक]*\n"
+                f"_________________________________________\n"
+                f"नमस्कार शेतकरी मित्र! मी आपला २४/७ AI कृषी सहाय्यक आहे ({dist}, {st}).\n\n"
+                f"तुम्ही खालील पर्याय निवडू शकता किंवा बोलून व्हॉईस नोट 🎙️ पाठवू शकता:\n\n"
+                f"1️⃣ *पिक रोग व कीड सल्ला:* कोणताही प्रश्न विचारा (उदा. *'सोयाबीन पिवळे पडत आहे'*, *'कपाशीवर बोंडअळी उपाय'*)\n"
+                f"2️⃣ *हवामान अंदाज (Agromet):* *2* किंवा *weather* टाईप करा\n"
+                f"3️⃣ *शेतकरी पिक पासपोर्ट:* *3* किंवा *passport* टाईप करा\n\n"
+                f"🛡️ *पूर्णपणे ICAR / MPKV प्रमाणित आणि २३ भारतीय भाषांमध्ये उपलब्ध!*\n"
+                f"{footer}"
+            )
+            voice_text = "नमस्कार शेतकरी मित्र! फसलमित्र कृषी सहाय्यक मध्ये आपले स्वागत आहे. आपल्या पिकाचा कोणताही प्रश्न विचारण्यासाठी व्हॉईस मेसेज पाठवा किंवा टाईप करा."
+        else:
+            welcome_text = (
+                f"🌾 *[FasalMitra (फसलमित्र) - AI Agri-Advisor]*\n"
+                f"_________________________________________\n"
+                f"नमस्ते किसान भाई! मैं आपका 24/7 AI कृषि सलाहकार हूँ ({dist}, {st}).\n\n"
+                f"आप नीचे दिए गए विकल्प चुन सकते हैं या बोलकर वॉइस नोट 🎙️ भेज सकते हैं:\n\n"
+                f"1️⃣ *फसल रोग/कीट परामर्श:* कोई भी सवाल पूछें (उदा. *'कपास में गुलाबी सुंडी का इलाज'*, *'गेहूं में पीला रतुआ'*)\n"
+                f"2️⃣ *मौसम एवं छिड़काव अनुकूलता:* *2* या *weather* लिखें\n"
+                f"3️⃣ *किसान फसल पासपोर्ट:* *3* या *passport* लिखें\n\n"
+                f"🛡️ *पूर्णतः ICAR / राज्य कृषि विश्वविद्यालय द्वारा प्रमाणित!*\n"
+                f"{footer}"
+            )
+            voice_text = "नमस्ते किसान भाई! फसलमित्र कृषि सलाहकार में आपका स्वागत है। अपनी फसल का कोई भी सवाल पूछने के लिए वॉइस नोट भेजें या मैसेज लिखें।"
+
+        audio_url = await tts_engine.synthesize(f"welcome_{det_lang}", voice_text, det_lang)
+        return {"reply_body": welcome_text, "pipeline_result": None, "audio_url": audio_url}
+
     if input_lower in ["2", "/weather", "weather", "हवामान", "હવામાન", "ਮੌਸਮ", "আবহাওয়া", "వాతావరణం"]:
         st, dist = geo_tracker.detect_location(query_text=user_text, lat=req.latitude, lon=req.longitude)
         if req.state:

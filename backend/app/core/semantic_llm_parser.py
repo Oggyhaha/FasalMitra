@@ -36,34 +36,35 @@ Farmer Query: "{query}"
 
 Output ONLY the JSON object, nothing else.
 """
-        url = f"https://generativelanguage.googleapis.com/v1beta/models/{self.model_name}:generateContent?key={api_key}"
-        payload = {
-            "contents": [{"parts": [{"text": prompt}]}],
-            "generationConfig": {
-                "temperature": 0.0,
-                "responseMimeType": "application/json"
+        candidate_models = ["gemini-3.5-flash", "gemini-3-flash-preview", "gemini-flash-lite-latest"]
+        for model in candidate_models:
+            url = f"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent?key={api_key}"
+            payload = {
+                "contents": [{"parts": [{"text": prompt}]}],
+                "generationConfig": {
+                    "temperature": 0.0,
+                    "responseMimeType": "application/json"
+                }
             }
-        }
 
-        try:
-            async with httpx.AsyncClient(timeout=self.timeout_sec) as client:
-                resp = await client.post(url, json=payload)
-                if resp.status_code == 200:
-                    data = resp.json()
-                    candidates = data.get("candidates", [])
-                    if candidates:
-                        text_json = candidates[0]["content"]["parts"][0]["text"].strip()
-                        parsed = json.loads(text_json)
-                        return {
-                            "crop": parsed.get("crop"),
-                            "target": parsed.get("target"),
-                            "intent": parsed.get("intent", "GENERAL_CROP"),
-                            "negated_targets": parsed.get("negated_targets", []),
-                            "reasoning": parsed.get("reasoning", "")
-                        }
-        except Exception as e:
-            # Silently fallback to local ontology without crashing
-            pass
+            try:
+                async with httpx.AsyncClient(timeout=10.0) as client:
+                    resp = await client.post(url, json=payload)
+                    if resp.status_code == 200:
+                        data = resp.json()
+                        candidates = data.get("candidates", [])
+                        if candidates:
+                            text_json = candidates[0]["content"]["parts"][0]["text"].strip()
+                            parsed = json.loads(text_json)
+                            return {
+                                "crop": parsed.get("crop"),
+                                "target": parsed.get("target"),
+                                "intent": parsed.get("intent", "GENERAL_CROP"),
+                                "negated_targets": parsed.get("negated_targets", []),
+                                "reasoning": parsed.get("reasoning", "")
+                            }
+            except Exception:
+                continue
 
         return None
 

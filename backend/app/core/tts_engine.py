@@ -85,12 +85,13 @@ class TTSEngine:
         # 1. Primary: Edge-TTS Neural Voice with Fast Speech Rate (+18%)
         try:
             communicate = edge_tts.Communicate(clean_text, voice_name, rate=self.speech_rate)
-            await communicate.save(str(filepath))
+            await asyncio.wait_for(communicate.save(str(filepath)), timeout=3.5)
             if filepath.exists() and filepath.stat().st_size > 1000:
                 self._convert_to_ogg(filepath, filepath.with_suffix(".ogg"))
                 return f"/api/v1/voice/audio/{filename}"
         except Exception as e:
-            print(f"[TTSEngine] EdgeTTS notice ({e}), switching to gTTS fallback...", flush=True)
+            err_type = type(e).__name__
+            print(f"[TTSEngine] EdgeTTS ({err_type}), seamlessly falling back to Google TTS (gTTS)...", flush=True)
 
         # 2. Resilient Fallback: gTTS
         try:

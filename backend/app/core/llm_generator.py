@@ -6,10 +6,10 @@ from backend.app.schemas.schemas import EvidenceChunk
 from backend.app.config import settings
 
 CANDIDATE_MODELS = [
+    "gemini-3.5-flash",
+    "gemini-3-flash-preview",
     "gemini-flash-lite-latest",
-    "gemini-flash-latest",
-    "gemini-2.5-flash",
-    "gemini-pro-latest"
+    "gemini-flash-latest"
 ]
 
 
@@ -103,7 +103,7 @@ class GroundedLLMGenerator:
 
         # 1. Live Google Gemini API Integration with Multi-Model Fallback
         if gemini_key:
-            async with httpx.AsyncClient(timeout=8.0) as client:
+            async with httpx.AsyncClient(timeout=22.0) as client:
                 for model_name in CANDIDATE_MODELS:
                     url = f"https://generativelanguage.googleapis.com/v1beta/models/{model_name}:generateContent?key={gemini_key}"
                     payload = {
@@ -124,7 +124,7 @@ class GroundedLLMGenerator:
                         else:
                             print(f"[LLMGenerator] {model_name} HTTP {resp.status_code}, trying next model...", flush=True)
                     except Exception as e:
-                        print(f"[LLMGenerator] {model_name} error: {e}, trying next model...", flush=True)
+                        print(f"[LLMGenerator] {model_name} error ({type(e).__name__}): {e or 'Request timed out'}, trying next model...", flush=True)
 
         # 2. Deterministic High-Quality Fallback if API is offline
         return self._generate_deterministic_fallback(evidence, user_query, language, crop, stage_name)
