@@ -1,0 +1,266 @@
+{
+  "metadata": {
+    "title": "FasalMitra Global Agricultural Taxonomy & Data Provenance Registry",
+    "version": "2.4.0",
+    "updated_at": "2026-10-22",
+    "description": "Authoritative institutional registry establishing data provenance, biological host-pathogen vectors, chemical label claims, safety thresholds, and citation attribution across global and Indian agro-ecological zones.",
+    "jurisdictions": [
+      "India (National - DPPQS/CIB&RC, ICAR)",
+      "Global (FAO EcoPort, CGIAR Centers)",
+      "State Agricultural Universities (SAUs) Package of Practices"
+    ]
+  },
+  "institutional_sources": [
+    {
+      "source_id": "ICAR",
+      "institution_name": "Indian Council of Agricultural Research (ICAR)",
+      "mandate": "National apex body for agricultural research, education, and package of practices across agro-climatic zones.",
+      "key_directorates": [
+        "ICAR-Central Institute for Cotton Research (CICR), Nagpur",
+        "ICAR-National Rice Research Institute (NRRI), Cuttack",
+        "ICAR-Indian Institute of Wheat & Barley Research (IIWBR), Karnal",
+        "ICAR-Indian Institute of Soybean Research (IISR), Indore",
+        "ICAR-Directorate of Groundnut Research (DGR), Junagadh",
+        "ICAR-Indian Institute of Spices Research (IISR), Calicut",
+        "ICAR-Central Plantation Crops Research Institute (CPCRI), Kasaragod",
+        "ICAR-Indian Institute of Horticultural Research (IIHR), Bengaluru"
+      ],
+      "citation_url": "https://icar.org.in"
+    },
+    {
+      "source_id": "DPPQS_CIBRC",
+      "institution_name": "Directorate of Plant Protection, Quarantine & Storage / Central Insecticides Board & Registration Committee (CIB&RC)",
+      "mandate": "Statutory regulatory authority governing pesticide registrations, label claims, Maximum Residue Limits (MRLs), Pre-Harvest Intervals (PHI), and banned agrochemicals in India under the Insecticides Act, 1968.",
+      "key_publications": [
+        "Major Uses of Pesticides (Registered Formulations under Insecticides Act, 1968)",
+        "List of Pesticides Banned, Refused Registration and Restricted for Use in India (Updated 2026)",
+        "Pesticides with Label Claim Approvals for Agricultural and Horticultural Crops"
+      ],
+      "citation_url": "https://ppqs.gov.in"
+    },
+    {
+      "source_id": "SAU_POP",
+      "institution_name": "State Agricultural Universities (SAUs) Package of Practices (PoP)",
+      "mandate": "State-level decentralized agronomic, pathological, and pest management advisories tailored to regional soil and climatic conditions.",
+      "institutions": [
+        {
+          "acronym": "AAU",
+          "name": "Anand Agricultural University, Gujarat",
+          "specialization": "Cotton, Groundnut, Tobacco, Bajra, Spices (Cumin, Fennel)"
+        },
+        {
+          "acronym": "JAU",
+          "name": "Junagadh Agricultural University, Gujarat",
+          "specialization": "Groundnut, Cotton, Sesame, Castor, Onion, Garlic"
+        },
+        {
+          "acronym": "PAU",
+          "name": "Punjab Agricultural University, Ludhiana",
+          "specialization": "Wheat, Rice, Maize, Mustard, Cotton (North Zone)"
+        },
+        {
+          "acronym": "TNAU",
+          "name": "Tamil Nadu Agricultural University, Coimbatore",
+          "specialization": "Paddy, Millets, Pulses, Banana, Spices, Plantation Crops"
+        },
+        {
+          "acronym": "MPKV",
+          "name": "Mahatma Phule Krishi Vidyapeeth, Rahuri, Maharashtra",
+          "specialization": "Sugarcane, Pomegranate, Soybean, Onion, Cotton"
+        },
+        {
+          "acronym": "IARI",
+          "name": "ICAR - Indian Agricultural Research Institute (Pusa), New Delhi",
+          "specialization": "High-yielding Basmati, Wheat genetics, Plant Pathology"
+        }
+      ]
+    },
+    {
+      "source_id": "FAO_CGIAR",
+      "institution_name": "Food and Agriculture Organization of the United Nations (FAO) & CGIAR Global Centers",
+      "mandate": "Global agricultural statistics, EcoPort plant protection databases, transboundary pest monitoring (Fall Armyworm, Desert Locust), and climate-resilient crop research.",
+      "global_entities": [
+        "FAO EcoPort & Global Plant Pathology Database, Rome",
+        "ICRISAT (International Crops Research Institute for the Semi-Arid Tropics), Patancheru",
+        "IRRI (International Rice Research Institute), Los Baños",
+        "CIMMYT (International Maize and Wheat Improvement Center), Mexico"
+      ],
+      "citation_url": "https://www.fao.org"
+    },
+    {
+      "source_id": "AGMARKNET_ENAM",
+      "institution_name": "Agricultural Marketing Information Network (Agmarknet) & e-NAM (National Agriculture Market)",
+      "mandate": "Real-time daily mandi arrivals, wholesale prices, minimum support prices (MSP), and trade volume tracking across 2,700+ APMC markets in India.",
+      "citation_url": "https://agmarknet.gov.in"
+    },
+    {
+      "source_id": "IMD_GKMS",
+      "institution_name": "India Meteorological Department (IMD) - Gramin Krishi Mausam Sewa (GKMS)",
+      "mandate": "District and block-level agromet advisories, precipitation forecasts, relative humidity, temperature alerts, and extreme weather mitigation protocols.",
+      "citation_url": "https://imdagrimet.gov.in"
+    }
+  ],
+  "banned_and_restricted_chemicals_registry": [
+    {
+      "chemical_name": "Endosulfan",
+      "status": "Completely Banned in India (Hon'ble Supreme Court Order & Stockholm Convention)",
+      "toxicity_class": "Class Ib (Highly Hazardous)",
+      "action": "Immediate Refusal & Safety Warning; substitute with integrated bio-control or safe CIB&RC synthetic alternatives."
+    },
+    {
+      "chemical_name": "Monocrotophos",
+      "status": "Banned on Vegetables; strictly restricted in field crops",
+      "toxicity_class": "Class Ib (Highly Hazardous)",
+      "action": "Refusal on all vegetable and horticulture queries; recommend safe neonicotinoid or diamide alternatives."
+    },
+    {
+      "chemical_name": "Paraquat Dichloride",
+      "status": "Restricted use under strict supervision; not for tank mixing with insecticides/fungicides",
+      "toxicity_class": "Class II (Severe caustic poison with fatal pulmonary toxicity)",
+      "action": "Refusal for foliar pest management or unapproved tank mixes."
+    },
+    {
+      "chemical_name": "Methyl Parathion",
+      "status": "Banned completely in India",
+      "toxicity_class": "Class Ia (Extremely Hazardous)",
+      "action": "Strict refusal and safety warning."
+    },
+    {
+      "chemical_name": "Phorate & Carbofuran (granular)",
+      "status": "Restricted/Under phase-out review by Ministry of Agriculture Expert Committee",
+      "toxicity_class": "Class Ia/Ib (Extremely/Highly Hazardous)",
+      "action": "Abstain from recommending broadcast application; advise seed treatments or bio-nematicides."
+    }
+  ],
+  "crop_categories_and_pathology_provenance": {
+    "core_field_crops": [
+      {
+        "crop": "Cotton (Gossypium hirsutum / G. arboreum)",
+        "primary_institutions": ["ICAR-CICR Nagpur", "AAU Anand", "PAU Ludhiana"],
+        "major_targets": [
+          {"target": "BOLL_ROT", "pathogen": "Complex of Fusarium spp., Colletotrichum gossypii, Xanthomonas malvacearum, and Rhizopus spp.", "foliar_vs_organ": "Organ: Bolls and interior lint", "management": "Copper Oxychloride 50 WP (2.5 g/L) + Streptocycline (100 ppm) or Propiconazole 25 EC (1 ml/L); avoid waterlogging."},
+          {"target": "WHITEFLY", "vector_pest": "Bemisia tabaci", "damage": "Sap sucking, honeydew excretion causing sooty mold, vector for Cotton Leaf Curl Virus (CLCuV)", "management": "Yellow sticky traps (15-20/acre), Diafenthiuron 50 WP (1.2 g/L) or Pyriproxyfen 10 EC (2 ml/L) or Spiromesifen 22.9 SC (1.5 ml/L)."},
+          {"target": "PINK_BOLLWORM", "pest": "Pectinophora gossypiella", "etl": "8 moths/trap/night for 3 consecutive nights or 10% rosette flowers/green bolls", "management": "Pheromone traps (Gossyplure), release of Trichogramma bactrae, Chlorantraniliprole 18.5 SC (0.3 ml/L) or Emamectin Benzoate 5 SG (0.5 g/L)."},
+          {"target": "ROOT_ROT", "pathogen": "Rhizoctonia bataticola (Macrophomina phaseolina) and Rhizoctonia solani", "symptoms": "Yellowing, wilting, complete bark shredding on taproot", "management": "Seed treatment with Trichoderma viride (10 g/kg) + soil drenching with Carbendazim 50 WP (1 g/L) or Copper Oxychloride (2.5 g/L)."}
+        ]
+      },
+      {
+        "crop": "Rice / Paddy (Oryza sativa)",
+        "primary_institutions": ["ICAR-NRRI Cuttack", "IRRI", "TNAU"],
+        "major_targets": [
+          {"target": "BLAST", "pathogen": "Magnaporthe oryzae (Pyricularia oryzae)", "syndromes": "Leaf blast (spindle shaped lesions), Node blast, Neck blast (broken panicle neck with sterile grains)", "management": "Tricyclazole 75 WP (0.6 g/L) or Isoprothiolane 40 EC (1.5 ml/L) or Azoxystrobin 18.2% + Difenoconazole 11.4% SC (1 ml/L)."},
+          {"target": "BACTERIAL_LEAF_BLIGHT", "pathogen": "Xanthomonas oryzae pv. oryzae", "symptoms": "Water-soaked yellow wavy streaks beginning from leaf margin towards tip, bacterial ooze drops in morning", "management": "Streptocycline (6 g/acre) + Copper Oxychloride 50 WP (500 g/acre); avoid excessive nitrogen application."},
+          {"target": "STEM_BORER", "pest": "Scirpophaga incertulas (Yellow Stem Borer)", "syndromes": "Dead heart at vegetative stage, White ear head at reproductive stage", "management": "Chlorantraniliprole 0.4 GR (4 kg/acre) or Cartap Hydrochloride 50 SP (2 g/L) or Flubendiamide 39.35 SC (0.2 ml/L)."}
+        ]
+      },
+      {
+        "crop": "Wheat (Triticum aestivum)",
+        "primary_institutions": ["ICAR-IIWBR Karnal", "PAU Ludhiana", "CIMMYT"],
+        "major_targets": [
+          {"target": "POWDERY_MILDEW", "pathogen": "Blumeria graminis f. sp. tritici", "symptoms": "White to grey talcum-like powdery pustules on leaf blades and sheaths", "management": "Propiconazole 25 EC (1 ml/L) or Wettable Sulphur 80 WDG (3 g/L)."},
+          {"target": "RUST", "pathogen": "Puccinia striiformis (Stripe/Yellow), P. triticina (Brown/Leaf), P. graminis (Black/Stem)", "management": "Tebuconazole 25.9 EC (1 ml/L) or Propiconazole 25 EC (1 ml/L) at first sign of yellow rust pustules."},
+          {"target": "TERMITES", "pest": "Odontotermes obesus", "damage": "Hollow stems with soil galleries, seedlings drying in patches", "management": "Seed treatment with Chlorpyrifos 20 EC or Thiamethoxam 30 FS; irrigation and soil drenching."}
+        ]
+      },
+      {
+        "crop": "Soybean (Glycine max)",
+        "primary_institutions": ["ICAR-IISR Indore", "MPKV Rahuri"],
+        "major_targets": [
+          {"target": "YELLOW_MOSAIC", "pathogen": "Mungbean Yellow Mosaic India Virus (MYMIV)", "vector": "Whitefly (Bemisia tabaci)", "management": "Foliar spray of Thiamethoxam 25 WG (0.3 g/L) or Acetamiprid 20 SP (0.4 g/L) to manage vector; rouging infected plants."},
+          {"target": "GIRDLE_BEETLE", "pest": "Obereopsis brevis", "symptoms": "Parallel double ring cuts on petiole/stem causing wilting above the girdle", "management": "Thiamethoxam 12.6% + Lambda Cyhalothrin 9.5% ZC (0.3 ml/L) or Chlorantraniliprole 18.5 SC (0.3 ml/L)."}
+        ]
+      },
+      {
+        "crop": "Groundnut (Arachis hypogaea)",
+        "primary_institutions": ["ICAR-DGR Junagadh", "JAU Junagadh", "ICRISAT"],
+        "major_targets": [
+          {"target": "TIKKA", "pathogen": "Cercospora arachidicola (Early leaf spot) and Phaeoisariopsis personata (Late leaf spot)", "symptoms": "Dark brown/black spots surrounded by yellow chlorotic halo", "management": "Carbendazim 12% + Mancozeb 63% WP (2 g/L) or Hexaconazole 5 EC (1.5 ml/L)."},
+          {"target": "COLLAR_ROT", "pathogen": "Aspergillus niger", "symptoms": "Black fungal spores at collar region near soil surface, seedling collapse", "management": "Seed treatment with Trichoderma harzianum (10 g/kg) or Thiram + Carbendazim (3 g/kg)."}
+        ]
+      }
+    ],
+    "horticultural_and_vegetable_crops": [
+      {
+        "crop": "Tomato (Solanum lycopersicum)",
+        "primary_institutions": ["ICAR-IIHR Bengaluru", "TNAU"],
+        "major_targets": [
+          {"target": "EARLY_BLIGHT", "pathogen": "Alternaria solani", "symptoms": "Target-board concentric rings on leaves and fruit stem ends", "management": "Mancozeb 75 WP (2.5 g/L) or Azoxystrobin + Difenoconazole (1 ml/L)."},
+          {"target": "LATE_BLIGHT", "pathogen": "Phytophthora infestans", "symptoms": "Rapid water-soaked lesions turning black overnight, white downy mold under humid conditions", "management": "Metalaxyl 8% + Mancozeb 64% WP (2.5 g/L) or Dimethomorph 50 WP (1 g/L)."},
+          {"target": "LEAF_CURL", "virus": "Tomato Leaf Curl Virus (ToLCV)", "vector": "Whitefly", "management": "Nursery nylon netting (40 mesh), Imidacloprid 17.8 SL (0.5 ml/L)."}
+        ]
+      },
+      {
+        "crop": "Chilli (Capsicum annuum)",
+        "primary_institutions": ["Dr. YSRHU", "TNAU", "AAU"],
+        "major_targets": [
+          {"target": "LEAF_CURL", "vector": "Thrips (Scirtothrips dorsalis) causing upward curl, Mites (Polyphagotarsonemus latus) causing downward curl", "management": "Fipronil 5 SC (2 ml/L) for thrips; Fenazaquin 10 EC (2 ml/L) or Spiromesifen (1 ml/L) for yellow mites."},
+          {"target": "DAMPING_OFF", "pathogen": "Pythium aphanidermatum", "symptoms": "Water-soaked girdling of seedling stems at nursery soil line, seedling falling over", "management": "Raised nursery beds, seed treatment with Trichoderma, nursery drenching with Copper Oxychloride (2.5 g/L)."}
+        ]
+      }
+    ],
+    "rare_exotic_and_plantation_crops": [
+      {
+        "crop": "Dragonfruit / Kamalam (Hylocereus undatus / H. polyrhizus)",
+        "primary_institutions": ["ICAR-IIHR", "ICAR-Central Institute for Arid Horticulture (CIAH)"],
+        "major_targets": [
+          {"target": "ANTHRACNOSE", "pathogen": "Colletotrichum gloeosporioides", "symptoms": "Reddish-brown circular sunken lesions on cladodes (stems) and fruit rind", "management": "Azoxystrobin 23 SC (1 ml/L) or Copper Oxychloride 50 WP (2.5 g/L); proper trellis pruning for airflow."},
+          {"target": "STEM_CANKER_AND_SOFT_ROT", "pathogen": "Neoscytalidium dimidiatum and Enterobacter cloacae", "management": "Bordeaux mixture 1% spray; remove infected cladodes with sterilized shears."}
+        ]
+      },
+      {
+        "crop": "Quinoa (Chenopodium quinoa)",
+        "primary_institutions": ["ICAR-National Bureau of Plant Genetic Resources (NBPGR)", "FAO EcoPort"],
+        "major_targets": [
+          {"target": "DOWNY_MILDEW", "pathogen": "Peronospora variabilis", "symptoms": "Pale chlorotic spots on upper leaf surface with grey-violaceous sporulation on underside", "management": "Mancozeb (2.5 g/L) or Metalaxyl-M; ensure wide plant spacing."},
+          {"target": "APHID", "pest": "Aphis craccivora / Myzus persicae", "management": "Neem oil 10,000 ppm (3 ml/L) or Flonicamid 50 WG (0.3 g/L)."}
+        ]
+      },
+      {
+        "crop": "Saffron (Crocus sativus)",
+        "primary_institutions": ["SKUAST Kashmir - Advanced Research Station for Saffron & Seed Spices", "ICAR"],
+        "major_targets": [
+          {"target": "CORM_ROT", "pathogen": "Fusarium oxysporum f. sp. gladioli and Rhizoctonia crocorum", "symptoms": "Sunken dark brown spots on corm scales, rotting of apical buds, stunted yellow foliage", "management": "Corm dip treatment in Carbendazim 50 WP (1 g/L) + Mancozeb (2 g/L) for 20 minutes before planting; solarize raised beds."},
+          {"target": "ROOT_ROT", "pathogen": "Pythium spp.", "management": "Trichoderma harzianum soil application enriched in farmyard manure (FYM)."}
+        ]
+      },
+      {
+        "crop": "Avocado (Persea americana)",
+        "primary_institutions": ["ICAR-Central Horticultural Experiment Station (CHES), Chettalli", "FAO"],
+        "major_targets": [
+          {"target": "PHYTOPHTHORA_ROOT_ROT", "pathogen": "Phytophthora cinnamomi", "symptoms": "Small brittle black feeder roots, canopy dieback, yellowing wilt", "management": "Potassium phosphonate (Fosetyl-Al) soil drench and trunk injection; plant on mounds with excellent drainage."},
+          {"target": "ANTHRACNOSE", "pathogen": "Colletotrichum gloeosporioides", "management": "Copper fungicides post-flowering and during fruit development."}
+        ]
+      },
+      {
+        "crop": "Moringa / Drumstick (Moringa oleifera)",
+        "primary_institutions": ["TNAU Horticultural College and Research Institute, Periyakulam", "ICAR"],
+        "major_targets": [
+          {"target": "POD_FLY", "pest": "Gitona distigma", "symptoms": "Oozing of gum from drumstick pods, internal rotting and premature pod drying", "management": "Collect and destroy fallen pods, soil application of Neem cake (250 kg/ha), spray Malathion 50 EC (1 ml/L) or Spinosad 45 SC (0.3 ml/L)."},
+          {"target": "HAIRY_CATERPILLAR", "pest": "Eupterote mollifera", "symptoms": "Gregarious caterpillars defoliating trees, forming large clusters on tree trunks", "management": "Burning caterpillar clusters with torch, spray Chlorpyrifos 20 EC (2 ml/L) or Dichlorvos (1 ml/L)."}
+        ]
+      },
+      {
+        "crop": "Cardamom (Elettaria cardamomum)",
+        "primary_institutions": ["Indian Cardamom Research Institute (ICRI), Spices Board, Myladumpara", "ICAR-IISR"],
+        "major_targets": [
+          {"target": "THRIPS", "pest": "Sciothrips cardamomi", "symptoms": "Silvery scabs and warts on capsule surface (panicle thrips), stunted pseudostems", "management": "Quinalphos 25 EC (2 ml/L) or Spinetoram 11.7 SC (0.5 ml/L); apply during flowering and early capsule formation."},
+          {"target": "CAPSULE_ROT_AZHUKAL", "pathogen": "Phytophthora meadii", "symptoms": "Water-soaked rotting of immature capsules, shredding of leaf sheaths", "management": "1% Bordeaux mixture spray or Copper Oxychloride (2.5 g/L) drenching in panicle zones before monsoon onset."}
+        ]
+      },
+      {
+        "crop": "Vanilla (Vanilla planifolia)",
+        "primary_institutions": ["ICAR-CPCRI", "Spices Board of India"],
+        "major_targets": [
+          {"target": "ROOT_AND_STEM_ROT", "pathogen": "Fusarium oxysporum f. sp. vanillae", "symptoms": "Browning and decaying of aerial and terrestrial roots, flaccid yellow vines", "management": "Bio-control with Trichoderma harzianum; drenching with Carbendazim (1 g/L) or Potassium Phosphonate (3 ml/L)."}
+        ]
+      },
+      {
+        "crop": "Ashwagandha (Withania somnifera)",
+        "primary_institutions": ["ICAR-Directorate of Medicinal and Aromatic Plants Research (DMAPR), Anand"],
+        "major_targets": [
+          {"target": "SEEDLING_BLIGHT_AND_WILT", "pathogen": "Fusarium solani / Alternaria alternata", "management": "Seed treatment with Trichoderma viride (10 g/kg) + soil incorporation of well-rotted FYM; avoid water stagnation."}
+        ]
+      }
+    ]
+  }
+}

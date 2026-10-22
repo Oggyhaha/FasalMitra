@@ -29,7 +29,22 @@ class DiagnosticOntology:
             "Bajra": ["bajra", "pearl millet", "बाजरी", "बाजरा"],
             "Brinjal": ["brinjal", "eggplant", "वांगी", "बैंगन"],
             "Banana": ["banana", "केळी", "केला"],
-            "Okra": ["okra", "bhindi", "भिंडी", "ભીંડા"]
+            "Okra": ["okra", "bhindi", "भिंडी", "ભીંડા"],
+            "Quinoa": ["quinoa", "કિનોઆ", "क्विनोआ"],
+            "Dragonfruit": ["dragonfruit", "dragon fruit", "kamalam", "કમલમ", "ड्रैगन फ्रूट"],
+            "Avocado": ["avocado", "butter fruit", "एवोकैडो"],
+            "Saffron": ["saffron", "kesar", "केसर", "કેસર"],
+            "Moringa": ["moringa", "drumstick", "sahjan", "સરગવો", "सहजन"],
+            "Cardamom": ["cardamom", "elaichi", "એલચી", "इलायची"],
+            "Vanilla": ["vanilla", "वैनिला"],
+            "Ashwagandha": ["ashwagandha", "अश्वगंधा"],
+            "Garlic": ["garlic", "lahsun", "लहसुन", "લસણ"],
+            "Ginger": ["ginger", "adrak", "अदरक", "આદું"],
+            "Turmeric": ["turmeric", "haldi", "हल्दी", "હળદર"],
+            "Cumin": ["cumin", "jeera", "जीरा", "જીરું"],
+            "Tea": ["tea", "chai", "चाय", "ચા"],
+            "Coffee": ["coffee", "कॉफी"],
+            "Apple": ["apple", "seb", "सेब", "સફરજન"]
         }
 
         # Biological Host-Pathogen Compatibility Matrix
@@ -50,7 +65,20 @@ class DiagnosticOntology:
             "Brinjal": {"FRUIT_BORER", "STEM_BORER", "LITTLE_LEAF"},
             "Okra": {"YELLOW_MOSAIC", "FRUIT_BORER"},
             "Banana": {"WILT", "SIGATOKA"},
-            "Mango": {"POWDERY_MILDEW", "ANTHRACNOSE"}
+            "Mango": {"POWDERY_MILDEW", "ANTHRACNOSE"},
+            "Garlic": {"THRIPS", "PURPLE_BLOTCH", "ROOT_ROT"},
+            "Ginger": {"RHIZOME_ROT", "BACTERIAL_WILT", "ROOT_ROT"},
+            "Turmeric": {"RHIZOME_ROT", "LEAF_BLOTCH", "ROOT_ROT"},
+            "Cumin": {"BLIGHT", "POWDERY_MILDEW", "WILT"},
+            "Tea": {"BLISTER_BLIGHT", "THRIPS"},
+            "Coffee": {"RUST", "BERRY_BORER"},
+            "Apple": {"SCAB", "POWDERY_MILDEW"},
+            "Dragonfruit": {"ANTHRACNOSE", "ROOT_ROT"},
+            "Avocado": {"ROOT_ROT", "ANTHRACNOSE"},
+            "Quinoa": {"DOWNY_MILDEW", "APHID"},
+            "Saffron": {"WILT", "ROOT_ROT"},
+            "Moringa": {"CATERPILLAR", "POD_FLY"},
+            "Cardamom": {"THRIPS", "CAPSULE_ROT"}
         }
 
     def detect_host_crop(self, text_clean: str) -> Optional[str]:

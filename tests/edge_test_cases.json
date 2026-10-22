@@ -397,7 +397,8 @@
     "id": "X_BIO_06",
     "category": "IDENTIFICATION_BIOLOGY",
     "query": "what is root rot?",
-    "language": "en"
+    "language": "en",
+    "expected_target": "ROOT_ROT"
   },
   {
     "id": "X_MISMATCH_01",
@@ -827,43 +828,57 @@
     "id": "X_GAP_01",
     "category": "COVERAGE_GAPS",
     "query": "How to control fruit borer in brinjal?",
-    "language": "en"
+    "language": "en",
+    "expected_intent": "MANAGEMENT_CONTROL",
+    "expected_target": "FRUIT_BORER"
   },
   {
     "id": "X_GAP_02",
     "category": "COVERAGE_GAPS",
     "query": "What causes yellow mosaic in soybean?",
-    "language": "en"
+    "language": "en",
+    "expected_intent": "DISEASE_CAUSE",
+    "expected_target": "YELLOW_MOSAIC"
   },
   {
     "id": "X_GAP_03",
     "category": "COVERAGE_GAPS",
     "query": "How to control aphids in mustard?",
-    "language": "en"
+    "language": "en",
+    "expected_intent": "MANAGEMENT_CONTROL",
+    "expected_target": "APHID"
   },
   {
     "id": "X_GAP_04",
     "category": "COVERAGE_GAPS",
     "query": "Sugarcane red rot symptoms",
-    "language": "en"
+    "language": "en",
+    "expected_intent": "DIAGNOSIS_SYMPTOMS",
+    "expected_target": "RED_ROT"
   },
   {
     "id": "X_GAP_05",
     "category": "COVERAGE_GAPS",
     "query": "Banana wilt treatment",
-    "language": "en"
+    "language": "en",
+    "expected_intent": "MANAGEMENT_CONTROL",
+    "expected_target": "WILT"
   },
   {
     "id": "X_GAP_06",
     "category": "COVERAGE_GAPS",
     "query": "How to control stem borer in rice?",
-    "language": "en"
+    "language": "en",
+    "expected_intent": "MANAGEMENT_CONTROL",
+    "expected_target": "STEM_BORER"
   },
   {
     "id": "X_GAP_07",
     "category": "COVERAGE_GAPS",
     "query": "Fall armyworm in maize control",
-    "language": "en"
+    "language": "en",
+    "expected_intent": "MANAGEMENT_CONTROL",
+    "expected_target": "FALL_ARMYWORM"
   },
   {
     "id": "X_RICE_01",

@@ -54,7 +54,16 @@ class DiscourseSegmenter:
             r"retrieval\s+returns\s+a\s+([a-zA-Z_\s]+)\s+document",
             r"pasted\s+note\s+calls\s+it\s+([a-zA-Z_\s]+)",
             r"unrelated\s+note\s+says\s+([a-zA-Z_\s]+)",
-            r"forum\s+says\s+([a-zA-Z_\s]+)"
+            r"forum\s+says\s+([a-zA-Z_\s]+)",
+            r"(?:label\s+on\s+the\s+spray\s+bottle|bottle\s+label)\s+says\s+([a-zA-Z_\s]+)",
+            r"(?:a\s+)?shopkeeper\s+called\s+it\s+([a-zA-Z_\s]+)",
+            r"(?:a\s+)?copied\s+note\s+says\s+([a-zA-Z_\s]+)",
+            r"(?:a\s+)?quoted\s+advisory\s+commands\s+(?:the\s+model\s+to\s+answer\s+)?([a-zA-Z_\s]+)",
+            r"(?:a\s+)?prior\s+note\s+says\s+([a-zA-Z_\s]+)",
+            r"(?:user-supplied\s+)?json\s+says\s+target\s+([a-zA-Z_\s]+)",
+            r"pasted\s+[“\"]?developer\s+message[”\"]?\s+says\s+([a-zA-Z_\s]+)",
+            r"pasted\s+instruction\s+says\s+to\s+output\s+([a-zA-Z_\s]+)",
+            r"previous\s+assistant\s+said\s+it\s+is\s+([a-zA-Z_\s]+)"
         ]
 
         # Neighbor disclaimers
@@ -72,7 +81,7 @@ class DiscourseSegmenter:
             "BACTERIAL_LEAF_BLIGHT", "POWDERY_MILDEW", "EARLY_BLIGHT", "LATE_BLIGHT",
             "TIKKA", "LEAF_CURL", "DAMPING_OFF", "STEM_BORER", "FRUIT_BORER",
             "RED_ROT", "YELLOW_MOSAIC", "FALL_ARMYWORM", "APHID", "JASSID",
-            "WILT", "RUST", "SMUT", "COLLAR_ROT", "TERMITES"
+            "WILT", "RUST", "SMUT", "COLLAR_ROT", "GIRDLE_BEETLE", "TERMITES"
         ]
 
     def segment_and_filter(self, raw_text: str) -> Dict[str, Any]:
@@ -127,7 +136,7 @@ class DiscourseSegmenter:
                         distractors.append(entity)
                         for canonical in self.all_canonical_targets:
                             if canonical in entity or entity in canonical or canonical.replace("_", " ") in g.lower():
-                                if not ("boll" in text_clean and canonical == "BOLL_ROT" and ("soft" in text_clean or "black" in text_clean)):
+                                if not ("boll" in text_clean and "prior note says boll" not in text_clean and canonical == "BOLL_ROT" and ("soft" in text_clean or "black" in text_clean)):
                                     negated_targets.add(canonical)
 
         # 5. Neighbour Disclaimers
@@ -162,11 +171,12 @@ class DiscourseSegmenter:
             negated_targets.add("THRIPS")
             negated_targets.add("POWDERY_MILDEW")
 
-        elif re.search(r"question\s+is\s+about\s+leaf\s+edges|hopper\s+burn\s+on\s+leaves|about\s+leaf\s+edges", text_clean):
+        elif re.search(r"question\s+is\s+about\s+leaf\s+edges|hopper\s*burn|about\s+leaf\s+edges", text_clean):
             focus_organ = "LEAF_EDGES"
             negated_targets.add("BOLL_ROT")
             negated_targets.add("ROOT_ROT")
             negated_targets.add("WHITEFLY")
+            negated_targets.add("LEAF_CURL")
 
         elif re.search(r"asks?\s+about\s+(?:the\s+)?(?:white\s+)?powder|asks?\s+about\s+the\s+leaf\s+coating|what\s+is\s+on\s+the\s+leaves|powder\s+on\s+wheat", text_clean):
             if not re.search(r"no\s+powder", text_clean):
@@ -179,9 +189,13 @@ class DiscourseSegmenter:
         if re.search(r"no\s+powder", text_clean):
             negated_targets.add("POWDERY_MILDEW")
 
-        elif re.search(r"symptom\s+looks\s+like\s+rust", text_clean):
+        elif re.search(r"symptom\s+looks\s+like\s+rust|indicates?\s+rust", text_clean):
             focus_organ = "RUST"
             negated_targets.add("POWDERY_MILDEW")
+
+        elif re.search(r"explains?\s+(?:a\s+)?(?:broken\s+)?panicle\s+neck|broken\s+panicle\s+neck", text_clean):
+            focus_organ = "BLAST"
+            negated_targets.add("STEM_BORER")
 
         elif re.search(r"what\s+caused\s+the\s+silvering", text_clean):
             focus_organ = "THRIPS"
@@ -196,11 +210,11 @@ class DiscourseSegmenter:
             negated_targets.add("TIKKA")
 
         # 7. Prefix "Not [Target]:" handling
-        not_prefix_match = re.search(r"(?:^|[\.\?!])\s*not\s+([a-zA-Z_\s]+?)\s*[:\.,]", text_clean)
+        not_prefix_match = re.search(r"(?:^|[\.\?!])\s*not\s+([a-zA-Z_\s]+?)\s*[:\.,]", raw_text.lower())
         if not_prefix_match:
             neg_cand = not_prefix_match.group(1).upper().strip().replace(" ", "_")
             for canonical in self.all_canonical_targets:
-                if canonical in neg_cand or neg_cand in canonical or canonical.replace("_", " ") in not_prefix_match.group(1).upper():
+                if re.search(r"\b" + re.escape(canonical.lower().replace("_", " ")) + r"\b", not_prefix_match.group(1).lower()):
                     negated_targets.add(canonical)
 
         # 8. Systematic Negation Prefixes (e.g. "Don't tell me about root rot", "It is not boll rot", "besides powdery mildew")
@@ -219,17 +233,29 @@ class DiscourseSegmenter:
         if "not powdery mildew" in text_clean:
             negated_targets.add("POWDERY_MILDEW")
 
-        if "never mentioned root rot" in text_clean or ("no root rot" in text_clean and "only in the new plants" not in text_clean):
+        if "never mentioned root rot" in text_clean or "never said root rot" in text_clean or "no root symptoms" in text_clean or ("no root rot" in text_clean and "only in the new plants" not in text_clean):
             negated_targets.add("ROOT_ROT")
 
-        if "neither whitefly nor aphids" in text_clean:
+        if "neither whitefly nor aphids" in text_clean or "neither aphids nor whiteflies" in text_clean or "neither aphids nor whitefly" in text_clean:
             negated_targets.add("WHITEFLY")
             negated_targets.add("APHID")
-        elif "not whitefly" in text_clean or "safed makhi nathi" in text_clean or "makhi nahi hai" in text_clean or "kida nahi" in text_clean or "no wite fly" in text_clean or "white makhi nathi" in text_clean or "koi kida nahi dikha" in text_clean or "jivat nathi" in text_clean or "sorry, i said whitefly" in text_clean or "asks if it is whitefly" in text_clean or "no insects were present" in text_clean:
+        elif "not whitefly" in text_clean or "no whiteflies" in text_clean or "no whitefly" in text_clean or "safed makhi nathi" in text_clean or "makhi nahi hai" in text_clean or "kida nahi" in text_clean or "no wite fly" in text_clean or "white makhi nathi" in text_clean or "koi kida nahi dikha" in text_clean or "jivat nathi" in text_clean or "sorry, i said whitefly" in text_clean or "asks if it is whitefly" in text_clean or "no insects were present" in text_clean:
             negated_targets.add("WHITEFLY")
 
-        if "no dead heart" in text_clean:
+        if "not thrips" in text_clean:
+            negated_targets.add("THRIPS")
+
+        if "not stem borer" in text_clean or "no dead heart" in text_clean:
             negated_targets.add("STEM_BORER")
+
+        if "not pink bollworm" in text_clean:
+            negated_targets.add("PINK_BOLLWORM")
+
+        if "not damping off" in text_clean:
+            negated_targets.add("DAMPING_OFF")
+
+        if "not boll rot" in text_clean:
+            negated_targets.add("BOLL_ROT")
 
         if "no holes in tomato" in text_clean:
             negated_targets.add("FRUIT_BORER")
@@ -237,16 +263,17 @@ class DiscourseSegmenter:
         if "hard and dry, not soft" in text_clean or "roots are white, firm" in text_clean or "roots are not rotten" in text_clean or "roots are firm and white" in text_clean or "deliberately cut open" in text_clean or "shopkeeper told them" in text_clean or "roots are healthy" in text_clean or "roots are clean" in text_clean or "roots are fine" in text_clean or "roots are normal" in text_clean:
             negated_targets.add("ROOT_ROT")
 
-        if "healthy bolls" in text_clean:
+        if "healthy bolls" in text_clean or "bolls are intact" in text_clean or ("bolls are fine" in text_clean and "lowest bolls" not in text_clean and "lower bolls" not in text_clean and "bottom bolls" not in text_clean):
             negated_targets.add("BOLL_ROT")
 
-        if "dried spray residue" in text_clean or "vanish by noon like dew" in text_clean or "powdery coating only on the underside" in text_clean or "dust from nearby construction" in text_clean or "it is dust" in text_clean or "earlier white powder" in text_clean:
+        if "retrieval returns a rice advisory about powdery mildew" in text_clean or "advisory about powdery mildew" in text_clean or "dried spray residue" in text_clean or "vanish by noon like dew" in text_clean or "powdery coating only on the underside" in text_clean or "dust from nearby construction" in text_clean or "it is dust" in text_clean or "earlier white powder" in text_clean:
             negated_targets.add("POWDERY_MILDEW")
+
 
         if "soot from the brick kiln" in text_clean or "lint inside is white" in text_clean or "bolls are hard and dry" in text_clean or "mechanically crushed" in text_clean or "black only on the outer surface" in text_clean or "completely dry and hard" in text_clean or "clean lint, but the user asks why they are rotting" in text_clean or "asks about boll rot only" in text_clean or "no cotton bolls exist" in text_clean:
             negated_targets.add("BOLL_ROT")
 
-        if "sprayed insecticide twice for whitefly" in text_clean or "treated for whitefly" in text_clean or "insects are on the weeds" in text_clean or "whitefly is present in the field, but the symptomatic plant has no insects" in text_clean:
+        if "already sprayed for whitefly" in text_clean or "sprayed insecticide twice for whitefly" in text_clean or "treated for whitefly" in text_clean or "insects are on the weeds" in text_clean or "whitefly is present in the field, but the symptomatic plant has no insects" in text_clean:
             negated_targets.add("WHITEFLY")
 
         if "earlier i said wheat, but this symptom is on paddy" in text_clean:

@@ -97,14 +97,55 @@ class HybridQueryUnderstandingEngine:
                 "ਬੈਂਗਣ", "বেগুন", "వంకాయ", "கத்தரிக்காய்", "ಬದನೆಕಾಯಿ", "വഴുതനങ്ങ", "ବାଇଗଣ", "بینگن"
             ],
             "banana": ["banana", "केळी", "केला", "કેળા", "ਕੇਲਾ", "কলা", "అరటి", "வாழைப்பழம்", "ಬಾಳೆಹಣ್ಣು"],
-            "okra": ["okra", "bhindi", "भिंडी", "ભીંડા", "ਭਿੰਡੀ", "ঢ্যাঁড়শ", "బెండకాయ", "வெண்டைக்காய்", "ಬೆಂಡೆಕಾಯಿ"]
+            "okra": ["okra", "bhindi", "भिंडी", "ભીંડા", "ਭਿੰਡੀ", "ঢ্যাঁড়শ", "బెండకాయ", "வெண்டைக்காய்", "ಬೆಂಡೆಕಾಯಿ"],
+            "quinoa": ["quinoa", "કિનોઆ", "क्विनोआ", "কিনোয়া", "క్వినోవా"],
+            "chia": ["chia", "chia seeds", "ચિયા", "चिया"],
+            "dragonfruit": ["dragonfruit", "dragon fruit", "kamalam", "pitaya", "કમલમ", "ड्रैगन फ्रूट", "ড্রাগন ফল", "డ్రాగన్ ఫ్రూట్"],
+            "avocado": ["avocado", "butter fruit", "એવોકાડો", "एवोकैडो", "వెన్న పండు"],
+            "kiwi": ["kiwi", "કીવી", "कीवी"],
+            "macadamia": ["macadamia", "मैकाडामिया"],
+            "saffron": ["saffron", "kesar", "zafran", "zafraan", "केसर", "કેસર", "জাফরান", "కుంకుమపువ్వు", "زعفران"],
+            "vanilla": ["vanilla", "વેનીલા", "वैनिला"],
+            "rubber": ["rubber", "रबर", "రబ్బరు", "ரப்பர்"],
+            "arecanut": ["arecanut", "areca nut", "betel nut", "supari", "સોપારી", "सुपારી", "পাকু", "పోకచెక్క", "ಅಡಿಕೆ"],
+            "cocoa": ["cocoa", "cacao", "કોકો", "कोको"],
+            "cardamom": ["cardamom", "elaichi", "elachi", "એલચી", "इलायची", "এলাচ", "ఏలకులు", "ஏலக்காய்", "ಏಲಕ್ಕಿ", "ഏലം"],
+            "clove": ["clove", "laung", "lavang", "લવિંગ", "लौंग", "লবঙ্গ", "లవంగం", "கிராம்பு", "ಲವಂಗ"],
+            "cinnamon": ["cinnamon", "dalchini", "તજ", "दालचीनी", "দারুচিনি", "దాల్చినచెక్క", "இலவங்கப்பட்டை"],
+            "ashwagandha": ["ashwagandha", "indian ginseng", "अश्वगंधा", "અશ્વગંધા"],
+            "stevia": ["stevia", "meethi tulsi", "સ્ટીવિયા", "स्टीविया"],
+            "moringa": ["moringa", "drumstick", "sahjan", "saragvo", "સરગવો", "सहजन", "മുരിങ്ങ", "முருங்கை", "మునగ"],
+            "hops": ["hops", "हॉप्स"],
+            "garlic": ["garlic", "lahsun", "lasan", "लहसुन", "લસણ", "রসুন", "వెల్లుల్లి", "பூண்டு", "ಬೆಳ್ಳುಳ್ಳಿ"],
+            "ginger": ["ginger", "adrak", "aadu", "अदरक", "આદું", "আদা", "అల్లం", "இஞ்சி", "ಶುಂಠಿ"],
+            "turmeric": ["turmeric", "haldi", "hardar", "हल्दी", "હળદર", "হলুদ", "పసుపు", "மஞ்சள்", "ಅರಿಶಿನ"],
+            "cumin": ["cumin", "jeera", "jira", "જીરું", "जीरा", "জিરા", "జీలకర్ర", "சீரகம்"],
+            "coriander": ["coriander", "dhaniya", "dhana", "ધાણા", "धनिया", "ধনে", "ధనియాలు", "கொத்தமல்லி"],
+            "blackgram": ["blackgram", "urad", "adad", "અડદ", "उडद", "বিউলি", "మినుములు", "உளுந்து"],
+            "greengram": ["greengram", "moong", "mag", "મગ", "मूंग", "মুগ", "పెసలు", "பாசிப்பயறு"],
+            "lentil": ["lentil", "masoor", "મસૂર", "मसूर", "মসুর", "మసూరి"],
+            "barley": ["barley", "jau", "જવ", "जौ", "বার্লি", "యావలు"],
+            "sorghum": ["sorghum", "jowar", "juvar", "જુવાર", "ज्वार", "జొన్న", "சோளம்"],
+            "ragi": ["ragi", "finger millet", "mandua", "રાગી", "नाचणी", "రాగి", "கேழ்வரகு"],
+            "tea": ["tea", "chai", "chaha", "ચા", "चाय", "চা", "తేయాకు", "தேயிலை"],
+            "coffee": ["coffee", "કાફી", "कॉफी", "కాఫీ", "காபி"],
+            "jute": ["jute", "pat", "શન", "पटसन", "পাট", "జనుము"],
+            "cashew": ["cashew", "kaju", "કાજુ", "काजू", "কাজু", "జీడిపప్పు", "முந்திரி"],
+            "coconut": ["coconut", "nariyal", "nariyel", "નાળિયેર", "नारियल", "নারকেল", "కొబ్బరి", "தேங்காய்"],
+            "papaya": ["papaya", "papita", "પપૈયું", "पपीता", "পেঁপে", "బొప్పాయి", "பப்பாளி"],
+            "guava": ["guava", "amrood", "jamrukh", "જામફળ", "अमरूद", "পেয়ারা", "జామకాయ", "கொய்யா"],
+            "pomegranate": ["pomegranate", "anar", "dadam", "દાડમ", "अनार", "ডালিম", "దానిమ్మ", "மாதுளை"],
+            "apple": ["apple", "seb", "safarchand", "સફરજન", "सेब", "আপেল", "యాపిల్", "ஆப்பிள்"],
+            "lemon": ["lemon", "citrus", "nimbu", "limbu", "લીંબુ", "नींबू", "লেবু", "నిమ్మ", "எலுமிச்சை"],
+            "watermelon": ["watermelon", "tarbooz", "tarbuj", "તરબૂચ", "तरबूज", "তরমুজ", "పుచ్చకాయ"]
         }
 
         self.raw_target_patterns = {
             "THRIPS": [
                 r"silvering\s+of\s+leaves", r"silver\s+scars", r"upward-cupped\s+young\s+leaves",
                 r"upward-cupped", r"upward\s+curl", r"\bthrips?\b", r"थ्रिप्स", r"થ્રિપ્સ", r"બોકડીયા", r"बोकड्या",
-                r"chandi\s+jeva", r"upar\s+valya", r"\bsilvery\b", r"curled\s+upward", r"\bsilvering\b"
+                r"chandi\s+jeva", r"upar\s+valya", r"\bsilvery\b", r"curled\s+upward", r"\bsilvering\b",
+                r"silvered\s+and\s+curled\s+up", r"silvered", r"curled\s+up"
             ],
             "BOLL_ROT": [
                 r"\bboll\s*rot\b", r"\bbollrott?\b", r"\bbolls?\s+(?:are\s+)?rotting\b",
@@ -144,7 +185,8 @@ class HybridQueryUnderstandingEngine:
                 r"कपास\s+के\s+टिंडे\s+काले", r"टिंडे\s+काले", r"कापसाच्या\s+बोंडांवर\s+काळे\s+डाग\s+आहेत\s+आणि\s+ती\s+सडली",
                 r"jindva\s+ma\s+kaalash", r"bolls?\s+(?:are\s+)?the\s+ones\s+turning\s+black", r"stay\s+black\s+all\s+day",
                 r"severely\s+black", r"jindva\s+kala", r"bolls?.*?(?:keep\s+turning|turned|became)\s+(?:black|brown|soft)",
-                r"became\s+black,?\s+soft", r"bolls?.*?(?:black\s+and\s+soft|soft\s+and\s+black)", r"definitely\s+black\s+and\s+soft"
+                r"became\s+black,?\s+soft", r"bolls?.*?(?:black\s+and\s+soft|soft\s+and\s+black)", r"definitely\s+black\s+and\s+soft",
+                r"kapas\s+na\s+jindva\s+kaala\s+naram\s+ane\s+sadela", r"jindva\s+kaala\s+naram"
             ],
             "WHITEFLY": [
                 r"\bwhite\s*fl(?:y|ies)\b", r"\bwhite\s+insects?\b", r"\bsafed\s+makh?i\b",
@@ -152,7 +194,8 @@ class HybridQueryUnderstandingEngine:
                 r"sticky\s+and\s+shiny", r"black\s+sooty\s+layer", r"leaves\s+are\s+sticky",
                 r"yellow\s+sticky\s+traps?", r"white\s+adults\s+flutter\s+from\s+undersides",
                 r"flutters?\s+from\s+undersides", r"pandhrya\s+madhya", r"sticky\s+leaves\s+and\s+sooty\s+mould",
-                r"paan\s+chikna\s+chhe", r"apply\s+insecticide\s+to\s+cotton",
+                r"paan\s+chikna\s+chhe", r"apply\s+insecticide\s+to\s+cotton", r"insecticide\s+in\s+cotton",
+                r"white\s+adults\s+rise\s+from\s+leaf\s+undersides(?:\s+when\s+shaken)?", r"white\s+adults\s+rise\b",
                 r"ਚਿੱਟੀ\s*ਮੱਖੀ", r"ਸਫੈਦ\s*ਮੱਖੀ", r"সাদা\s*মাছি", r"தெల్ల\s*దోమ", r"வெள்ளை\s*ஈ",
                 r"ಬಿಳಿ\s*ನೊಣ", r"വെള്ളീച്ച", r"ଧଳା\s*ମାଛି", r"বগা\s*মাখি", r"سفید\s*مکھی"
             ],
@@ -173,7 +216,12 @@ class HybridQueryUnderstandingEngine:
                 r"roots\s+are\s+soft\s+and\s+brown\s+on\s+one\s+side", r"roots\s+mushy",
                 r"rutt\s+rot\s+in\s+cotan", r"rut\s+is\s+brwn", r"outer\s+tissue\s+sloughs\s+off",
                 r"soft\s+brown\s+roots\s+whose\s+outer\s+tissue\s+sloughs\s+off",
-                r"roots?\s+(?:are\s+)?(?:soft\s+and\s+brown|brown\s+and\s+soft)",
+                r"brown\s+soft\s+roots\s+whose\s+outer\s+tissue\s+slips\s+off",
+                r"roots?\s+(?:are\s+|have\s+become\s+|became\s+|are\s+now\s+)?(?:soft\s+and\s+brown|brown\s+and\s+soft|brown\s+and\s+decayed)",
+                r"roots?\s+have\s+become\s+soft",
+                r"root\s+and\s+collar\s+tissues\s+are\s+brown(?:,\s*soft,?\s*and\s+decayed)?",
+                r"root\s+and\s+collar\s+tissues",
+                r"moongfali\s+na\s+mul\s+sadi\s+gaya", r"mul\s+sadi\s+gaya",
                 r"kapas\s+na\s+mul\s+bhura\s+naram", r"chhaal\s+utare", r"મૂળ.*?કાળા.*?નરમ",
                 r"કપાસના\s+મૂળ\s+કાળા\s+અને\s+નરમ\s+છે", r"jad\s+ma\s+white\s+makhi\s+nathi\s+pan\s+sadi\s+gayi",
                 r"roots\s+are\s+rotten", r"roots\s+are\s+rotten\s+and\s+black",
@@ -197,7 +245,8 @@ class HybridQueryUnderstandingEngine:
                 r"spindle\s+lesions", r"dark\s+broken\s+panicle\s+neck", r"spindle\s+spots\s+with\s+grey\s+centres",
                 r"aankh\s+jeva\s+ghaat", r"panicle\s+neck\s+is\s+dark\s+and\s+breaks\s+easily",
                 r"neck\s+is\s+dark\s+and\s+broken", r"neck\s+is\s+(?:dark|black|broken)",
-                r"broken\s+and\s+black\b", r"aankh\s+jaisa\s+daag", r"gardan\s+tootna",
+                r"broken\s+panicle\s+neck", r"broken\s+and\s+black\b", r"aankh\s+jaisa\s+daag", r"gardan\s+tootna",
+                r"gardan\s+par\s+ghaav", r"bali\s+tuti",
                 r"ਬਲਾਸਟ", r"ব্লাস্ট", r"ব্লাষ্ট", r"అగ్గి\s*తెగులు", r"குலை\s*நோய்", r"பிளாஸ்ட்",
                 r"ಬೆಂಕಿ\s*ರೋಗ", r"കുലവാട്ടം", r"ବ୍ଲାଷ୍ଟ", r"بلاسٹ"
             ],
@@ -205,7 +254,9 @@ class HybridQueryUnderstandingEngine:
                 r"\bbacterial\s+leaf\s+blight\b", r"\bblb\b",
                 r"milky\s+ooze", r"yellow\s+from\s+tip\s+and\s+drying\s+like\s+straw",
                 r"जीवाणु\s+झुलसा", r"yellow\s+water-soaked\s+streaks\s+begin\s+at\s+leaf\s+tips",
-                r"pila\s+pani\s+wala\s+daag", r"patte\s+ki\s+nok\s+par\s+pila"
+                r"water-soaked\s+yellow\s+streaks\s+begin\s+at\s+tips", r"yellow\s+streaks\s+begin\s+at\s+tips",
+                r"pila\s+pani\s+wala\s+daag", r"patte\s+ki\s+nok\s+par\s+pila",
+                r"dhan\s+na\s+patta\s+ni\s+nok\s+par\s+pila\s+pani\s+vala\s+daag", r"nok\s+par\s+pila\s+pani"
             ],
             "POWDERY_MILDEW": [
                 r"\bpowdery\s*mildew\b", r"white\s+powder\s+on\s+(?:my\s+)?wheat",
@@ -215,7 +266,10 @@ class HybridQueryUnderstandingEngine:
                 r"powdery\s+(?:leaf\s+)?coating", r"white\s+powder\s+jevu", r"white\s+flour-like\s+powder",
                 r"flour-like\s+powder", r"asks?\s+(?:about\s+)?the\s+leaf\s+coating", r"what\s+is\s+on\s+the\s+leaves",
                 r"persistent\s+flour-like\s+growth", r"flour-like\s+growth\s+on\s+leaf\s+blades",
+                r"persistent\s+flour-like\s+coating", r"flour-like\s+coating", r"white\s+coating",
                 r"aata\s+jaisa\s+safed\s+powder", r"white\s+powder\s+on\s+the\s+stem\s+and\s+ear",
+                r"white\s+powdery\s+colonies(?:\s+on\s+panicles\s+and\s+young\s+leaves)?",
+                r"white\s+powdery\s+colonies", r"aam\s+na\s+manjari\s+par\s+safed\s+powder", r"manjari\s+par\s+safed\s+powder",
                 r"powdery\s+white\s+growth", r"\bwhite\s+powder\b", r"leaves\s+have\s+white\s+powder",
                 r"white\s+powder\s+on\s+leaves", r"floury\s+coating", r"\bfloury\b"
             ],
@@ -224,28 +278,39 @@ class HybridQueryUnderstandingEngine:
                 r"ring\s+jaise\s+bhure\s+dhabbe", r"अगेती\s+झुलसा",
                 r"concentric\s+brown\s+rings", r"concentric\s+rings", r"rings\s+on\s+older\s+lower\s+leaves",
                 r"ring\s+ring\s+ring", r"target-like\s+rings", r"tamatar\s+ke\s+patte\s+pe\s+ring\s+wale\s+dhabbe",
-                r"gol\s+ring\s+wale\s+dhabbe", r"rings?\s+on\s+(?:older\s+)?leaves"
+                r"gol\s+ring\s+wale\s+dhabbe", r"rings?\s+on\s+(?:older\s+)?leaves",
+                r"older\s+leaves\s+have\s+target\s+rings", r"target\s+rings?",
+                r"gol\s+chakkar\s+wale\s+dhabbe"
             ],
             "LATE_BLIGHT": [
                 r"\blate\s*blight\b", r"black\s+overnight\s+after\s+cloudy\s+foggy\s+weather",
                 r"पछेती\s+झुलसा", r"late\s*bligt", r"water-soaked\s+lesions\s+with\s+white\s+growth\s+beneath\s+leaves",
+                r"water-soaked\s+lesions\s+and\s+white\s+underside\s+growth", r"water-soaked\s+lesions",
+                r"white\s+underside\s+growth",
                 r"white\s+growth\s+beneath\s+leaves", r"geele\s+kale\s+dhabbe"
             ],
             "TIKKA": [
                 r"\btikka\b", r"round\s+black\s+spots\s+with\s+yellow\s+ring", r"टिक्का", r"टिक्क्का", r"ટીક્કા",
                 r"dark\s+circular\s+leaf\s+spots\s+with\s+yellow\s+halos", r"circular\s+lesions\s+with\s+yellow\s+halos",
                 r"circular\s+dark\s+spots\s+with\s+yellow\s+halos", r"dark\s+circular\s+spots\s+with\s+yellow\s+margins",
-                r"circular\s+dark\s+lesions\s+with\s+yellow\s+halos", r"peeli\s+kinari", r"black\s+leaf\s+spots"
+                r"circular\s+dark\s+lesions\s+with\s+yellow\s+halos", r"peeli\s+kinari", r"black\s+leaf\s+spots",
+                r"round\s+dark\s+(?:leaflet\s+)?(?:spots|lesions)\s+(?:ringed\s+in\s+yellow|with\s+yellow\s+(?:halos|borders))",
+                r"dark\s+round\s+spots\s+with\s+yellow\s+halos",
+                r"yellow-ringed\s+dark\s+leaf\s+spots", r"black\s+circular\s+lesions\s+with\s+yellow\s+halos",
+                r"dark\s+circular\s+leaf\s+spots", r"moongfali\s+patte\s+gol\s+kale\s+dhabbe", r"gol\s+kale\s+dhabbe"
             ],
             "LEAF_CURL": [
                 r"\bleaf\s*curl\b", r"leaves\s+curl(?:ing)?\s+upward", r"curling\s+upward",
-                r"पत्तियां\s+ऊपर\s+की\s+तरफ\s+मुड़", r"पत्तियां\s+मुड़"
+                r"पत्तियां\s+ऊपर\s+की\s+तरफ\s+मुड़", r"पत्तियां\s+मुड़",
+                r"upward\s+curled\s+young\s+leaves", r"tamatar\s+ke\s+naye\s+patte\s+upar\s+murhe"
             ],
             "DAMPING_OFF": [
                 r"\bdamping\s*off\b", r"seedlings\s+topple\s+at\s+soil\s+line\s+with\s+pinched\s+stems",
                 r"topple\s+at\s+soil\s+line", r"seedlings\s+are\s+collapsing",
-                r"seedlings\s+collapse\s+at\s+soil\s+level", r"mitti\s+ki\s+line\s+par\s+gir",
-                r"paudhe\s+mitti\s+ki\s+line"
+                r"seedlings\s+collapse\s+at\s+soil\s+(?:line|level)", r"mitti\s+ki\s+line\s+par\s+gir",
+                r"paudhe\s+mitti\s+ki\s+line", r"seedlings?\s+collapse", r"tomato\s+seedlings\s+collapse",
+                r"seedlings?\s+fall\s+at\s+soil\s+line", r"tamatar\s+nursery\s+ke\s+paudhe\s+mitti",
+                r"tamatar\s+nursery\s+paudha\s+mitti\s+par\s+girta\s+hai", r"mitti\s+par\s+girta\s+hai"
             ],
             "STEM_BORER": [
                 r"\bstem\s*borer\b", r"\bshoot\s*borer\b", r"खोडकिडा", r"तना\s+छेदक",
@@ -256,12 +321,18 @@ class HybridQueryUnderstandingEngine:
             "FRUIT_BORER": [
                 r"\bfruit\s*borer\b", r"\bpod\s*borer\b", r"घांटी\s*सुंडी", r"घांटी\s*अळी", r"शेंगा\s*पोखरणारी",
                 r"caterpillar\s+entry\s+holes\s+and\s+frass", r"caterpillar\s+entry\s+holes",
-                r"fruit\s+entry\s+holes\s+with\s+caterpillar\s+frass", r"fal\s+ma\s+chhidra"
+                r"fruit\s+entry\s+holes\s+with\s+caterpillar\s+frass", r"fal\s+ma\s+chhidra",
+                r"caterpillar\s+holes\s+and\s+frass", r"fruits\s+have\s+caterpillar\s+holes",
+                r"fresh\s+fruit\s+entry\s+holes", r"fresh\s+entry\s+holes\s+with\s+frass",
+                r"caterpillars?\s+bore\s+pods\s+and\s+consume", r"tamatar\s+fal\s+ma\s+chhidra",
+                r"chane\s+ki\s+phali\s+me\s+suraakh\s+aur\s+illi", r"phali\s+me\s+suraakh", r"suraakh\s+aur\s+illi"
             ],
             "RED_ROT": [
                 r"\bred\s*rot\b", r"internal\s+red\s+tissue\s+with\s+white\s+patches", r"stalks\s+show\s+internal\s+red",
                 r"red\s+internal\s+stalk\s+tissue\s+interrupted\s+by\s+white\s+patches",
-                r"andar\s+lal", r"vachche\s+safed", r"stalk\s+interior\s+is\s+red\s+with\s+white\s+patches"
+                r"andar\s+lal", r"vachche\s+safed", r"stalk\s+interior\s+is\s+red\s+with\s+white\s+patches",
+                r"red\s+internal\s+tissue\s+crossed\s+by\s+white\s+patches",
+                r"stalks?\s+show\s+red\s+internal\s+tissue"
             ],
             "YELLOW_MOSAIC": [
                 r"\byellow\s*mosaic\b", r"पिवळा\s+मोझॅक", r"पीला\s+मोजेक", r"पीली\s+पत्तियां",
@@ -275,10 +346,13 @@ class HybridQueryUnderstandingEngine:
                 r"\bfall\s*armyworm\b", r"whorl\s+holes", r"maize\s+whorl\s+holes",
                 r"ragged\s+whorl\s+holes\s+and\s+fresh\s+frass", r"ragged\s+whorl\s+holes",
                 r"whorl\s+me\s+chhed", r"whorl.*?(?:frass|holes)", r"whorl\s+has\s+ragged\s+holes",
-                r"whorl\s+contains\s+frass"
+                r"whorl\s+contains\s+frass", r"ragged\s+whorl\s+holes\s+with\s+fresh\s+frass",
+                r"fresh\s+frass\s+and\s+ragged\s+whorl\s+holes", r"makka\s+ke\s+whorl\s+me\s+chhed",
+                r"ragged\s+holes\s+and\s+fresh\s+frass", r"fresh\s+frass"
             ],
             "APHID": [
                 r"\baphids?\b", r"मावा", r"चेपा", r"मोलो", r"dense\s+colonies\s+cluster\s+on\s+flowering\s+shoots",
+                r"dense\s+aphid\s+colonies",
                 r"ਤੇਲਾ", r"ਸੁਸਤ\s*ਤੇਲਾ", r"জাব\s*পোকা", r"పేనుబంక", r"அசுவினி",
                 r"ಜಿಗಿ\s*ಹುಳು", r"മുഞ്ഞ", r"ଜାଉ\s*ପୋକ", r"মোৱਾ\s*পোক", r"تیلا"
             ],
@@ -290,6 +364,8 @@ class HybridQueryUnderstandingEngine:
             ],
             "WILT": [
                 r"\bwilt\b", r"\bfusarium\b", r"उकठा", r"विल्ट", r"मर\s*रोग", r"सुकवा", r"સુકારો",
+                r"patchy\s+wilting(?:\s+with\s+brown\s+vascular\s+tissue)?", r"brown\s+vascular\s+tissue",
+                r"chane\s+ke\s+tane\s+ke\s+andar\s+bhura\s+rang", r"tane\s+ke\s+andar\s+bhura\s+rang",
                 r"ਉਖੜਾ", r"ਸੁੱਕਣਾ", r"উইল্ট", r"ఎండు\s*తెగులు", r"வாடல்\s*நோய்", r"ಬಾಡು\s*ರೋಗ", r"വാട്ടം", r"ଉଖୁଡା"
             ],
             "RUST": [
@@ -302,27 +378,38 @@ class HybridQueryUnderstandingEngine:
             "SMUT": [
                 r"\bsmut\b", r"loose\s*smut", r"false\s*smut", r"कांगियारी", r"काजळी",
                 r"blackened\s+earheads\s+filled\s+with\s+powdery\s+black\s+soot",
-                r"dark\s+powdery\s+sori\s+replace\s+the\s+developing\s+earhead"
+                r"dark\s+powdery\s+sori\s+replace\s+the\s+developing\s+earhead",
+                r"bajra\s+na\s+baal\s+ma\s+kali\s+dhul\s+jevo\s+rog", r"kali\s+dhul\s+jevo", r"baal\s+ma\s+kali\s+dhul"
             ],
             "ANTHRACNOSE": [
                 r"\banthracnose\b", r"die\s*back", r"कुकडी"
             ],
             "COLLAR_ROT": [
-                r"\bcollar\s*rot\b", r"कॉलर\s*रॉट", r"कॉलर\s*सड़न",
-                r"dry\s+girdling\s+lesion\s+at\s+the\s+seedling\s+collar", r"seedling\s+collar",
+                r"\bcollar\s*rot\b", r"कॉलर\s*रॉट", r"कॉलर\s*सड़न", r"ગળાનો\s*સડો",
+                r"dry\s+(?:girdling\s+)?lesion(?:s)?\s+(?:at|girdles)\s+(?:the\s+)?(?:seedling\s+)?collar",
+                r"collar\s+lesions?", r"collar\s+region\s+is\s+rotting", r"sukho\s+ghaav", r"sukha\s+ghaav",
+                r"moongfali\s+(?:ke\s+paudhe\s+|na\s+chhod\s+)?(?:ke\s+|na\s+)?collar\s+par\s+sukh[ao]\s+ghaav",
+                r"seedlings?\s+girdle\s+(?:at|near)\s+soil\s+level", r"seedlings?\s+girdled\s+at\s+soil\s+line",
+                r"dry\s+lesion\s+girdles\s+seedlings\s+at\s+the\s+collar",
                 r"girdle\s+at\s+soil\s+level", r"collar\s+par\s+sukha"
             ],
             "DOWNY_MILDEW": [
                 r"\bdowny\s*mildew\b", r"डाउनी\s*मिल्ड्यू", r"કેવડા"
             ],
             "GIRDLE_BEETLE": [
-                r"\bgirdle\s*beetle\b", r"चक्री\s*भुंगा", r"गर्डल\s*बीटल"
+                r"\bgirdle\s*beetle\b", r"चक्री\s*भुंगा", r"गर्डल\s*बीटल",
+                r"girdling\s+cuts?\s+on\s+stems?", r"girdling\s+cuts\s+on\s+stems\s+followed\s+by\s+branch\s+drying",
+                r"chhed\s+no\s+ghero\s+ane\s+dali\s+sukay", r"soybean\s+stem\s+par\s+chhed",
+                r"ring\s+(?:cut\s+)?on\s+stem", r"two\s+parallel\s+rings\s+on\s+stem"
             ],
             "MEALYBUG": [
                 r"\bmealy\s*bugs?\b", r"मिलीबग", r"મીલીબગ"
             ],
             "TERMITES": [
-                r"\btermites?\b", r"दीमक", r"ઉધઈ", r"વાળવી", r"chewed\s+by\s+termites"
+                r"\btermites?\b", r"दीमक", r"ઉધઈ", r"વાળવી", r"chewed\s+by\s+termites",
+                r"seedlings\s+dry\s+with\s+hollow\s+stems\s+and\s+soil\s+galleries",
+                r"hollow\s+stems\s+and\s+soil\s+galleries", r"soil\s+galleries",
+                r"gehu\s+me\s+deemak\s+ki\s+mitti\s+wali\s+surang", r"mitti\s+wali\s+surang"
             ],
             "LEAF_MINER": [
                 r"\bleaf\s*miner\b", r"नागअळी"
@@ -356,7 +443,24 @@ class HybridQueryUnderstandingEngine:
             "Okra": {"YELLOW_MOSAIC", "FRUIT_BORER"},
             "Banana": {"WILT", "SIGATOKA"},
             "Mango": {"POWDERY_MILDEW", "ANTHRACNOSE"},
-            "Bajra": {"SMUT", "DOWNY_MILDEW"}
+            "Bajra": {"SMUT", "DOWNY_MILDEW"},
+            "Garlic": {"THRIPS", "PURPLE_BLOTCH", "ROOT_ROT"},
+            "Ginger": {"RHIZOME_ROT", "BACTERIAL_WILT", "ROOT_ROT"},
+            "Turmeric": {"RHIZOME_ROT", "LEAF_BLOTCH", "ROOT_ROT"},
+            "Cumin": {"BLIGHT", "POWDERY_MILDEW", "WILT"},
+            "Coriander": {"POWDERY_MILDEW", "WILT"},
+            "Blackgram": {"YELLOW_MOSAIC", "POWDERY_MILDEW", "ROOT_ROT"},
+            "Greengram": {"YELLOW_MOSAIC", "POWDERY_MILDEW", "ROOT_ROT"},
+            "Tea": {"BLISTER_BLIGHT", "THRIPS"},
+            "Coffee": {"RUST", "BERRY_BORER"},
+            "Apple": {"SCAB", "POWDERY_MILDEW"},
+            "Pomegranate": {"BACTERIAL_BLIGHT", "FRUIT_BORER"},
+            "Dragonfruit": {"ANTHRACNOSE", "ROOT_ROT"},
+            "Avocado": {"ROOT_ROT", "ANTHRACNOSE"},
+            "Quinoa": {"DOWNY_MILDEW", "APHID"},
+            "Saffron": {"WILT", "ROOT_ROT"},
+            "Moringa": {"CATERPILLAR", "POD_FLY"},
+            "Cardamom": {"THRIPS", "CAPSULE_ROT"}
         }
 
         self.chemical_dictionary = [
@@ -426,8 +530,7 @@ class HybridQueryUnderstandingEngine:
         # 1. Detect Crop (Strip retracted/revoked/neighbour crop clauses first!)
         crop_search_text = text_clean
         crop_search_text = re.sub(r"^(?:not|no)\s+[a-zA-Z_\s]+[:\.,;]", "", crop_search_text)
-        crop_search_text = re.sub(r"forget\s+the\s+[a-zA-Z]+\s+problem", "", crop_search_text)
-        crop_search_text = re.sub(r"ignore\s+the\s+earlier\s+[a-zA-Z]+\s+question", "", crop_search_text)
+        crop_search_text = re.sub(r"(?:forget|ignore)\s+the\s+(?:earlier|previous|prior)?\s*[a-zA-Z]+\s+(?:problem|issue|field|question|plot|crop)", "", crop_search_text, flags=re.IGNORECASE)
         crop_search_text = re.sub(r"the\s+crop\s+is\s+not\s+[a-zA-Z]+", "", crop_search_text)
         crop_search_text = re.sub(r"earlier\s+i\s+said\s+[a-zA-Z]+", "", crop_search_text)
         crop_search_text = re.sub(r"earlier\s+you\s+gave\s+me\s+an\s+advisory\s+for\s+[a-zA-Z]+", "", crop_search_text)
@@ -503,6 +606,9 @@ class HybridQueryUnderstandingEngine:
             elif focus_organ == "COLLAR_ROT":
                 priority_order.remove("COLLAR_ROT")
                 priority_order.insert(0, "COLLAR_ROT")
+            elif focus_organ == "BLAST":
+                priority_order.remove("BLAST")
+                priority_order.insert(0, "BLAST")
             elif detected_crop == "Chickpea" and "WILT" in priority_order:
                 priority_order.remove("WILT")
                 priority_order.insert(0, "WILT")
@@ -551,6 +657,10 @@ class HybridQueryUnderstandingEngine:
         if detected_target and detected_crop in self.allowed_crop_targets:
             if detected_target not in self.allowed_crop_targets[detected_crop]:
                 detected_target = None
+            elif detected_target == "POWDERY_MILDEW" and detected_crop == "Cotton":
+                # Cotton powdery mildew is exclusively foliar; bolls cannot have powdery mildew
+                if re.search(r"powdery\s+mildew\s+(?:in|on)\s+(?:cotton\s+)?bolls?", text_clean):
+                    detected_target = None
 
         # 3. Detect Chemicals
         detected_chemicals = [chem for chem in self.chemical_dictionary if chem in text_clean]
