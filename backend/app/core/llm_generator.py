@@ -76,10 +76,15 @@ class GroundedLLMGenerator:
             scheme = location_info.get("portal_scheme", "")
             loc_str = f"• Location: {dist}, {state}\n• Regional Authority / State Agricultural University: {auth}\n• Government Agricultural Portals/Schemes: {scheme}\n"
 
+        if language == "en":
+            lang_instruction = "1. LANGUAGE: You MUST write your ENTIRE response fluently, clearly, and warmly in English. Do NOT switch to Hindi, Gujarati, or other regional languages."
+        else:
+            lang_instruction = f"1. LANGUAGE: You MUST write your ENTIRE response fluently, naturally, and warmly in {target_lang_name} using its correct native script. Do NOT switch to English or mixed languages unless scientific product trade names."
+
         system_prompt = (
             f"You are FasalMitra (फसलमित्र), an expert senior agricultural advisor and ICAR/KVK certified agronomist helping Indian farmers across all 28 states and Union Territories.\n\n"
             f"MANDATORY INSTRUCTIONS:\n"
-            f"1. LANGUAGE: You MUST write your ENTIRE response fluently, naturally, and warmly in {target_lang_name} using its correct native script. Do NOT switch to English or mixed languages unless scientific product trade names.\n"
+            f"{lang_instruction}\n"
             f"2. GROUNDING & REGIONAL ACCURACY: Ground your diagnosis, treatment, varieties, spray schedules, and dosages strictly in official agricultural evidence tailored to the farmer's state ({state} - e.g. state Agricultural Universities {auth} and government portals {scheme}).\n"
             f"3. THOROUGHNESS & DEPTH:\n"
             f"   - Explain the CAUSE (Why this pest/disease/deficiency occurs - lifecycle, temperature, humidity).\n"

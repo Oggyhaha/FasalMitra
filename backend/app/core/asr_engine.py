@@ -61,12 +61,23 @@ class ASREngine:
             "karo", "kare", "karna", "kaunsi", "konsi", "kitna", "kitni", "kaun", "kab"
         }
 
-        # Standard English Functional Words
+        # Standard English Functional Words & Agricultural Vocabulary
         self.english_words = {
             "how", "to", "control", "what", "is", "the", "why", "are", "in", "my", "crop",
             "disease", "symptoms", "fertilizer", "spray", "when", "should", "i", "can", "for",
             "which", "please", "tell", "recommend", "yield", "best", "variety", "treatment",
-            "pest", "management", "yellowing", "leaves", "damage", "roots", "whitefly", "cotton"
+            "pest", "management", "yellowing", "leaves", "damage", "roots", "whitefly", "cotton",
+            "hi", "hello", "hey", "help", "start", "menu", "weather", "passport", "good",
+            "morning", "afternoon", "evening", "sir", "madam", "farmer", "agriculture",
+            "suggest", "give", "solution", "dose", "rate", "pesticide", "insecticide",
+            "fungicide", "wheat", "rice", "paddy", "potato", "tomato", "soybean", "sugarcane",
+            "mustard", "groundnut", "chilli", "onion", "garlic", "maize", "corn", "bollworm",
+            "rust", "blast", "rot", "blight", "wilt", "mildew", "aphid", "thrips", "caterpillar",
+            "worm", "insect", "bug", "field", "soil", "water", "irrigation", "seed", "sowing",
+            "harvest", "problem", "issue", "attack", "infection", "prevent", "cure", "stop",
+            "kill", "remove", "clean", "mix", "litre", "liter", "acre", "hectare", "gram", "ml", "kg",
+            "about", "with", "from", "at", "by", "this", "that", "these", "those", "have", "has",
+            "had", "do", "does", "did", "will", "would", "shall", "could", "there", "their", "where"
         }
 
     async def transcribe(self, text_input: str, audio_base64: str = None, requested_lang: str = "auto") -> Tuple[str, str, float]:
@@ -237,16 +248,22 @@ class ASREngine:
         # Check Standard English
         en_score = len(words.intersection(self.english_words))
 
-        if gu_score > 0 and gu_score >= max(mr_score, hi_score, en_score):
+        # 1. English takes priority if English keywords dominate
+        if en_score > 0 and en_score >= max(gu_score, mr_score, hi_score):
+            return "en"
+
+        # 2. Strong Indic transliteration scores (Gujlish, Marathlish, Hinglish)
+        if gu_score > 0 and gu_score > max(mr_score, hi_score, en_score):
             return "gu"
-        if mr_score > 0 and mr_score >= max(hi_score, en_score):
+        if mr_score > 0 and mr_score > max(hi_score, en_score):
             return "mr"
-        if hi_score > 0 and hi_score > en_score:
+        if hi_score > 0 and hi_score > max(gu_score, mr_score, en_score):
             return "hi"
 
+        # 3. Default ASCII text with no strong Indic transliterated words is English
         if text.isascii():
             return "en"
 
-        return "mr"
+        return "hi"
 
 asr_engine = ASREngine()

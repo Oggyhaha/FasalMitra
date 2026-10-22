@@ -247,10 +247,36 @@ async def whatsapp_json_endpoint(
             requested_state=req.state
         )
 
-        det_lang = req.language if req.language != "auto" else ("gu" if "Gujarat" in st else ("mr" if "Maharashtra" in st else ("pa" if "Punjab" in st else ("bn" if "Bengal" in st else "hi"))))
+        # Detect the true language of the user's greeting input
+        if req.language and req.language != "auto":
+            det_lang = req.language
+        elif input_lower in ["hi", "hello", "hey", "help", "/start", "/help", "start", "menu"]:
+            det_lang = "en"
+        elif input_lower in ["kem cho", "મેન્યુ", "મેનુ", "શરૂ", "શરૂઆત"]:
+            det_lang = "gu"
+        elif input_lower in ["namaskar", "नमस्कार"]:
+            det_lang = "mr" if "Maharashtra" in st else "hi"
+        elif input_lower in ["namaste", "नमस्ते", "ram ram", "राम राम", "pranam", "प्रणाम", "मेनू", "मेन्यू"]:
+            det_lang = "hi"
+        else:
+            det_lang = asr_engine._detect_language(user_text)
+
         footer = get_voice_footer(det_lang)
 
-        if "Gujarat" in st or det_lang == "gu":
+        if det_lang == "en":
+            welcome_text = (
+                f"🌾 *[FasalMitra - 24/7 AI Agricultural Assistant]*\n"
+                f"_________________________________________\n"
+                f"Hello farmer friend! Welcome to FasalMitra, your 24/7 AI Agricultural Assistant ({dist}, {st}).\n\n"
+                f"You can choose an option below or send a Voice Note 🎙️:\n\n"
+                f"1️⃣ *Crop Problem Diagnosis:* Ask any question (e.g. *'How to control pink bollworm in cotton?'*, *'Why are soybean leaves yellowing?'*)\n"
+                f"2️⃣ *Weather & Spray Forecast:* Type *2* or *weather*\n"
+                f"3️⃣ *Farmer Crop Passport:* Type *3* or *passport*\n\n"
+                f"🛡️ *ICAR / State Agricultural University certified & supports all 23 Indian Languages!*\n"
+                f"{footer}"
+            )
+            voice_text = "Hello farmer friend! Welcome to FasalMitra, your twenty-four seven AI agricultural assistant. Please send a voice note or type your question about any crop."
+        elif det_lang == "gu":
             welcome_text = (
                 f"🌾 *[FasalMitra (ફસલમિત્ર) - કૃષિ સહાયક]*\n"
                 f"_________________________________________\n"
@@ -263,7 +289,7 @@ async def whatsapp_json_endpoint(
                 f"{footer}"
             )
             voice_text = "નમસ્કાર ખેડૂત મિત્ર! ફસલમિત્ર કૃષિ સહાયકમાં આપનું સ્વાગત છે. તમારા પાકનો કોઈપણ પ્રશ્ન પૂછવા માટે વૉઇસ નોટ મોકલો અથવા મેસેજ ટાઈપ કરો."
-        elif "Maharashtra" in st or det_lang == "mr":
+        elif det_lang == "mr":
             welcome_text = (
                 f"🌾 *[FasalMitra (फसलमित्र) - कृषी सहाय्यक]*\n"
                 f"_________________________________________\n"
@@ -293,41 +319,92 @@ async def whatsapp_json_endpoint(
         audio_url = await tts_engine.synthesize(f"welcome_{det_lang}", voice_text, det_lang)
         return {"reply_body": welcome_text, "pipeline_result": None, "audio_url": audio_url}
 
-    if input_lower in ["2", "/weather", "weather", "हवामान", "હવામાન", "ਮੌਸਮ", "আবহাওয়া", "వాతావరణం"]:
-        st, dist = geo_tracker.detect_location(query_text=user_text, lat=req.latitude, lon=req.longitude)
-        if req.state:
-            st = req.state
-        if req.district:
-            dist = req.district
+    if input_lower in ["2", "/weather", "weather", "हवामान", "હવામાન", "ਮੌਸਮ", "मौसम", "আবহাওয়া", "వాతావరణం"]:
+        st, dist = geo_tracker.detect_location(query_text=user_text, lat=req.latitude, lon=req.longitude, requested_district=req.district, requested_state=req.state)
         agro_prof = geo_tracker.get_regional_agro_profile(st, dist)
-        weather_doc = db.query(KnowledgeDocument).filter(KnowledgeDocument.crop == "General").first()
-        weather_text = f"{dist} ({st}) વિસ્તારમાં હવામાન સામાન્ય રીતે સ્વચ્છ અને ખુલ્લું રહેશે. છંટકાવ અનુકૂળ રહેશે." if "Gujarat" in st else (weather_doc.content if weather_doc and "Maharashtra" in st else f"{dist} ({st}) weather is generally clear and favorable for agricultural operations.")
-        det_lang = req.language if req.language != "auto" else ("gu" if "Gujarat" in st else ("pa" if "Punjab" in st else ("bn" if "Bengal" in st else "hi")))
+        
+        # Determine language for weather response
+        if req.language and req.language != "auto":
+            det_lang = req.language
+        elif input_lower in ["weather", "/weather"]:
+            det_lang = "en"
+        elif input_lower in ["હવામાન"]:
+            det_lang = "gu"
+        elif input_lower in ["हवामान"]:
+            det_lang = "mr"
+        elif input_lower in ["ਮੌਸਮ"]:
+            det_lang = "pa"
+        elif input_lower in ["मौसम"]:
+            det_lang = "hi"
+        else:
+            det_lang = asr_engine._detect_language(user_text)
+
+        if det_lang == "en":
+            weather_text = f"Weather in {dist} ({st}) is generally clear and favorable for agricultural operations and spraying. No heavy rainfall expected in the next 48 hours."
+        elif det_lang == "gu":
+            weather_text = f"{dist} ({st}) વિસ્તારમાં હવામાન સામાન્ય રીતે સ્વચ્છ અને ખુલ્લું રહેશે. દવા છાંટવા માટે અનુકૂળ રહેશે."
+        elif det_lang == "mr":
+            weather_text = f"{dist} ({st}) जिल्ह्यात हवामान स्वच्छ व कोरडे राहण्याची शक्यता आहे. कीटकनाशक फवारणीसाठी हवामान अनुकूल आहे."
+        else:
+            weather_text = f"{dist} ({st}) में मौसम मुख्यतः साफ और शुष्क रहेगा। कृषि कार्यों एवं कीटनाशक छिड़काव हेतु मौसम अनुकूल है।"
+
         footer = get_voice_footer(det_lang)
         reply_body = f"🌧️ *[{agro_prof['weather_station']}]*\n\n{weather_text}\n\n🛡️ *Source:* IMD Agromet Advisory Service\n{footer}"
-        audio_url = await tts_engine.synthesize("weather", weather_text, det_lang)
+        audio_url = await tts_engine.synthesize(f"weather_{det_lang}", weather_text, det_lang)
         return {"reply_body": reply_body, "pipeline_result": None, "audio_url": audio_url}
 
-    if input_lower in ["3", "/passport", "passport", "પિક", "પાક", "ਫਸਲ"]:
-        st, dist = geo_tracker.detect_location(query_text=user_text, lat=req.latitude, lon=req.longitude)
-        if req.state:
-            st = req.state
-        if req.district:
-            dist = req.district
+    if input_lower in ["3", "/passport", "passport", "પિક", "પાક", "फसल", "पिक", "ਫਸਲ"]:
+        st, dist = geo_tracker.detect_location(query_text=user_text, lat=req.latitude, lon=req.longitude, requested_district=req.district, requested_state=req.state)
         passport = db.query(CropPassport).first()
-        det_lang = req.language if req.language != "auto" else ("gu" if "Gujarat" in st else "hi")
+        
+        if req.language and req.language != "auto":
+            det_lang = req.language
+        elif input_lower in ["passport", "/passport"]:
+            det_lang = "en"
+        elif input_lower in ["પિક", "પાક"]:
+            det_lang = "gu"
+        elif input_lower in ["पिक"]:
+            det_lang = "mr"
+        else:
+            det_lang = asr_engine._detect_language(user_text)
+
         footer = get_voice_footer(det_lang)
-        reply_body = (
-            f"🌱 *[Farmer Crop Passport - {dist}, {st}]*\n\n"
-            f"• *Crop:* {passport.crop_name if passport else 'Soybean'}\n"
-            f"• *Variety:* {passport.variety if passport else 'JS 335'}\n"
-            f"• *Sowing Date:* {passport.sowing_date if passport else '2026-06-15'}\n"
-            f"• *Stage:* {passport.stage_days if passport else 35} Days\n"
-            f"• *District & State:* {dist}, {st}\n"
-            f"{footer}"
-        )
-        passport_voice = f"શેટકરી પાક પાસપોર્ટ માહિતી: પાક {passport.crop_name if passport else 'સોયાબીન'}, જાત {passport.variety if passport else 'JS 335'}." if "Gujarat" in st else f"किसान फसल पासपोर्ट: फसल {passport.crop_name if passport else 'सोयाबीन'}."
-        audio_url = await tts_engine.synthesize("passport", passport_voice, det_lang)
+
+        if det_lang == "en":
+            reply_body = (
+                f"🌱 *[Farmer Crop Passport - {dist}, {st}]*\n\n"
+                f"• *Crop:* {passport.crop_name if passport else 'Soybean'}\n"
+                f"• *Variety:* {passport.variety if passport else 'JS 335'}\n"
+                f"• *Sowing Date:* {passport.sowing_date if passport else '2026-06-15'}\n"
+                f"• *Stage:* {passport.stage_days if passport else 35} Days\n"
+                f"• *District & State:* {dist}, {st}\n"
+                f"{footer}"
+            )
+            passport_voice = f"Farmer Crop Passport: Crop {passport.crop_name if passport else 'Soybean'}, Variety {passport.variety if passport else 'JS 335'} in {dist}, {st}."
+        elif det_lang == "gu":
+            reply_body = (
+                f"🌱 *[ખેડૂત પાક પાસપોર્ટ - {dist}, {st}]*\n\n"
+                f"• *પાક:* {passport.crop_name if passport else 'સોયાબીન'}\n"
+                f"• *જાત:* {passport.variety if passport else 'JS 335'}\n"
+                f"• *વાવણી તારીખ:* {passport.sowing_date if passport else '2026-06-15'}\n"
+                f"• *તબક્કો:* {passport.stage_days if passport else 35} દિવસ\n"
+                f"• *જિલ્લો અને રાજ્ય:* {dist}, {st}\n"
+                f"{footer}"
+            )
+            passport_voice = f"ખેડૂત પાક પાસપોર્ટ માહિતી: પાક {passport.crop_name if passport else 'સોયાબીન'}, જાત {passport.variety if passport else 'JS 335'}."
+        else:
+            reply_body = (
+                f"🌱 *[किसान फसल पासपोर्ट - {dist}, {st}]*\n\n"
+                f"• *फसल:* {passport.crop_name if passport else 'सोयाबीन'}\n"
+                f"• *किस्म:* {passport.variety if passport else 'JS 335'}\n"
+                f"• *बुवाई तिथि:* {passport.sowing_date if passport else '2026-06-15'}\n"
+                f"• *अवस्था:* {passport.stage_days if passport else 35} दिन\n"
+                f"• *जिला व राज्य:* {dist}, {st}\n"
+                f"{footer}"
+            )
+            passport_voice = f"किसान फसल पासपोर्ट जानकारी: फसल {passport.crop_name if passport else 'सोयाबीन'}, किस्म {passport.variety if passport else 'JS 335'}."
+
+        audio_url = await tts_engine.synthesize(f"passport_{det_lang}", passport_voice, det_lang)
         return {"reply_body": reply_body, "pipeline_result": None, "audio_url": audio_url}
     
     advisory_req = AdvisoryQueryRequest(
