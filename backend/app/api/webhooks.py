@@ -12,8 +12,8 @@ from backend.app.schemas.schemas import AdvisoryQueryRequest
 from backend.app.api.advisory import process_advisory_query
 from backend.app.db.models import Farmer, CropPassport, Escalation, KnowledgeDocument
 from backend.app.core.tts_engine import tts_engine
-
 from backend.app.core.geo_tracker import geo_tracker
+from backend.app.core.asr_engine import asr_engine
 
 sys.stdout.reconfigure(encoding='utf-8')
 router = APIRouter(prefix="/webhooks", tags=["webhooks"])
@@ -94,9 +94,13 @@ async def meta_whatsapp_webhook(request: Request, db: Session = Depends(get_db))
         return {"status": "OK"}
 
     try:
-        entry = body.get("entry", [])[0]
-        changes = entry.get("changes", [])[0]
-        value = changes.get("value", {})
+        entries = body.get("entry", [])
+        if not entries:
+            return {"status": "EVENT_RECEIVED"}
+        changes = entries[0].get("changes", [])
+        if not changes:
+            return {"status": "EVENT_RECEIVED"}
+        value = changes[0].get("value", {})
         messages = value.get("messages", [])
 
         if not messages:
@@ -106,12 +110,17 @@ async def meta_whatsapp_webhook(request: Request, db: Session = Depends(get_db))
         from_phone = msg.get("from", "+919823012345")
         msg_type = msg.get("type", "text")
 
-        user_text = "माझ्या सोयाबीनची पाने पिवळी पडत आहेत"
+        user_text = ""
         if msg_type == "text":
-            user_text = msg.get("text", {}).get("body", user_text)
+            user_text = msg.get("text", {}).get("body", "")
         elif msg_type == "location":
             loc = msg.get("location", {})
             user_text = f"📍 Location Pin: {loc.get('latitude')}, {loc.get('longitude')}"
+        elif msg_type == "audio":
+            user_text = "🎙️ [Voice Note]"
+
+        if not user_text:
+            user_text = "hi"
 
         print(f"\n[{now_str}] 📩 [META WHATSAPP INCOMING MESSAGE] From {from_phone}: '{user_text}'", flush=True)
         input_lower = user_text.lower()
@@ -221,7 +230,10 @@ async def whatsapp_json_endpoint(
     JSON Endpoint for WhatsApp Automation & Web Simulator.
     """
     now_str = datetime.now().strftime("%H:%M:%S")
-    user_text = req.message.strip() if req.message.strip() else "માझ्या સોયાબીનની પાંદડા પીળા પડી રહ્યા છે"
+    user_text = req.message.strip() if req.message else ""
+    # If no text message and no voice note audio was provided, display greeting menu
+    if not user_text and not req.audio_base64:
+        user_text = "hi"
     print(f"\n[{now_str}] 📩 [JSON API WHATSAPP MESSAGE]: '{user_text}' (Phone: {req.phone})", flush=True)
 
     # Extract Client IP from Request if not supplied
@@ -259,7 +271,7 @@ async def whatsapp_json_endpoint(
         elif input_lower in ["namaste", "नमस्ते", "ram ram", "राम राम", "pranam", "प्रणाम", "मेनू", "मेन्यू"]:
             det_lang = "hi"
         else:
-            det_lang = asr_engine._detect_language(user_text)
+            det_lang = asr_engine._detect_language(user_text) if user_text else "hi"
 
         footer = get_voice_footer(det_lang)
 
@@ -336,8 +348,17 @@ async def whatsapp_json_endpoint(
             det_lang = "pa"
         elif input_lower in ["मौसम"]:
             det_lang = "hi"
+        elif input_lower == "2":
+            if "Gujarat" in st:
+                det_lang = "gu"
+            elif "Maharashtra" in st:
+                det_lang = "mr"
+            elif "Punjab" in st:
+                det_lang = "pa"
+            else:
+                det_lang = "hi"
         else:
-            det_lang = asr_engine._detect_language(user_text)
+            det_lang = asr_engine._detect_language(user_text) if user_text else "hi"
 
         if det_lang == "en":
             weather_text = f"Weather in {dist} ({st}) is generally clear and favorable for agricultural operations and spraying. No heavy rainfall expected in the next 48 hours."
@@ -365,8 +386,17 @@ async def whatsapp_json_endpoint(
             det_lang = "gu"
         elif input_lower in ["पिक"]:
             det_lang = "mr"
+        elif input_lower == "3":
+            if "Gujarat" in st:
+                det_lang = "gu"
+            elif "Maharashtra" in st:
+                det_lang = "mr"
+            elif "Punjab" in st:
+                det_lang = "pa"
+            else:
+                det_lang = "hi"
         else:
-            det_lang = asr_engine._detect_language(user_text)
+            det_lang = asr_engine._detect_language(user_text) if user_text else "hi"
 
         footer = get_voice_footer(det_lang)
 
@@ -392,6 +422,17 @@ async def whatsapp_json_endpoint(
                 f"{footer}"
             )
             passport_voice = f"ખેડૂત પાક પાસપોર્ટ માહિતી: પાક {passport.crop_name if passport else 'સોયાબીન'}, જાત {passport.variety if passport else 'JS 335'}."
+        elif det_lang == "mr":
+            reply_body = (
+                f"🌱 *[शेतकरी पिक पासपोर्ट - {dist}, {st}]*\n\n"
+                f"• *पिक:* {passport.crop_name if passport else 'सोयाबीन'}\n"
+                f"• *जात:* {passport.variety if passport else 'JS 335'}\n"
+                f"• *पेरणी दिनांक:* {passport.sowing_date if passport else '2026-06-15'}\n"
+                f"• *टप्पा:* {passport.stage_days if passport else 35} दिवस\n"
+                f"• *जिल्हा व राज्य:* {dist}, {st}\n"
+                f"{footer}"
+            )
+            passport_voice = f"शेतकरी पिक पासपोर्ट माहिती: पिक {passport.crop_name if passport else 'सोयाबीन'}, जात {passport.variety if passport else 'JS 335'}, पेरणी दिनांक {passport.sowing_date if passport else '१५ जून'}."
         else:
             reply_body = (
                 f"🌱 *[किसान फसल पासपोर्ट - {dist}, {st}]*\n\n"
