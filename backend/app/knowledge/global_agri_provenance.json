@@ -260,6 +260,17 @@
         "major_targets": [
           {"target": "SEEDLING_BLIGHT_AND_WILT", "pathogen": "Fusarium solani / Alternaria alternata", "management": "Seed treatment with Trichoderma viride (10 g/kg) + soil incorporation of well-rotted FYM; avoid water stagnation."}
         ]
+      },
+      {
+        "crop": "Watermelon (Citrullus lanatus)",
+        "primary_institutions": ["ICAR-Indian Institute of Horticultural Research (IIHR), Bengaluru", "Anand Agricultural University (AAU)"],
+        "botanical_morphology": "Annual trailing herbaceous vine, creeper, or climber with branching tendrils (Family Cucurbitaceae). Does NOT grow into a tree or woody trunk. Cultivated on flat beds, raised ridges with silver-black plastic mulch, or low trellis systems.",
+        "major_targets": [
+          {"target": "GENERAL_CULTIVATION", "practices": "High-yielding varieties: Sugar Baby, Arka Manik, Durgapura Kesar, Kiran hybrid; Spacing: 2.5m-3.0m channels x 0.9m pits; Seed rate: 3.5-4 kg/ha; Fertilizer: NPK 100:60:60 kg/ha with fertigation; Mulching: 25-30 micron silver/black polyethylene; Harvest maturity: 80-100 days when tendril opposite fruit stem dries completely and ground spot turns creamy yellow."},
+          {"target": "FRUIT_FLY", "pest": "Bactrocera cucurbitae", "symptoms": "Punctured, deformed fruits with internal maggot feeding and fruit rot", "management": "Install Cue-lure pheromone traps (15 traps/ha) and apply bait spray of Malathion 50 EC (2 ml) + jaggery (10 g) per liter of water."},
+          {"target": "DOWNY_MILDEW", "pathogen": "Pseudoperonospora cubensis", "symptoms": "Angular yellow chlorotic lesions on upper leaf surface with purplish-grey downy mildew growth below", "management": "Spray Metalaxyl 8% + Mancozeb 64% WP @ 2.5 g/L or Cymoxanil 8% + Mancozeb 64% WP @ 2 g/L."},
+          {"target": "POWDERY_MILDEW", "pathogen": "Podosphaera xanthii", "symptoms": "White talcum-like powdery spots on upper leaf surfaces and stems", "management": "Foliar spray of Hexaconazole 5% SC (1 ml/L) or Wettable Sulphur 80% WP (2 g/L)."}
+        ]
       }
     ]
   }

@@ -103,6 +103,11 @@ MULTILINGUAL_SYNONYMS = {
     "সরিষা": ["mustard", "aphid"],
     "ఆవాలు": ["mustard", "aphid"],
     "கடுகு": ["mustard", "aphid"],
+    "watermelon": ["watermelon", "tarbooz", "tarbuj", "creeper", "vine", "citrullus lanatus", "cucurbit"],
+    "તરબૂચ": ["watermelon", "tarbooz", "tarbuj", "vine", "creeper"],
+    "तरबूज": ["watermelon", "tarbooz", "tarbuj", "vine", "creeper"],
+    "তরমুজ": ["watermelon", "tarbooz", "tarbuj", "vine"],
+    "పుచ్చకాయ": ["watermelon", "tarbooz"],
 
     # Symptoms / Pests / Diseases across Indian Languages
     "પાન": ["leaf", "leaves", "foliage"],
@@ -269,7 +274,7 @@ class HybridRetrievalEngine:
         if crop and crop != "General":
             target_crops.append(crop)
         # Also check if any crop was expanded in search_terms
-        for c in ["Soybean", "Cotton", "Wheat", "Rice", "Chickpea", "Sugarcane", "Groundnut", "Chilli", "Tomato", "Maize", "Onion"]:
+        for c in ["Soybean", "Cotton", "Wheat", "Rice", "Chickpea", "Sugarcane", "Groundnut", "Chilli", "Tomato", "Maize", "Onion", "Watermelon", "Bajra", "Mustard", "Mango"]:
             if c.lower() in search_terms:
                 target_crops.append(c)
         target_crops = list(set(target_crops))
