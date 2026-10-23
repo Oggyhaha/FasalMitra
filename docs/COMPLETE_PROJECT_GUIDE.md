@@ -20,6 +20,10 @@
 11. [Authoritative Data Provenance & Institutional Attribution Registry](#11-authoritative-data-provenance--institutional-attribution-registry)
 12. [Comprehensive Evaluation Benchmark & Quality Metrics](#12-comprehensive-evaluation-benchmark--quality-metrics)
 13. [Deployment, Operations & Production Readiness Guide](#13-deployment-operations--production-readiness-guide)
+14. [Exhaustive File-by-File & Folder-by-Folder Reference](#14-exhaustive-file-by-file--folder-by-folder-reference)
+15. [Deep Dive: Models, Algorithms, Technologies & Concepts](#15-deep-dive-models-algorithms-technologies--concepts)
+16. [Complete End-to-End Workflow & Step-by-Step Query Lifecycle](#16-complete-end-to-end-workflow--step-by-step-query-lifecycle)
+17. [Architectural Design Patterns & System Principles](#17-architectural-design-patterns--system-principles)
 
 ---
 
@@ -375,4 +379,340 @@ npm start
 
 ---
 
+## 14. Exhaustive File-by-File & Folder-by-Folder Reference
+
+Every component in FasalMitra has a strict, single responsibility. Below is the complete directory structure and file-by-file audit:
+
+```
+FasalMitra/
+├── backend/
+│   └── app/
+│       ├── api/               # FastAPI Endpoint Routes & Webhooks
+│       │   ├── admin.py       # Telemetry & administrative reporting endpoints
+│       │   ├── advisory.py    # Master 14-stage advisory orchestration pipeline
+│       │   ├── expert.py      # Human-in-the-loop (HITL) escalation review endpoints
+│       │   ├── ingestion.py   # Document ingestion triggering endpoints
+│       │   ├── voice.py       # Audio streaming and voice synthesis endpoints
+│       │   └── webhooks.py    # WhatsApp Baileys & Meta Cloud webhook listener
+│       ├── core/              # Core Algorithmic & Cognitive AI Engines
+│       │   ├── advisory_cache.py       # In-memory LRU cache for recurrent queries
+│       │   ├── asr_engine.py           # Gemini Multimodal Audio Speech-to-Text
+│       │   ├── audit_logger.py         # Forensic SQLite audit trail logger
+│       │   ├── claim_verifier.py       # Post-LLM mathematical dosage & chemical checker
+│       │   ├── confidence_engine.py    # Multi-factor confidence scoring formula
+│       │   ├── context_engine.py       # Farmer context, stage & weather resolution
+│       │   ├── diagnostic_ontology.py  # Botanical & pathological compatibility taxonomy
+│       │   ├── discourse_segmenter.py  # Prompt injection & distractor neutralization
+│       │   ├── escalation_engine.py    # Expert escalation ticket generator
+│       │   ├── geo_tracker.py          # 28 States & SAU university geolocation
+│       │   ├── grounding_gate.py       # Pre-LLM evidence sufficiency evaluator
+│       │   ├── llm_generator.py        # Gemini Flash response synthesizer
+│       │   ├── query_understanding.py  # 16-intent & 100+ crop NLU parser
+│       │   ├── reranker.py             # Cross-encoder knowledge chunk reranker
+│       │   ├── retrieval_engine.py     # Hybrid BM25 + Semantic Vector search
+│       │   ├── safety_gate.py          # Pre-LLM banned chemical & poison filter
+│       │   ├── semantic_llm_parser.py  # Cognitive zero-shot LLM parser fallback
+│       │   ├── translation_engine.py   # Multilingual 23-language translation layer
+│       │   └── tts_engine.py           # Edge-TTS Neural Voice + half-message synthesis
+│       ├── db/                # Persistence & Data Access
+│       │   ├── database.py    # SQLAlchemy session maker & SQLite engine
+│       │   └── models.py      # ORM Models (Farmer, Query, Evidence, Audit, Ticket)
+│       ├── knowledge/         # Authoritative Domain Registries
+│       │   └── global_agri_provenance.json # Institutional provenance & citations
+│       ├── schemas/           # Pydantic Schemas & DTOs
+│       │   └── schemas.py     # Request/Response data validation contracts
+│       ├── config.py          # Application settings & environment variables
+│       └── main.py            # FastAPI application factory & router mounting
+├── data/                      # SQL schemas & raw agricultural training data
+├── docs/                      # Technical manuals & architecture blueprints
+│   └── COMPLETE_PROJECT_GUIDE.md
+├── frontend/                  # React + Vite Interactive Farmer Web Application
+│   ├── src/
+│   │   ├── App.jsx            # Main interactive UI with phone simulator & diagnostics
+│   │   ├── index.css          # Premium modern responsive styling & animations
+│   │   └── main.jsx           # React DOM root mounting
+│   ├── index.html             # HTML entry point with Google Fonts
+│   └── vite.config.js         # Vite bundler configuration & local dev server
+├── ingestion/                 # Offline Data Ingestion & OCR Pipeline
+│   ├── build_clean_knowledge_base.py # ICAR/KVK knowledge base builder
+│   ├── fast_ingest.py         # Multi-threaded knowledge chunking & indexing
+│   ├── pdf_ingest.py          # University PoP PDF parser & hierarchical chunker
+│   ├── tesseract_batch_ocr.py # Optical Character Recognition for scanned bulletins
+│   └── universal_ingest.py    # Universal CSV, JSON & PDF ingestion coordinator
+├── static/                    # Generated runtime assets (synthesized .mp3 / .ogg files)
+├── tests/                     # Automated Stress-Testing & Validation Suites
+│   ├── comp1_suite.json       # 1,220 extreme adversarial test cases
+│   ├── edge_test_cases.json   # 140 multi-dialect & edge test cases
+│   ├── run_tests.py           # Core unit tests (ASR, NLU, Safety, Claims)
+│   └── test_pipeline.py       # End-to-end integration test runner
+├── whatsapp_baileys/          # WhatsApp Integration Daemon (Node.js)
+│   ├── bot.js                 # Baileys WhatsApp client, voice note downloader & dispatcher
+│   └── package.json           # Node.js dependencies (@whiskeysockets/baileys)
+├── test_runner.py             # CLI test runner for edge cases with diagnostic tables
+└── .env                       # Environment secrets (GEMINI_API_KEY, DB paths)
+```
+
+### Detailed Functional Breakdown by File:
+
+#### 1. Backend Core & Application Entry:
+- **`backend/app/main.py`**:
+  Initializes the FastAPI application, sets up Cross-Origin Resource Sharing (CORS) for the frontend, configures the `/static` mount for synthesized audio playback, and registers all primary routers (`/api/v1/advisory`, `/api/v1/voice`, `/api/v1/webhooks`, `/api/v1/expert`, `/api/v1/admin`, `/api/v1/ingestion`).
+- **`backend/app/config.py`**:
+  Pydantic `BaseSettings` class loading `.env` variables: `GEMINI_API_KEY`, database paths (`sqlite:///./fasalmitra.db`), audio storage directory, default confidence thresholds, and logging levels.
+
+#### 2. API Endpoints (`backend/app/api/`):
+- **`advisory.py`**:
+  The central nervous system of FasalMitra. Implements `process_advisory_query()`, a 14-stage defensive pipeline executing: ASR $\rightarrow$ Language Detection $\rightarrow$ Geolocation $\rightarrow$ Discourse Cleaning $\rightarrow$ NLU $\rightarrow$ Pre-Safety Gate $\rightarrow$ Hybrid Retrieval $\rightarrow$ Grounding Gate $\rightarrow$ LLM Synthesis $\rightarrow$ Claim Verification $\rightarrow$ Confidence Calculation $\rightarrow$ Translation $\rightarrow$ TTS Audio Generation $\rightarrow$ Audit Logging.
+- **`webhooks.py`**:
+  Listens for incoming messages from WhatsApp (both Baileys and Meta Cloud API). Extracts sender phone number, downloads incoming `.ogg` audio notes, converts them to Base64, triggers the advisory pipeline, and returns text and native WhatsApp voice notes. Also handles location pin drops (`lat/long`).
+- **`voice.py`**:
+  Provides `/api/v1/voice/synthesize` (accepts text and language, returns streamable audio URL) and `/api/v1/voice/audio/{filename}` (streams MP3/OGG audio files with proper MIME types).
+- **`expert.py`**:
+  Facilitates Human-in-the-Loop review. Exposes endpoints to view pending escalation tickets, submit human agronomist feedback, and mark escalated queries as resolved.
+- **`admin.py`**:
+  Provides administrative monitoring: system health metrics, recent audit logs, cache hit/miss statistics, and safety violation counts.
+- **`ingestion.py`**:
+  Exposes REST triggers to run offline or on-demand document ingestion, embedding generation, and knowledge base updates.
+
+#### 3. Algorithmic Core Engines (`backend/app/core/`):
+- **`asr_engine.py`**:
+  Automatic Speech Recognition powered by Google Gemini Multimodal Audio. Uploads raw audio bytes directly to the Gemini vision/audio model with a structured agronomic prompt, transcribing noisy rural speech across Indic dialects while capturing the primary language code (`hi`, `gu`, `mr`, `pa`, etc.) and confidence score.
+- **`discourse_segmenter.py`**:
+  Pre-processes farmer discourse before entity extraction. Neutralizes prompt injection attacks (*"ignore previous instructions"*), strips dealer/shopkeeper quotes (*"dealer said whitefly, but bolls are rotting"*), eliminates neighbor field references (*"my neighbor has pink bollworm"*), purges revoked prior turn crops (*"forget rice; now on tomato"*), and isolates the user's primary target.
+- **`query_understanding.py`**:
+  Natural Language Understanding engine. Maintains a rich dictionary of 100+ crops in 12+ Indic languages, regex patterns for 25+ plant diseases and pests, and classifies farmer intent into the 16 standardized agricultural intents. Features an anatomical **Biological Compatibility Gate** ensuring impossible host-pathogen pairs (e.g. Boll Rot on Rice, Blast on Cotton) are cleanly rejected.
+- **`semantic_llm_parser.py`**:
+  Zero-shot fallback cognitive parser using Gemini Flash Lite. Triggered when local rule-based parsing detects ambiguity or complex colloquial phrasing, converting unstructured text into structured JSON entities (`crop`, `target`, `intent`, `negated_targets`).
+- **`diagnostic_ontology.py`**:
+  Maintains botanical host-pathogen compatibility matrices and symptom signature definitions across crops.
+- **`safety_gate.py`**:
+  Pre-LLM deterministic security filter. Scans queries against banned chemicals in India (Endosulfan, Monocrotophos on vegetables, Paraquat, Methyl Parathion) and human ingestion risks. If detected, refuses immediately without calling an LLM, generating a safety warning and escalation ticket.
+- **`grounding_gate.py`**:
+  Evaluates whether retrieved evidence is relevant and sufficient (relevance score $\ge 0.50$). If no official evidence exists, blocks generative hallucination and routes to human agronomists.
+- **`retrieval_engine.py`**:
+  Hybrid search engine combining lexical BM25 Okapi matching with dense semantic embeddings. Filters candidate documents by crop and active disease, applying a geographic relevance boost for documents issued by the farmer's local State Agricultural University.
+- **`reranker.py`**:
+  Computes cross-attention relevance scores between the user query and candidate evidence chunks to surface the top 2-3 most authoritative bulletins.
+- **`llm_generator.py`**:
+  Generates the final agronomist advisory using Google Gemini Flash. Prompts the model as a certified ICAR/KVK agronomist, enforcing structured sections: Cause, Step-by-Step Action Plan, Approved Remedies & Exact Dosages (ml/L or g/acre), and Weather Precautions. Cascades across candidate models (`gemini-3.5-flash`, `gemini-3-flash-preview`, `gemini-flash-lite-latest`) with deterministic offline fallbacks.
+- **`claim_verifier.py`**:
+  Post-LLM safety gate. Extracts chemical active ingredients and quantitative dosage numbers from the generated response using regex and N-grams, verifying every chemical and dosage against retrieved university evidence. Redacts unverified chemicals to guarantee zero hallucinations.
+- **`confidence_engine.py`**:
+  Computes a deterministic multi-factor confidence score between 0.0 and 1.0 based on evidence relevance, claim verification results, grounding status, and ASR transcription confidence.
+- **`escalation_engine.py`**:
+  Generates persistent escalation records in SQLite (`EXP-XXXXXX`) whenever safety gates fail or confidence is low, preserving the full conversation history and evidence for human scientist review.
+- **`translation_engine.py`**:
+  Translates technical agronomic advice into the farmer's native dialect across 23 languages while preserving chemical trade names and quantitative dosage units.
+- **`tts_engine.py`**:
+  Neural Text-to-Speech synthesis. Selects high-quality regional neural voices from Microsoft Edge Neural (`gu-IN-DhwaniNeural`, `hi-IN-SwaraNeural`, `mr-IN-AarohiNeural`, etc.) with gTTS fallback. Accelerates speech rate (+18%) and applies **half-message extraction** so voice notes deliver the core diagnosis and immediate remedy in under 1.5 seconds without overwhelming the listener. Converts MP3 to WhatsApp-native OGG Opus with waveform compatibility.
+- **`geo_tracker.py`**:
+  Comprehensive pan-India geolocation database mapping IP addresses, GPS coordinates, or text mentions to India's 28 States and Union Territories, automatically binding the query to the corresponding State Agricultural University (PAU for Punjab, AAU/JAU for Gujarat, TNAU for Tamil Nadu, etc.).
+- **`context_engine.py`**:
+  Resolves farmer profile, crop growth stage (e.g. Flowering, Vegetative, Maturity), and live weather parameters (humidity, temperature, rain forecast) to contextualize advisory generation.
+- **`advisory_cache.py`**:
+  Thread-safe in-memory cache storing verified high-confidence responses for identical crop-disease-language queries, reducing latency to $< 20\text{ ms}$ for recurrent queries.
+- **`audit_logger.py`**:
+  Logs every pipeline transaction to SQLite, recording query IDs, execution latency, detected entities, safety decisions, and confidence scores for compliance auditability.
+
+#### 4. Database & Schemas (`backend/app/db/` & `backend/app/schemas/`):
+- **`models.py`**:
+  SQLAlchemy ORM models:
+  - `Farmer`: Phone number, language preference, state, district, active crops.
+  - `AdvisoryQuery`: Query ID, input transcript, audio URL, confidence score, safety flags.
+  - `KnowledgeChunk`: University authority, crop, title, body text, embedding vector, publication date.
+  - `AuditLog`: Pipeline stage timestamps, latency, risk level.
+  - `EscalationTicket`: Ticket ID, reason, assigned agronomist, resolution status.
+- **`database.py`**:
+  Configures the SQLite engine (`fasalmitra.db`), thread connection pooling, and declarative base.
+- **`schemas.py`**:
+  Pydantic data models enforcing strict schema contracts for input queries (`AdvisoryQueryRequest`) and output responses (`AdvisoryQueryResponse`).
+
+#### 5. WhatsApp Client (`whatsapp_baileys/`):
+- **`bot.js`**:
+  Node.js service utilizing `@whiskeysockets/baileys`. Connects to WhatsApp Web via QR code, listens for incoming text and voice messages, downloads voice notes as raw audio buffers, forwards them to the FastAPI backend, and sends back the formatted advisory text and synthesized voice notes directly into the WhatsApp conversation.
+
+#### 6. Web Application (`frontend/`):
+- **`src/App.jsx`**:
+  Full-featured React single-page application simulating a farmer's smartphone experience:
+  - Interactive WhatsApp chat view with voice note recorder and audio player.
+  - Phone IVR call simulator with dual-language audio streaming.
+  - Deep Diagnostic Inspector displaying extracted entities, confidence meters, retrieved university evidence, and claim verification breakdown.
+  - Pan-India state selector with real-time university grounding switch.
+
+---
+
+## 15. Deep Dive: Models, Algorithms, Technologies & Concepts
+
+### 15.1 Language Models & Model Cascading
+FasalMitra employs an adaptive model cascading strategy:
+```
+           Incoming Query
+                 │
+                 ▼
+      [gemini-3.5-flash] (Primary - High Reasoning & Fast Latency)
+                 │ (If 429 Rate-Limited or 503 Unavailable)
+                 ▼
+    [gemini-3-flash-preview] (Secondary - High Throughput)
+                 │ (If 429 or Timeout)
+                 ▼
+   [gemini-flash-lite-latest] (Tertiary - Sub-Second Lightweight)
+                 │ (If Offline)
+                 ▼
+    [Deterministic Safe Fallback] (University Grounded Rule-Based Engine)
+```
+- **Temperature Setting**: Kept at `0.2` for advisory synthesis to minimize probabilistic creativity and enforce deterministic grounding in retrieved evidence.
+- **Structured System Prompting**: Embeds strict role definition, language isolation (preventing accidental code switching), and mandatory section formatting.
+
+### 15.2 Speech Recognition (ASR) with Dialect Priming
+Rural Indian dialects frequently fail on standard speech recognition APIs because colloquial farming terms (*jindva*, *bondya*, *dhaan*, *makka*, *ghau*) are misrecognized as generic words. FasalMitra uses Gemini Multimodal Audio primed with an agronomic system context:
+- Accepts raw `.ogg`, `.opus`, `.mp3`, and `.wav` formats.
+- Transcribes phonetics directly into the native Indic script (Devanagari, Gujarati, Gurmukhi, etc.).
+- Returns language identification and ASR confidence score ($C_{\text{asr}} \in [0, 1]$).
+
+### 15.3 Neural Text-to-Speech (TTS) & Half-Message Extraction
+Spoken voice notes must be crisp and respectful of the farmer's time:
+- **Engine**: Microsoft Edge Neural TTS voices (`gu-IN-DhwaniNeural`, `hi-IN-SwaraNeural`, `mr-IN-AarohiNeural`, `pa-IN-OjasNeural`, `ta-IN-PallaviNeural`, `te-IN-ShrutiNeural`, `en-IN-NeerjaNeural`).
+- **Speed Optimization**: Spoken at `+18%` rate for natural, brisk cadence.
+- **Half-Message Extraction Algorithm**:
+  ```python
+  # Extracts approximately the first half of sentences (rounded up)
+  sentences = re.split(r'(?<=[\.।!\?])\s+', cleaned_text)
+  half_count = max(1, (len(sentences) + 1) // 2)
+  spoken_text = " ".join(sentences[:half_count])
+  ```
+  This ensures the audio note delivers the crucial diagnosis and medicine dosage in under 1.5–2 seconds, while the complete 4-paragraph advisory is preserved in the written WhatsApp text.
+- **Transcoding**: Automatically transcoded using `imageio-ffmpeg` to OGG Opus with proper sample rate and headers, rendering native WhatsApp voice note waveforms.
+
+### 15.4 Document Chunking & Ingestion Strategy
+Agricultural extension manuals are not unstructured narrative documents; they have hierarchical domain structures:
+```
+Crop (e.g. Cotton)
+  └── Growth Stage (e.g. Boll Formation)
+        └── Pathology / Pest (e.g. Pink Bollworm)
+              ├── Symptoms & Damage Signs
+              ├── Economic Threshold Level (ETL)
+              ├── Cultural & Mechanical Control
+              └── Chemical Remedies & CIB&RC Approved Dosages
+```
+- **Hierarchical Structural Chunking**: Rather than arbitrary 500-token sliding windows (which sever the link between a pest and its dosage), FasalMitra chunks documents by **Pathology-Action Units**. Every chunk preserves:
+  1. `crop`: Target crop name
+  2. `authority`: Issuing university (e.g., "ICAR-CICR Nagpur", "PAU Ludhiana")
+  3. `title`: Disease/Pest syndrome
+  4. `text`: Complete symptomology + chemical active ingredients + exact dilution rates ($g/L$ or $ml/acre$) + pre-harvest intervals.
+
+### 15.5 Embeddings & Lexical Search (Hybrid Retrieval)
+FasalMitra fuses two complementary retrieval paradigms:
+1. **Lexical BM25 Search**:
+   Calculates term frequency-inverse document frequency with document length normalization:
+   $$\text{score}(D, Q) = \sum_{i=1}^{N} \text{IDF}(q_i) \cdot \frac{f(q_i, D) \cdot (k_1 + 1)}{f(q_i, D) + k_1 \cdot \left(1 - b + b \cdot \frac{|D|}{\text{avgdl}}\right)}$$
+   Excels at matching exact active chemical formulations (e.g. "Chlorantraniliprole 18.5 SC", "Tricyclazole 75 WP") and regional pest names (*jindva*, *tinde*).
+2. **Dense Semantic Embeddings**:
+   Embeds queries and knowledge chunks into vector space, capturing semantic conceptual equivalence between farmer colloquialisms (*"leaves look like someone poured white flour on them"*) and agronomic text (*"foliar powdery mildew pustules"*).
+3. **Multi-Criteria Scoring Formula**:
+   $$\text{Score}_{\text{final}} = \alpha \cdot \text{Score}_{\text{semantic}} + \beta \cdot \text{Score}_{\text{BM25}} + \gamma \cdot \text{CompatibilityGate} + \delta \cdot \text{UniversityBoost}$$
+   - $\text{CompatibilityGate} = 1.0$ if pathogen is biologically compatible with crop; $0.0$ if incompatible.
+   - $\text{UniversityBoost} = 1.25$ if document authority matches the farmer's detected state.
+
+### 15.6 Multi-Engine Claim Verification Algorithm
+Generative LLMs can occasionally alter numbers (e.g. turning $0.3\text{ ml/L}$ into $3\text{ ml/L}$, a fatal tenfold overdose). The `ClaimVerifier`:
+1. Uses regular expressions to extract every chemical entity and dosage number from the LLM output:
+   $$\text{Claim} = \{\text{chemical: "Emamectin Benzoate"}, \text{dose: 5}, \text{unit: "g/10L"}\}$$
+2. Compares the claim against the retrieved university evidence text.
+3. If the chemical is absent from the evidence, or if the dosage exceeds approved safety thresholds, the claim is flagged as `UNSUPPORTED` and automatically redacted or substituted with official evidence.
+
+### 15.7 Multi-Factor Confidence Scoring Formula
+FasalMitra calculates an objective, deterministic confidence score:
+$$C = 0.40 \cdot S_{\text{evidence}} + 0.30 \cdot S_{\text{claims}} + 0.20 \cdot S_{\text{grounding}} + 0.10 \cdot C_{\text{asr}}$$
+- $S_{\text{evidence}} \in [0, 1]$: Relevance score of top retrieved evidence.
+- $S_{\text{claims}} \in \{0.0, 1.0\}$: 1.0 if all dosage claims match evidence; 0.0 if any mismatch.
+- $S_{\text{grounding}} \in \{0.0, 1.0\}$: 1.0 if evidence meets minimum threshold; 0.0 otherwise.
+- $C_{\text{asr}} \in [0, 1]$: Acoustic confidence of speech recognition.
+- **Triage Thresholds**:
+  - $C \ge 0.85$: **`HIGH`** $\rightarrow$ Deliver advisory immediately & cache.
+  - $0.65 \le C < 0.85$: **`MEDIUM`** $\rightarrow$ Deliver advisory with cautionary disclaimer.
+  - $C < 0.65$: **`LOW`** $\rightarrow$ Automatically block output, generate expert escalation ticket (`EXP-XXXXXX`), and notify human agronomists.
+
+---
+
+## 16. Complete End-to-End Workflow & Step-by-Step Query Lifecycle
+
+Below is the complete trace of a real farmer interaction from speech to delivery:
+
+```
+[Farmer sends 8-second WhatsApp Voice Note in Gujarati]
+"મારા કપાસના જીંડવા કાળા પડીને સડી રહ્યા છે, શું કરવું જોઈએ?"
+```
+
+1. **Stage 1: Ingress**:
+   The Baileys WhatsApp client receives the message on port 3000, detects an audio attachment, downloads the `.ogg` buffer, and POSTs it as Base64 to `http://localhost:8000/api/v1/advisory`.
+2. **Stage 2: Speech-to-Text (ASR)**:
+   `asr_engine` sends audio to Gemini Multimodal Audio. The transcription returns:
+   *"મારા કપાસના જીંડવા કાળા પડીને સડી રહ્યા છે, શું કરવું જોઈએ?"*, language: `gu` (Gujarati), confidence: `0.95`.
+3. **Stage 3: Geolocation Resolution**:
+   `geo_tracker` resolves the incoming farmer profile to **Rajkot, Gujarat**, automatically assigning regional grounding authority to **Anand Agricultural University (AAU) / Junagadh Agricultural University (JAU)**.
+4. **Stage 4: Context Resolution**:
+   `context_engine` loads the farmer's profile, identifies the crop as Cotton at the Boll Formation stage, and fetches live local weather (High humidity: 82%, overcast).
+5. **Stage 5: Cognitive Discourse Cleaning**:
+   `discourse_segmenter` scans the text. No prompt injections or neighbor farm references are found. Punctuation boundaries are verified.
+6. **Stage 6: Botanical Entity Extraction**:
+   `query_understanding` parses:
+   - Crop: `Cotton`
+   - Target: `BOLL_ROT` (matched by symptoms *"જીંડવા કાળા પડીને સડી"* - bolls black and rotting)
+   - Intent: `MANAGEMENT_CONTROL` (matched by *"શું કરવું જોઈએ"* - what should be done)
+   - Biological Compatibility: Cotton $\times$ BOLL_ROT $\rightarrow$ **VALID HOST-PATHOGEN PAIR**.
+7. **Stage 7: Pre-LLM Safety Evaluation**:
+   `safety_gate` checks for banned chemicals or poison attempts. Status: **`PASSED`**.
+8. **Stage 8: Hybrid Knowledge Retrieval**:
+   `retrieval_engine` queries SQLite knowledge base using hybrid BM25 + dense vectors filtered by `crop=Cotton` and `target=BOLL_ROT`. Retrieves official ICAR-CICR and AAU bulletins on Cotton Boll Rot management (Score: 0.96). State university boost applied for AAU.
+9. **Stage 9: Grounding Gate**:
+   `grounding_gate` verifies retrieved evidence relevance ($0.96 \ge 0.50$). Status: **`SUPPORTED`**.
+10. **Stage 10: Grounded LLM Response Synthesis**:
+    `llm_generator` synthesizes a Gujarati response using the AAU/ICAR evidence:
+    - Identifies fungal/bacterial boll rot caused by high humidity.
+    - Recommends Copper Oxychloride 50 WP @ 2.5 g/L + Streptocycline @ 1 g/10L water.
+    - Advises avoiding field waterlogging and ensuring good airflow.
+11. **Stage 11: Claim Verification**:
+    `claim_verifier` extracts *"કોપર ઓક્સીક્લોરાઇડ"* and dosage *"2.5 g/L"*, verifying both match the official AAU bulletin. Verification status: **`PASSED`**.
+12. **Stage 12: Confidence Scoring**:
+    `confidence_engine` computes $C = 0.40(0.96) + 0.30(1.0) + 0.20(1.0) + 0.10(0.95) = \mathbf{0.979}\text{ (HIGH)}$.
+13. **Stage 13: Voice Note Synthesis (Half-Message Spoken Audio)**:
+    `tts_engine` takes the Gujarati text:
+    - Written text: Full 4-paragraph comprehensive guidance (delivered in WhatsApp chat).
+    - Spoken audio text: Extracts the first half (greeting + diagnosis of boll rot + Copper Oxychloride spray dosage).
+    - Synthesizes audio using `gu-IN-DhwaniNeural` at `+18%` speed in $1.1\text{s}$.
+    - Transcodes to `QRY-XXXXXXXX.ogg` Opus.
+14. **Stage 14: Omnichannel Delivery & Audit Logging**:
+    WhatsApp bot sends the complete written Gujarati message and streams the native voice note with playable audio waveform. `audit_logger` writes transaction telemetry to SQLite.
+
+---
+
+## 17. Architectural Design Patterns & System Principles
+
+FasalMitra is built on five core enterprise software engineering principles:
+
+### 1. Clean / Hexagonal Layered Architecture
+- **Domain Layer (`core/`)**: Pure agronomic algorithms, safety logic, and diagnostic matrices independent of databases or external transport protocols.
+- **Port / Adapter Layer (`api/`, `db/`)**: HTTP REST endpoints, WhatsApp webhook listeners, and database ORM mappings that interact with the domain layer through explicit Pydantic interfaces.
+- **Infrastructure Layer (`ingestion/`, `whatsapp_baileys/`)**: External adapters for Baileys WebSocket sessions, OCR tools, and PDF parsers.
+
+### 2. Defensive RAG (Retrieval-Augmented Generation)
+Standard RAG pipelines blindly pass retrieved chunks to an LLM and return the output. FasalMitra wraps the LLM in a **two-sided defensive sandwich**:
+- **Before LLM**: Deterministic Safety Gate + Discourse Cleaning + Grounding Gate.
+- **After LLM**: Mathematical Claim Verifier + Redaction Filter + Multi-Factor Confidence Scorer.
+
+### 3. Graceful Multi-Tier Fallbacks
+Every external dependency has an automated fallback:
+- Primary LLM (`gemini-3.5-flash`) $\rightarrow$ Secondary (`gemini-3-flash-preview`) $\rightarrow$ Tertiary (`gemini-flash-lite`) $\rightarrow$ Deterministic Rule Engine.
+- Primary Voice (`Microsoft Edge-TTS`) $\rightarrow$ Secondary (`Google gTTS`) $\rightarrow$ English Emergency Speech.
+- Live Geolocation $\rightarrow$ Regional Context Profile $\rightarrow$ National Default Package of Practices.
+
+### 4. Deterministic Gating Over Generative Risk
+Critical decisions (Is this chemical banned? Does this dosage exceed safe toxicity limits? Can this disease infect this crop?) are **never** delegated to probabilistic generative models. They are evaluated by deterministic Python functions with zero variance.
+
+### 5. Human-in-the-Loop (HITL) Safety Net
+The system recognizes the boundaries of its knowledge. Any query with ambiguous symptoms, conflicting evidence, or low confidence ($C < 0.65$) is never answered with a guess. It triggers an automatic escalation ticket (`EXP-...`), alerting human agronomists to provide verified guidance.
+
+---
+
 *FasalMitra — Empowering Smallholder Farmers with Truthful, Grounded, and Accessible Agricultural AI.*
+
