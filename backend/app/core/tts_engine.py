@@ -66,7 +66,8 @@ class TTSEngine:
 
     async def synthesize(self, query_id: str, text: str, language: str = "mr") -> str:
         """
-        Synthesizes human-like voice audio covering the FULL advisory message at optimized speed (+18%).
+        Synthesizes human-like voice audio covering approximately the first half of the advisory message
+        (core diagnosis + primary remedy/dosage) at optimized speed (+18%).
         Saves to static/audio/{query_id}.mp3 and returns the streamable URL.
         """
         if not text or not text.strip():
@@ -85,7 +86,7 @@ class TTSEngine:
         # 1. Primary: Edge-TTS Neural Voice with Fast Speech Rate (+18%)
         try:
             communicate = edge_tts.Communicate(clean_text, voice_name, rate=self.speech_rate)
-            await asyncio.wait_for(communicate.save(str(filepath)), timeout=3.5)
+            await asyncio.wait_for(communicate.save(str(filepath)), timeout=6.0)
             if filepath.exists() and filepath.stat().st_size > 1000:
                 self._convert_to_ogg(filepath, filepath.with_suffix(".ogg"))
                 return f"/api/v1/voice/audio/{filename}"
@@ -134,11 +135,11 @@ class TTSEngine:
 
     def _clean_for_speech(self, text: str) -> str:
         """
-        Prepares FULL advisory response for clear, natural, and comprehensive spoken delivery:
+        Prepares advisory response for clear, natural, and concise spoken delivery:
         - Removes markdown formatting (asterisks, hashtags, bullets, tables)
         - Removes emojis while preserving all regional language characters
-        - Keeps full diagnostic advice, step-by-step remedies, dosages, and weather safety
-        - Does NOT truncate the message so farmers receive the complete guidance
+        - Reads approximately the first half of the message (core diagnosis + immediate treatment/dosage)
+          so the voice note is crisp, quick to listen to, and pleasant, while the full details remain in text.
         """
         # Remove markdown headers and URLs
         t = re.sub(r'#{1,6}\s*', '', text)
@@ -154,13 +155,32 @@ class TTSEngine:
         # Normalize whitespace
         t = re.sub(r'\s+', ' ', t).strip()
 
-        # Crisp spoken voice note limit (under 500 characters) so voice notes render in 2-3s and play naturally
-        if len(t) > 500:
-            t = t[:500]
-            last_period = max(t.rfind('.'), t.rfind('।'), t.rfind('?'), t.rfind('!'), t.rfind(','))
-            if last_period > 250:
-                t = t[:last_period + 1]
+        if not t:
+            return ""
 
-        return t.strip()
+        # Extract half of the message for voice note delivery
+        sentences = [s.strip() for s in re.split(r'(?<=[\.।!\?])\s+', t) if s.strip()]
+
+        if len(sentences) >= 2:
+            # Take the first half of sentences (e.g. 2 of 4, 3 of 6)
+            half_n = max(1, (len(sentences) + 1) // 2)
+            half_text = " ".join(sentences[:half_n])
+        else:
+            # Single sentence or unstructured text: take first half by character length
+            if len(t) > 120:
+                target_len = len(t) // 2
+                cut_idx = target_len
+                comma_idx = t.rfind(',', 0, target_len + 40)
+                if comma_idx > target_len - 40:
+                    cut_idx = comma_idx + 1
+                else:
+                    space_idx = t.rfind(' ', 0, target_len + 20)
+                    if space_idx > target_len - 20:
+                        cut_idx = space_idx
+                half_text = t[:cut_idx].strip()
+            else:
+                half_text = t
+
+        return half_text.strip()
 
 tts_engine = TTSEngine()
