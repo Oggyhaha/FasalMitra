@@ -27,10 +27,18 @@ class AdvisoryCache:
         if time.time() - item["timestamp"] > self.ttl:
             del self._cache[key]
             return None
+        # Discard any corrupted or broken short responses
+        ans = item.get("data", {}).get("answer_text", "")
+        if not ans or len(ans.strip()) < 80:
+            del self._cache[key]
+            return None
         return item["data"]
 
     def set(self, crop: str, target_or_intent: str, lang: str, data: Dict[str, Any], district: str = "", state: str = ""):
         if not crop or not target_or_intent:
+            return
+        ans = data.get("answer_text", "")
+        if not ans or len(ans.strip()) < 80:
             return
         key = self._make_key(crop, target_or_intent, lang, district, state)
         self._cache[key] = {

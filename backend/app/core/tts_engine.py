@@ -86,7 +86,7 @@ class TTSEngine:
         # 1. Primary: Edge-TTS Neural Voice with Fast Speech Rate (+18%)
         try:
             communicate = edge_tts.Communicate(clean_text, voice_name, rate=self.speech_rate)
-            await asyncio.wait_for(communicate.save(str(filepath)), timeout=6.0)
+            await asyncio.wait_for(communicate.save(str(filepath)), timeout=12.0)
             if filepath.exists() and filepath.stat().st_size > 1000:
                 self._convert_to_ogg(filepath, filepath.with_suffix(".ogg"))
                 return f"/api/v1/voice/audio/{filename}"
@@ -158,29 +158,14 @@ class TTSEngine:
         if not t:
             return ""
 
-        # Extract half of the message for voice note delivery
-        sentences = [s.strip() for s in re.split(r'(?<=[\.।!\?])\s+', t) if s.strip()]
+        # Deliver complete spoken advice, capping gracefully at a sentence boundary for fast audio delivery
+        if len(t) > 750:
+            sub = t[:750]
+            last_period = max(sub.rfind('.'), sub.rfind('।'), sub.rfind('?'), sub.rfind('!'))
+            if last_period > 350:
+                return sub[:last_period + 1].strip()
+            return sub.strip()
 
-        if len(sentences) >= 2:
-            # Take the first half of sentences (e.g. 2 of 4, 3 of 6)
-            half_n = max(1, (len(sentences) + 1) // 2)
-            half_text = " ".join(sentences[:half_n])
-        else:
-            # Single sentence or unstructured text: take first half by character length
-            if len(t) > 120:
-                target_len = len(t) // 2
-                cut_idx = target_len
-                comma_idx = t.rfind(',', 0, target_len + 40)
-                if comma_idx > target_len - 40:
-                    cut_idx = comma_idx + 1
-                else:
-                    space_idx = t.rfind(' ', 0, target_len + 20)
-                    if space_idx > target_len - 20:
-                        cut_idx = space_idx
-                half_text = t[:cut_idx].strip()
-            else:
-                half_text = t
-
-        return half_text.strip()
+        return t.strip()
 
 tts_engine = TTSEngine()

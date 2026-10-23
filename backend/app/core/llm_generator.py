@@ -6,10 +6,9 @@ from backend.app.schemas.schemas import EvidenceChunk
 from backend.app.config import settings
 
 CANDIDATE_MODELS = [
-    "gemini-3.5-flash",
-    "gemini-3-flash-preview",
     "gemini-flash-lite-latest",
-    "gemini-flash-latest"
+    "gemini-3.1-flash-lite-preview",
+    "gemini-3-flash-preview"
 ]
 
 
@@ -115,7 +114,7 @@ class GroundedLLMGenerator:
                         "contents": [{"parts": [{"text": system_prompt}]}],
                         "generationConfig": {
                             "temperature": 0.2,
-                            "maxOutputTokens": 1024
+                            "maxOutputTokens": 2500
                         }
                     }
                     try:
@@ -124,8 +123,12 @@ class GroundedLLMGenerator:
                             res_data = resp.json()
                             candidates = res_data.get("candidates", [])
                             if candidates:
-                                generated_text = candidates[0]["content"]["parts"][0]["text"].strip()
-                                return generated_text
+                                parts = candidates[0].get("content", {}).get("parts", [])
+                                text_parts = [p.get("text", "") for p in parts if "text" in p and p.get("text")]
+                                if text_parts:
+                                    generated_text = "\n".join(text_parts).strip()
+                                    if len(generated_text) > 80:
+                                        return generated_text
                         else:
                             print(f"[LLMGenerator] {model_name} HTTP {resp.status_code}, trying next model...", flush=True)
                     except Exception as e:
