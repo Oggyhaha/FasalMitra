@@ -2,7 +2,8 @@ import makeWASocket, {
     DisconnectReason,
     useMultiFileAuthState,
     fetchLatestBaileysVersion,
-    downloadMediaMessage
+    downloadMediaMessage,
+    makeCacheableSignalKeyStore
 } from '@whiskeysockets/baileys';
 import qrcode from 'qrcode-terminal';
 import pino from 'pino';
@@ -16,6 +17,36 @@ const __dirname = path.dirname(__filename);
 
 const FASTAPI_URL = process.env.FASTAPI_URL || 'http://localhost:8000/api/v1/webhooks/whatsapp/json';
 const AUTH_DIR = path.resolve(__dirname, 'auth_info_baileys');
+
+// Gracefully intercept and suppress libsignal Bad MAC errors on stale chat history packets
+const originalConsoleError = console.error;
+console.error = function (...args) {
+    const text = args.join(' ');
+    if (text.includes('Failed to decrypt message with any known session') ||
+        text.includes('Session error:Error: Bad MAC') ||
+        text.includes('Session error:Error: No matching sessions')) {
+        // Silently ignore harmless decryption drops on stale packets
+        return;
+    }
+    originalConsoleError.apply(console, args);
+};
+
+// Global handlers to prevent any transient Signal or network error from crashing the bot
+process.on('unhandledRejection', (reason) => {
+    const text = reason?.message || String(reason || '');
+    if (text.includes('Bad MAC') || text.includes('SessionError') || text.includes('Failed to decrypt')) {
+        return;
+    }
+    console.warn('⚠️ [Unhandled Promise Rejection]:', reason);
+});
+
+process.on('uncaughtException', (err) => {
+    const text = err?.message || String(err || '');
+    if (text.includes('Bad MAC') || text.includes('SessionError') || text.includes('Failed to decrypt')) {
+        return;
+    }
+    console.error('⚠️ [Uncaught Exception]:', err);
+});
 
 console.log('🌾 ========================================================');
 console.log('🌾   FASALMITRA (फसलमित्र) - MULTIMODAL WHATSAPP BOT      ');
@@ -46,9 +77,17 @@ async function connectToWhatsApp() {
         version,
         logger: pino({ level: 'silent' }), // Suppress noisy protocol logs
         printQRInTerminal: false,
-        auth: state,
+        auth: {
+            creds: state.creds,
+            // Cache keys in-memory to prevent Windows disk I/O race conditions during Double Ratchet key exchanges
+            keys: makeCacheableSignalKeyStore(state.keys, pino({ level: 'silent' }))
+        },
         browser: ['FasalMitra AI', 'Desktop', '2.0.0'],
-        syncFullHistory: false
+        syncFullHistory: false,
+        markOnlineOnConnect: true,
+        connectTimeoutMs: 60000,
+        defaultQueryTimeoutMs: 60000,
+        getMessage: async () => undefined
     });
 
     sock.ev.on('creds.update', saveCreds);
@@ -99,8 +138,14 @@ async function connectToWhatsApp() {
         if (m.type !== 'notify') return;
 
         for (const msg of m.messages) {
-            // Ignore messages sent by the bot itself
+            // Ignore empty messages, stub notifications, or messages sent by the bot itself
+            if (!msg || !msg.message) continue;
             if (msg.key.fromMe) continue;
+
+            // Skip protocol or sender key messages
+            if (msg.message.protocolMessage || msg.message.senderKeyDistributionMessage) {
+                continue;
+            }
 
             const remoteJid = msg.key.remoteJid;
             // Ignore status broadcasts and group messages unless desired
